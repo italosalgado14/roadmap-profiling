@@ -5,8 +5,8 @@ export default function MallaPage() {
     <section aria-labelledby="malla-title">
       <h1 id="malla-title" className="page-title">Curriculum graph</h1>
       <p className="page-subtitle">
-        9 phases, 39 topics, prerequisite dependencies. Click a node to highlight its
-        dependency chain; tick the checkbox to mark your progress.
+        9 phases, 41 topics, 4 specialization tracks. Toggle a track to filter the graph;
+        click a node to highlight its dependency chain; tick the checkbox to mark progress.
       </p>
       <Malla />
     </section>
