@@ -1,6 +1,5 @@
 # Final Learning Roadmap Reference
 ## Edge AI / Physical AI Specialist Path
-### For: Italo Salgado — ML Engineer @ Honeywell | UTFSM Electronic Engineering
 
 ---
 
@@ -28,20 +27,17 @@ This is the consolidated reference combining all prior analysis: Gartner, WEF, M
 *These have no prerequisites. Most are already in your CV — verify mastery, skip the rest.*
 
 ### 🔴 Linux & CLI
-**Status for Italo:** ❌ You already have this.
 **Unlocks:** Docker, ROS2
 **Resources (for reference only):**
 - Linux Journey — linuxjourney.com (🆓)
 - MIT: The Missing Semester — missing.csail.mit.edu (🆓)
 
 ### 🔴 Python
-**Status for Italo:** ❌ You already have this (production level).
 **Unlocks:** ML, ROS2
 **Resources (for reference only):**
 - Book: *Automate the Boring Stuff* — automatetheboringstuff.com (🆓)
 
 ### 🔴 C++
-**Status for Italo:** ✅ You have this but deepen for production.
 **Unlocks:** TensorRT, CUDA, ROS2, Neuromorphic
 **Recommended deepening:**
 - Book: *A Tour of C++* — Bjarne Stroustrup (💰 ~$40). Modern C++17/20 focus.
@@ -49,23 +45,19 @@ This is the consolidated reference combining all prior analysis: Gartner, WEF, M
 - *Why:* TensorRT's native C++ API gives you a competitive edge over Python-only ML engineers.
 
 ### 🔴 Linear algebra
-**Status for Italo:** ❌ You have this from Electronic Engineering.
 **Unlocks:** ML, CUDA, Quantum
 **If refresher needed:**
 - 3Blue1Brown: *Essence of Linear Algebra* — YouTube (🆓)
 
 ### 🔴 Calculus
-**Status for Italo:** ❌ You have this.
 **Unlocks:** ML
 **Resource:** 3Blue1Brown: *Essence of Calculus* (🆓)
 
 ### 🔴 Probability & statistics
-**Status for Italo:** ❌ You have this.
 **Unlocks:** ML, Sensor Fusion
 **Resource:** Book: *Think Stats* — Allen Downey (🆓, thinkstats2.com)
 
 ### 🔴 Git & version control
-**Status for Italo:** ❌ You have this.
 **Unlocks:** Docker & CI/CD
 
 ---
@@ -74,14 +66,12 @@ This is the consolidated reference combining all prior analysis: Gartner, WEF, M
 
 ### 🔴 Machine learning
 **Prerequisites:** Python, Linear Algebra, Calculus, Probability
-**Status for Italo:** ❌ You have production experience (YOLO, Detectron2 at Honeywell)
 **If refreshing theory:**
 - Coursera: **Machine Learning Specialization** — Andrew Ng, Stanford (✅ included)
 - Book: *Hands-On Machine Learning* — Aurélien Géron (💰 ~$50). Best practical reference.
 
 ### 🔴 Docker & CI/CD
 **Prerequisites:** Linux, Git
-**Status for Italo:** ❌ You use Docker + GitHub Actions at Honeywell
 **Unlocks:** MLOps, Jetson deployment
 
 ---
@@ -90,7 +80,6 @@ This is the consolidated reference combining all prior analysis: Gartner, WEF, M
 
 ### 🔴 Deep learning & PyTorch
 **Prerequisites:** Machine Learning
-**Status for Italo:** ❌ You do production DL (training on Azure, ONNX deployment)
 **Unlocks:** Computer Vision, ONNX, LLM fundamentals
 **If refreshing fundamentals:**
 - Coursera: **Deep Learning Specialization** — Andrew Ng (✅ included). 5 courses.
@@ -98,7 +87,6 @@ This is the consolidated reference combining all prior analysis: Gartner, WEF, M
 
 ### 🔴 MLOps fundamentals ⭐ PRIORITY FOR YOU
 **Prerequisites:** Machine Learning, Docker & CI/CD
-**Status for Italo:** ✅ Currently enrolled — **FINISH FIRST**
 **Unlocks:** Multi-agent systems, Distributed systems, Kubernetes for ML
 **Primary resource:**
 - Coursera: **MLOps Specialization — Duke University** (✅ included) — your current cert, finish this
@@ -108,12 +96,10 @@ This is the consolidated reference combining all prior analysis: Gartner, WEF, M
 
 ### 🟡 CUDA & GPU computing
 **Prerequisites:** C++, Linear Algebra
-**Status for Italo:** Partial (you use CUDA indirectly via Jetson, TensorRT)
 **Unlocks:** TensorRT (deep understanding)
 **Resources:**
 - NVIDIA DLI: **Fundamentals of Accelerated Computing with CUDA C/C++** (💰 ~$90). High signal.
 - Coursera: **GPU Programming Specialization** — Johns Hopkins (✅ included)
-**Note for Italo:** Optional but valuable. Deepens your edge over Python-only ML engineers.
 
 ---
 
@@ -121,7 +107,6 @@ This is the consolidated reference combining all prior analysis: Gartner, WEF, M
 
 ### 🔴 Computer vision (transformer-aware)
 **Prerequisites:** Deep Learning
-**Status for Italo:** ❌ You have classical CV + YOLO/Detectron2. **NEED UPDATE** to transformer era.
 **Unlocks:** Vision Transformers, Sensor Fusion, Domain vertical
 **Primary resource:**
 - **Hugging Face Computer Vision Course** — huggingface.co/learn/computer-vision-course (🆓) ⭐ **Your main CV gap-closer.** Covers modern architectures.
@@ -131,14 +116,12 @@ This is the consolidated reference combining all prior analysis: Gartner, WEF, M
 
 ### 🔴 ONNX & model export
 **Prerequisites:** Deep Learning
-**Status for Italo:** ❌ You already use ONNX Runtime in production
 **Unlocks:** TensorRT, TFLite & OpenVINO
 **Reference only:**
 - ONNX Runtime docs — onnxruntime.ai (🆓)
 
 ### 🟡 LLM fundamentals
 **Prerequisites:** Deep Learning
-**Status for Italo:** Gap — not in your CV
 **Unlocks:** RAG, Fine-tuning
 **Primary resource:**
 - Coursera: **Generative AI with Large Language Models** — DeepLearning.AI + AWS (✅ included)
@@ -151,7 +134,6 @@ This is the consolidated reference combining all prior analysis: Gartner, WEF, M
 
 ### 🔴 TensorRT ⭐ HIGHEST PRIORITY GAP
 **Prerequisites:** ONNX, C++, CUDA
-**Status for Italo:** 🔴 Your #1 technical gap. You have ONNX Runtime, not TensorRT.
 **Unlocks:** Jetson deployment
 **Primary resources:**
 - NVIDIA DLI: **Optimizing TensorFlow Models with TensorRT** — courses.nvidia.com (🆓). Start here.
@@ -162,7 +144,6 @@ This is the consolidated reference combining all prior analysis: Gartner, WEF, M
 
 ### 🔴 Vision Transformers (ViT, CLIP, SAM)
 **Prerequisites:** Computer Vision
-**Status for Italo:** 🔴 Gap — not in your CV
 **Unlocks:** Vision-language models, Bio-digital AI
 **Primary resources:**
 - Hugging Face CV Course (🆓) — continues from Phase 3
@@ -188,7 +169,6 @@ This is the consolidated reference combining all prior analysis: Gartner, WEF, M
 
 ### 🟡 Sensor fusion
 **Prerequisites:** Computer Vision, Probability
-**Status for Italo:** Partial (point clouds, ZED cameras). Full Kalman/SLAM is a gap.
 **Resources:**
 - Coursera: **Self-Driving Cars Specialization** — University of Toronto (✅ included)
 - Cyrill Stachniss lectures — YouTube (🆓). Best free SLAM resource.
@@ -196,7 +176,6 @@ This is the consolidated reference combining all prior analysis: Gartner, WEF, M
 
 ### 🟡 TFLite & OpenVINO
 **Prerequisites:** ONNX
-**Status for Italo:** Desirable but lower priority than TensorRT.
 **Resources:**
 - Edge Impulse free tier — edgeimpulse.com
 - OpenVINO docs — docs.openvino.ai (🆓)
@@ -207,7 +186,6 @@ This is the consolidated reference combining all prior analysis: Gartner, WEF, M
 
 ### 🔴 Jetson & edge deployment
 **Prerequisites:** TensorRT, Docker & CI/CD
-**Status for Italo:** ❌ You have Jetson in production. **Deepen with JetPack 7.1 + TensorRT Edge-LLM SDK.**
 **Unlocks:** VLMs on edge, Isaac Sim, Neuromorphic, AI architecture
 **Keep current:**
 - NVIDIA developer blog — developer.nvidia.com/blog (🆓). Follow weekly.
@@ -216,7 +194,6 @@ This is the consolidated reference combining all prior analysis: Gartner, WEF, M
 
 ### 🔴 Multi-agent systems & orchestration ⭐ HIGHEST PRIORITY GAP
 **Prerequisites:** RAG, MLOps fundamentals
-**Status for Italo:** 🔴 Zero exposure. This is your biggest employability gap.
 **Unlocks:** AI safety, AI architecture, Fleet architect
 **Primary resources:**
 1. DeepLearning.AI: **Design, Develop, and Deploy Multi-Agent Systems with CrewAI** (🆓) — start here, 2 hours
@@ -230,7 +207,6 @@ This is the consolidated reference combining all prior analysis: Gartner, WEF, M
 
 ### 🔴 ROS2
 **Prerequisites:** C++, Python, Linux
-**Status for Italo:** 🔴 Gap — critical if pursuing robotics path, desirable otherwise
 **Unlocks:** Isaac Sim, Fleet architect
 **Primary resources:**
 - Udemy: **ROS2 for Beginners (ROS Jazzy, 2026)** — Edouard Renard (💰 ~$15 on sale). Best-rated beginner course. C++ AND Python.
@@ -240,7 +216,6 @@ This is the consolidated reference combining all prior analysis: Gartner, WEF, M
 
 ### 🔴 Domain vertical (pick ONE)
 **Prerequisites:** Computer Vision, Machine Learning
-**Status for Italo:** ❌ Honeywell = industrial. Your vertical is already chosen.
 **Unlocks:** Domain-specific models
 **Formalize existing domain:**
 - OPC-UA specification — opcfoundation.org (🆓). Industrial communication standard.
@@ -282,7 +257,6 @@ This is the consolidated reference combining all prior analysis: Gartner, WEF, M
 
 ### 🔴 Distributed systems
 **Prerequisites:** MLOps fundamentals, Docker & CI/CD
-**Status for Italo:** Gap — critical for architect-level roles.
 **Unlocks:** AI systems architecture, Fleet architect
 **Primary resource:**
 - Book: **Designing Data-Intensive Applications** — Martin Kleppmann (💰 ~$60) ⭐ **Most important technical book for your career.** Read this in Year 2.
@@ -308,7 +282,6 @@ This is the consolidated reference combining all prior analysis: Gartner, WEF, M
 
 ### 🟡 Cloud ML platforms
 **Prerequisites:** MLOps fundamentals, Deep Learning
-**Status for Italo:** You have Azure experience. Add AWS or GCP for versatility.
 **Resources:**
 - Coursera: **Google Cloud Machine Learning Engineer Certificate** (✅ included — your current cert)
 - AWS ML Specialty prep (💰 ~$300 for exam, 🆓 study materials)

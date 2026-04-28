@@ -3,7 +3,7 @@ import remarkGfm from 'remark-gfm'
 import rehypeHighlight from 'rehype-highlight'
 import 'highlight.js/styles/github.css'
 
-import roadmap from '../../../final_roadmap_reference_italo.md?raw'
+import roadmap from '../../../final_roadmap_reference.md?raw'
 
 export default function RoadmapPage() {
   return (

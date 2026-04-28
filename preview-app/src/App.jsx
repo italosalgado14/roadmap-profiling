@@ -9,7 +9,7 @@ export default function App() {
         <header className="app-header">
           <div className="app-brand">
             <strong>Edge AI / Physical AI Roadmap</strong>
-            <span>Italo Salgado — learning plan & curriculum graph</span>
+            <span>Learning plan & curriculum graph</span>
           </div>
           <nav className="app-nav" aria-label="Primary">
             <NavLink to="/malla" className={({ isActive }) => (isActive ? 'active' : undefined)}>
@@ -32,7 +32,7 @@ export default function App() {
 
         <footer className="app-footer">
           <span>
-            Content © Italo Salgado · Built with Vite + React ·{' '}
+            Built with Vite + React ·{' '}
             <a href="https://github.com/" target="_blank" rel="noreferrer">Source on GitHub</a>
           </span>
         </footer>

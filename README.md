@@ -12,7 +12,7 @@ Change to jelly
 | Page | Route | Source |
 |------|-------|--------|
 | Curriculum graph (interactive) | `#/malla` | [`edge_ai_malla_v3.jsx`](./edge_ai_malla_v3.jsx) |
-| Full roadmap (long-form) | `#/roadmap` | [`final_roadmap_reference_italo.md`](./final_roadmap_reference_italo.md) |
+| Full roadmap (long-form) | `#/roadmap` | [`final_roadmap_reference.md`](./final_roadmap_reference.md) |
 
 The two source files at the repo root are the **single source of truth**. The
 `preview-app/` directory is a thin Vite wrapper that ships them as a web app.
@@ -76,7 +76,7 @@ reference site.
 and consume them from the app:
 
 - `edge_ai_malla_v3.jsx` is imported directly by `MallaPage.jsx`.
-- `final_roadmap_reference_italo.md` is imported as a raw string with
+- `final_roadmap_reference.md` is imported as a raw string with
   Vite's `?raw` suffix and rendered with `react-markdown`.
 
 Because the JSX lives outside `preview-app/`, it couldn't resolve its
@@ -127,7 +127,7 @@ either would be overhead without payoff.
 ```
 .
 ├── edge_ai_malla_v3.jsx            ← source of truth (Malla component)
-├── final_roadmap_reference_italo.md ← source of truth (long-form roadmap)
+├── final_roadmap_reference.md ← source of truth (long-form roadmap)
 ├── .github/workflows/deploy.yml    ← GitHub Pages build & deploy
 ├── README.md                       ← this file
 └── preview-app/                    ← Vite + React wrapper
