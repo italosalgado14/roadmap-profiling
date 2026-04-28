@@ -2,15 +2,15 @@ import { useState, useCallback, useMemo } from "react";
 
 // ─── Phases ─────────────────────────────────────────────────────────────
 const PHASES = [
-  { id: "P0", label: "Foundations", subtitle: "Prerequisites", color: "#94a3b8" },
-  { id: "P1", label: "Phase 1",     subtitle: "Months 1–5",    color: "#22d3ee" },
-  { id: "P2", label: "Phase 2",     subtitle: "Months 6–10",   color: "#06b6d4" },
-  { id: "P3", label: "Phase 3",     subtitle: "Months 11–15",  color: "#8b5cf6" },
-  { id: "P4", label: "Phase 4",     subtitle: "Months 16–20",  color: "#a78bfa" },
-  { id: "P5", label: "Phase 5",     subtitle: "Months 21–25",  color: "#34d399" },
-  { id: "P6", label: "Phase 6",     subtitle: "Months 26–30",  color: "#10b981" },
-  { id: "P7", label: "Phase 7",     subtitle: "Months 31–40",  color: "#f59e0b" },
-  { id: "P8", label: "Phase 8",     subtitle: "Years 4–10",    color: "#fb923c" },
+  { id: "P0", label: "Foundations", subtitle: "Prerequisites",     color: "#94a3b8" },
+  { id: "P1", label: "Phase 1",     subtitle: "Core ML & Tools",   color: "#22d3ee" },
+  { id: "P2", label: "Phase 2",     subtitle: "DL & Operations",   color: "#06b6d4" },
+  { id: "P3", label: "Phase 3",     subtitle: "Vision & Export",   color: "#8b5cf6" },
+  { id: "P4", label: "Phase 4",     subtitle: "Optimization",      color: "#a78bfa" },
+  { id: "P5", label: "Phase 5",     subtitle: "Deploy & Build",    color: "#34d399" },
+  { id: "P6", label: "Phase 6",     subtitle: "Integration",       color: "#10b981" },
+  { id: "P7", label: "Phase 7",     subtitle: "Architecture",      color: "#f59e0b" },
+  { id: "P8", label: "Phase 8",     subtitle: "Frontier & Lead",   color: "#fb923c" },
 ];
 
 // ─── Priority (absolute importance) ────────────────────────────────────
