@@ -1,7 +1,12 @@
 # roadmap-profiling
 
 A small two-page static site that publishes my Edge AI / Physical AI learning
-plan on GitHub Pages:
+plan on GitHub Pages.
+
+**Live site:** <https://italosalgado14.github.io/roadmap-profiling/>
+
+- Curriculum graph: <https://italosalgado14.github.io/roadmap-profiling/#/malla>
+- Full roadmap: <https://italosalgado14.github.io/roadmap-profiling/#/roadmap>
 
 | Page | Route | Source |
 |------|-------|--------|
@@ -39,6 +44,11 @@ The site will be available at
 
 - `https://<your-user>.github.io/<repo-name>/#/malla`
 - `https://<your-user>.github.io/<repo-name>/#/roadmap`
+
+For this repo, that resolves to:
+
+- <https://italosalgado14.github.io/roadmap-profiling/#/malla>
+- <https://italosalgado14.github.io/roadmap-profiling/#/roadmap>
 
 The base path is derived from the repo name at build time via the
 `BASE_PATH` env var — no code change needed if you rename or fork the repo.
