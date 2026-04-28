@@ -2,6 +2,7 @@
 
 A small two-page static site that publishes my Edge AI / Physical AI learning
 plan on GitHub Pages.
+Change to jelly
 
 **Live site:** <https://italosalgado14.github.io/roadmap-profiling/>
 
