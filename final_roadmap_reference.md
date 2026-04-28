@@ -175,7 +175,7 @@ This is a consolidated reference combining major industry analyses (Gartner, WEF
 
 ## PHASE 4: Optimization & Specialization
 
-### 🔴 TensorRT ⭐ HIGHEST PRIORITY GAP (Edge / Compiler)
+### 🔴 TensorRT (Edge / Compiler)
 **Prerequisites:** ONNX, C++, CUDA
 **Unlocks:** Jetson deployment
 **Resources:**
@@ -502,9 +502,9 @@ This is a consolidated reference combining major industry analyses (Gartner, WEF
 In priority order — these are the courses and projects that matter most:
 
 1. ✅ **Finish Duke MLOps** (Phase 2)
-2. 🔴 **TensorRT** (Phase 4) — #1 technical gap for Edge / Compiler tracks
-3. 🔴 **Transformer CV — ViT/CLIP/SAM** (Phase 4) — closes the modern-CV gap
-4. 🔴 **Multi-agent systems with LangGraph** (Phase 5) — biggest employability gap (if pursuing edge)
+2. 🔴 **TensorRT** (Phase 4) — Edge / Compiler tracks
+3. 🔴 **Transformer CV — ViT/CLIP/SAM** (Phase 4) — modern transformer-era CV
+4. 🔴 **Multi-agent systems with LangGraph** (Phase 5) — required for the edge / agentic path
 5. 🔴 **English B2** (parallel) — highest ROI non-technical
 6. 🔴 **Read Chip Huyen's *Designing ML Systems*** (Phase 2)
 7. 🔴 **ROS2** (Phase 5) — required for the robotics path
@@ -590,18 +590,6 @@ Assuming 10-15 hours/week outside work:
 | Build multi-agent project | 3 |
 | italki English | 1 |
 | Total | ~11 |
-
----
-
-## FINAL STRATEGIC NOTE
-
-A profile combining production ML + embedded + C++ + Electronic Engineering background sits in the top 5-10% for Edge AI / Physical AI roles. The strategy is:
-
-1. **Short term (6-12 months):** Close the TensorRT + agentic AI + transformer CV gaps. Get the NVIDIA Physical AI cert. Finish Duke MLOps. Reach English B2.
-2. **Medium term (1-3 years):** Position as "AI/ML Engineer with Edge deployment expertise." Go deep on one vertical. Write publicly in English. Speak at one conference.
-3. **Long term (3-10 years):** Transition to Architect → Staff Engineer → Principal, or pivot to a frontier specialty (neuromorphic recommended). Place one frontier bet by year 5.
-
-The path is realistic, the gaps are closeable, and existing advantages compound over time. The market will move toward this profile faster than most engineers can catch up.
 
 ---
 
