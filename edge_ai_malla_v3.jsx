@@ -24,10 +24,11 @@ const PRIORITY = {
 //  Each course's `tracks` lists which specializations require it.
 //  Spine courses use ["all"] and apply to every track.
 const TRACKS = {
-  edge:     { color: "#2563eb", label: "Edge AI deployer",            short: "Edge"     },
-  robotics: { color: "#059669", label: "Robotics / Physical AI",      short: "Robotics" },
-  compiler: { color: "#7c3aed", label: "Compiler & kernels",          short: "Compiler" },
-  safety:   { color: "#d97706", label: "Industrial functional-safety", short: "Safety"  },
+  edge:     { color: "#2563eb", label: "Edge AI deployer",            short: "Edge"      },
+  robotics: { color: "#059669", label: "Robotics / Physical AI",      short: "Robotics"  },
+  compiler: { color: "#7c3aed", label: "Compiler & kernels",          short: "Compiler"  },
+  safety:   { color: "#d97706", label: "Industrial functional-safety", short: "Safety"   },
+  platform: { color: "#0ea5e9", label: "ML Platform / Infra",         short: "Platform"  },
 };
 const TRACK_IDS = Object.keys(TRACKS);
 const SPINE_COLOR = "#64748b";
@@ -115,7 +116,7 @@ const COURSES = [
     desc: "Export PyTorch/TF models to ONNX. Graph optimization, operator support, runtime inference.",
     res:  "ONNX Runtime docs (free) | ONNX GitHub tutorials (free)" },
   { id: "LLM", phase: "P3", row: 2, label: "LLM fundamentals",
-    priority: "desirable", kind: "branch", tracks: ["edge","robotics","compiler"],
+    priority: "desirable", kind: "branch", tracks: ["edge","robotics","compiler","platform"],
     prereqs: ["DL"],
     desc: "Transformer architecture, attention mechanism, tokenization, prompting, context windows.",
     res:  "Coursera: GenAI with LLMs — DeepLearning.AI + AWS | Karpathy: Let's build GPT (free YT)" },
@@ -169,7 +170,7 @@ const COURSES = [
     desc: "NVIDIA Jetson platform. JetPack SDK, DeepStream, video analytics. Production edge deployment.",
     res:  "NVIDIA Jetson tutorials (free blog) | NVIDIA DLI (~$30) | Book: AI at the Edge — Situnayake | HW: Orin Nano ~$249" },
   { id: "AGENT", phase: "P5", row: 1, label: "Multi-agent systems",
-    priority: "critical", kind: "branch", tracks: ["edge"],
+    priority: "critical", kind: "branch", tracks: ["edge","platform"],
     prereqs: ["RAG","MLOPS"],
     desc: "LangGraph, CrewAI, MCP protocol. State management, guardrails, observability for agents.",
     res:  "Coursera: IBM Agentic AI (incl) | DeepLearning.AI: CrewAI (free) | LangGraph docs | MCP docs" },
@@ -215,6 +216,16 @@ const COURSES = [
     prereqs: ["DOMAIN","MLOPS"],
     desc: "IEC 61508, ISO 26262 (automotive), IEC 62443 (industrial security). SIL/ASIL levels, deterministic inference, safety monitors, safety case writing.",
     res:  "IEC 61508 white papers (free) | Book: Functional Safety for Embedded Systems — Hobbs | Safety-Critical AI papers (arxiv)" },
+  { id: "SAFRES", phase: "P6", row: 6, label: "AI safety research",
+    priority: "desirable", kind: "elective", tracks: ["edge","robotics","compiler","platform","safety"],
+    prereqs: ["DL","AGENT"],
+    desc: "Mechanistic interpretability, alignment evals, capability evaluations. Research-grade safety: understanding model internals and measuring dangerous capabilities. Distinct from governance (compliance) and red-teaming (adversarial probing).",
+    res:  "Anthropic interpretability papers (free) | ARENA curriculum (free) | Apollo Research papers (free) | METR evaluation reports (free) | MATS program applications" },
+  { id: "GOVENG", phase: "P6", row: 7, label: "AI governance engineering",
+    priority: "critical", kind: "branch", tracks: ["edge","robotics","platform","safety"],
+    prereqs: ["MLOPS","SAFE"],
+    desc: "Implementing AI governance in production: ISO/IEC 42001 management systems, EU AI Act conformity assessment for high-risk systems, model registries, audit trails, NIST AI RMF mapping. Regulation-driven demand from 2027 onward.",
+    res:  "ISO/IEC 42001 standard | EU AI Act Annex IV (free) | NIST AI RMF Playbook (free) | Coursera: AI Ethics & Governance (incl) | OECD AI Policy Observatory (free)" },
 
   // ─── P7 ─ Architecture (mostly spine reconvergence) ──────────────────
   { id: "AIARCH", phase: "P7", row: 0, label: "AI systems architecture",
@@ -223,12 +234,12 @@ const COURSES = [
     desc: "Edge-cloud design, fleet management, federated learning, multi-model serving, system design.",
     res:  "Book: System Design Interview — Alex Xu (Vol 1&2) | Coursera: Software Architecture — U Alberta" },
   { id: "K8S", phase: "P7", row: 1, label: "Kubernetes for ML",
-    priority: "desirable", kind: "elective", tracks: ["edge","compiler","safety"],
+    priority: "critical", kind: "branch", tracks: ["platform"],
     prereqs: ["DOC","MLOPS"],
     desc: "Container orchestration, Helm, KubeFlow, model serving at scale, autoscaling inference.",
     res:  "Coursera: Google Cloud K8s | KubeFlow docs (free) | Book: Kubernetes in Action" },
   { id: "CLOUD", phase: "P7", row: 2, label: "Cloud ML platforms",
-    priority: "desirable", kind: "elective", tracks: ["edge","compiler","safety"],
+    priority: "critical", kind: "branch", tracks: ["platform"],
     prereqs: ["MLOPS","DL"],
     desc: "AWS SageMaker, GCP Vertex AI, Azure ML. Training, serving, and monitoring in the cloud.",
     res:  "Coursera: Google Cloud ML Engineer (incl) | AWS ML Specialty prep | Azure ML docs (free)" },

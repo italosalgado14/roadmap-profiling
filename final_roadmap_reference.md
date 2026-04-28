@@ -10,9 +10,16 @@ This is a consolidated reference combining major industry analyses (Gartner, WEF
 **Strategic positioning:** Lead-market identity as "AI/ML Engineer with Edge deployment expertise" — accesses the large AI/ML hiring pool while differentiating with hardware skills that cannot be commoditized by AI code assistants. Long-term trajectory toward Physical AI Architect as the robotics/autonomous systems market matures.
 
 **Three priority levels throughout:**
-- 🔴 **Critical** — Required for the career path. Non-negotiable.
+- 🔴 **Critical** — Minimum needed to *understand* a node, given the track you choose. Non-negotiable for that track.
 - 🟡 **Desirable** — Competitive edge. Significant ROI but not blocking.
 - 🟢 **Frontier** — Future bets. Long-term positioning.
+
+**Five specialization tracks** (pick one or more in the malla; the doc explains the study material for each node):
+- **Edge AI deployer** — TensorRT, Jetson, multi-agent, vision deployment
+- **Robotics / Physical AI** — ROS2, RL, sensor fusion, Isaac Sim, fleet
+- **Compiler & kernels** — CUDA, Triton, custom kernels, accelerator software
+- **Industrial functional-safety** — IEC 61508, ISO 26262, IEC 62443, regulated-industry ML
+- **ML Platform / Infra** — distributed inference, Kubernetes for ML, cloud ML, agent infra
 
 **Resource tagging:**
 - ✅ Included in Coursera Premium subscription
@@ -342,9 +349,9 @@ This is a consolidated reference combining major industry analyses (Gartner, WEF
 **Study approach:** HuggingFace fine-tuning guides for the mechanics. Then read 2-3 domain-adaptation papers in your vertical to understand what's already published.
 **Project:** Fine-tune a foundation model (LLM or VLM) on a curated domain dataset. Evaluate against the base model on a custom domain eval. Publish the model on HuggingFace Hub with a complete model card and eval suite.
 
-### 🟡 AI safety & governance
+### 🟡 AI safety & governance (awareness)
 **Prerequisites:** Multi-agent systems
-**Why:** EU AI Act is in force. Becoming 🔴 Critical by 2028.
+**Why:** EU AI Act is in force. Vocabulary tier — pair with the implementation-oriented *AI governance engineering* node below for the full profile.
 **Resources:**
 - Trustworthy AI — University of Helsinki (🆓, elementsofai.com)
 - ISO/IEC 42001 AI Management System — white papers
@@ -352,6 +359,32 @@ This is a consolidated reference combining major industry analyses (Gartner, WEF
 - Adversarial ML papers (🆓 arxiv) — start with Madry, Goodfellow
 **Study approach:** Trustworthy AI course for the governance vocabulary. Read the EU AI Act high-risk system requirements directly — most courses paraphrase them poorly. Then pivot to adversarial ML papers for technical depth.
 **Project:** Red-team an open-source LLM for prompt injection. Document successful jailbreaks, propose mitigations, validate them with an eval harness. Public writeup. Bonus: contribute a finding to a public AI red-teaming benchmark.
+
+### 🟡 AI safety research
+**Prerequisites:** Deep Learning, Multi-agent systems
+**Unlocks:** Frontier-lab research engineering, model evaluations roles
+**Why:** Distinct from governance (compliance) and red-teaming (adversarial probing). Research-grade safety = understanding model internals and measuring dangerous capabilities. Hiring concentrated at Anthropic, OpenAI, DeepMind, plus a growing tier of evals-focused orgs (METR, Apollo, MATS alumni).
+**Resources:**
+- Anthropic interpretability papers (🆓 arxiv) — start with *Toy Models of Superposition*, *Scaling Monosemanticity*, *Sleeper Agents*
+- ARENA curriculum — arena.education (🆓). The de-facto on-ramp for alignment research engineering.
+- Apollo Research papers (🆓) — deceptive alignment, scheming evaluations
+- METR evaluation reports (🆓) — capability evaluation methodology
+- MATS program — matsprogram.org (💰 stipended; competitive). Research mentorship pipeline into top labs.
+**Study approach:** ARENA end-to-end is the single highest-signal use of time. Pair with Anthropic's interpretability papers in publication order — the field is small enough that ~30 papers cover the state of the art. Implement at least one mechanistic interpretability technique (probing, SAEs, or circuits) yourself; reading without coding does not transfer.
+**Project:** Reproduce one published interpretability or evals result on a small open model. Examples: train sparse autoencoders on a tiny transformer and verify monosemantic features; build a capability-eval harness measuring a specific behavior. Public repo with notebooks, plus a writeup framing the result against the original paper.
+
+### 🔴 AI governance engineering
+**Prerequisites:** MLOps fundamentals, AI safety & governance (awareness)
+**Unlocks:** Compliance engineering roles in regulated industries; mandatory hire profile post-2027
+**Why:** Regulation-driven and durable. EU AI Act high-risk system requirements take full effect in 2027; ISO/IEC 42001 adoption is accelerating; NIST AI RMF is being baked into US federal procurement. Every company shipping AI under these regimes needs engineers who can *implement* the standards, not just cite them.
+**Resources:**
+- ISO/IEC 42001:2023 standard — AI Management Systems (💰 ~$150 official; summaries free)
+- EU AI Act, Annex IV — technical documentation requirements for high-risk systems (🆓, eur-lex.europa.eu)
+- NIST AI Risk Management Framework + Playbook (🆓, nist.gov/itl/ai-risk-management-framework)
+- OECD AI Policy Observatory (🆓) — cross-jurisdiction tracker
+- Coursera: AI Ethics & Governance tracks (✅ included)
+**Study approach:** Read EU AI Act Articles 9-15 directly — these define the technical obligations (risk management, data governance, technical documentation, record-keeping, transparency, human oversight, accuracy/robustness). Map each to an engineering control (model registry, audit log, eval harness, drift monitor). NIST AI RMF Playbook for the operational side. Treat ISO 42001 as the management-system overlay on top.
+**Project:** Build a reference governance stack for a single ML model: a model registry with provenance metadata, an audit log of deployment decisions, an eval harness mapped to specific Annex IV requirements, and a written conformity-assessment document. Public repo + a writeup explaining how each component maps to a specific clause of the EU AI Act or ISO 42001. Examples in this space are scarce, so a working reference is high-signal.
 
 ### 🔴 Distributed systems
 **Prerequisites:** MLOps fundamentals, Docker & CI/CD
@@ -386,7 +419,7 @@ This is a consolidated reference combining major industry analyses (Gartner, WEF
 **Study approach:** Both volumes of Alex Xu cover-to-cover. UAlberta course as supplement for non-ML architecture vocabulary. Practice writing system designs by hand — interview prep doubles as real-world practice.
 **Project:** Design (in writing) an edge-cloud system for a fleet of 10k devices. Cover fleet management, federated learning, OTA model updates, drift detection, observability. Submit for peer review (interactive review on EngineeringBlogs or similar).
 
-### 🟡 Kubernetes for ML
+### 🔴 Kubernetes for ML (Platform track)
 **Prerequisites:** Docker & CI/CD, MLOps fundamentals
 **Resources:**
 - Coursera: **Architecting with Google Kubernetes Engine Specialization** (✅ included)
@@ -395,7 +428,7 @@ This is a consolidated reference combining major industry analyses (Gartner, WEF
 **Study approach:** Minikube for local practice before any cloud cluster. Then GKE/EKS free-tier for real distributed work. KubeFlow for ML-specific patterns (KFServing, training operators).
 **Project:** Deploy ML serving on Kubernetes with autoscaling (HPA), model rollout (Argo Rollouts), and observability (Prometheus + Grafana). Run on a free-tier GKE/EKS cluster. Document the cost vs latency tradeoffs.
 
-### 🟡 Cloud ML platforms
+### 🔴 Cloud ML platforms (Platform track)
 **Prerequisites:** MLOps fundamentals, Deep Learning
 **Resources:**
 - Coursera: **Google Cloud Machine Learning Engineer Certificate** (✅ included)
