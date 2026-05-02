@@ -110,6 +110,18 @@ This is a consolidated reference combining major industry analyses (Gartner, WEF
 **Study approach:** Docker getting-started in one day. Then containerize a real Python service to internalize Dockerfile patterns (multi-stage builds, layer caching, slim base images).
 **Project:** Containerize the ML pipeline above. Add GitHub Actions for build/test/push to GHCR. Multi-stage Dockerfile with image under 200 MB. Document the CI workflow in the README.
 
+### 🟡 AI-assisted development workflows
+**Prerequisites:** Linux, Git, Python
+**Unlocks:** — (cross-cutting; accelerates work on every later node)
+**Resources:**
+- Anthropic Claude Code documentation — docs.anthropic.com/claude-code (🆓). Primary reference: hooks, slash commands, sub-agents, settings, MCP integration.
+- Anthropic prompt engineering guide — docs.anthropic.com (🆓)
+- Model Context Protocol (MCP) documentation — modelcontextprotocol.io (🆓)
+- Manning: *Claude Code in Action* (💰 ~$40)
+- Anthropic Academy short courses (🆓)
+**Study approach:** Skim the Claude Code docs end-to-end first to know the surface area (hooks, slash commands, sub-agents, settings, MCP). Then learn by doing — configure it for a real repo and iterate. Read the prompt-engineering guide *after* hands-on experience; the abstract advice lands better with concrete failures behind it. Treat this as a productivity layer over the rest of the roadmap, not a replacement for understanding the underlying code or the domain. Distinct from the Phase 5 Multi-agent systems node, which is about *building* agents (LangGraph/CrewAI) rather than using a coding assistant.
+**Project:** Configure Claude Code on a non-trivial repo: a `CLAUDE.md`, at least one custom slash command, one hook, and one MCP server connecting an external system (issue tracker, monitoring, internal docs). Ship a non-trivial PR co-authored with the assistant and write up the workflow — prompts that worked, prompts that failed, and which guardrails (hooks, sub-agents, scoped permissions) actually mattered.
+
 ---
 
 ## PHASE 2: Deep Learning & Operations

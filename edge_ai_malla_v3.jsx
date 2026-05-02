@@ -86,6 +86,11 @@ const COURSES = [
     prereqs: ["LINUX","GIT"],
     desc: "Containers, Dockerfiles, Compose, GitHub Actions, basic CI/CD pipelines.",
     res:  "Docker getting started (free) | Coursera: IBM DevOps & SWE | GitHub Actions docs (free)" },
+  { id: "AICODE", phase: "P1", row: 2, label: "AI-assisted dev workflows",
+    priority: "desirable", kind: "elective", tracks: ["all"],
+    prereqs: ["LINUX","GIT","PY"],
+    desc: "Claude Code (CLI, hooks, slash commands, sub-agents, MCP), prompt design for coding tasks, agent setup. Productivity multiplier across the rest of the roadmap.",
+    res:  "Anthropic Claude Code docs (free) | Anthropic prompt engineering guide (free) | MCP docs (free) | Manning: Claude Code in Action (~$40) | Anthropic Academy (free)" },
 
   // ─── P2 ─ Deep Learning & Operations ─────────────────────────────────
   { id: "DL", phase: "P2", row: 0, label: "Deep learning & PyTorch",
