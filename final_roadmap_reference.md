@@ -139,11 +139,15 @@ This is a consolidated reference combining major industry analyses (Gartner, WEF
 ### 🔴 MLOps fundamentals
 **Prerequisites:** Machine Learning, Docker & CI/CD
 **Unlocks:** Multi-agent systems, Distributed systems, Kubernetes for ML
-**Resources:**
-- Coursera: **MLOps Specialization — Duke University** (✅ included)
-- Book: **Designing Machine Learning Systems** — Chip Huyen (💰 ~$50). 🔴 **Must-read.**
-- MLOps Zoomcamp — DataTalks.Club (🆓). Project-based alternative.
-**Study approach:** Duke MLOps Spec for structure, *Designing ML Systems* in parallel for production thinking. Read the book first if buying time matters — the courses follow it.
+**Resources (ranked: most important → desirable):**
+1. Book: **Designing Machine Learning Systems** — Chip Huyen (💰 ~$50). 🔴 **Must-read.** Canonical text; everything else fills in around it.
+2. **MLOps Zoomcamp** — DataTalks.Club (🆓). Best free hands-on, end-to-end course. Project-based.
+3. **Made With ML** — Goku Mohandas (🆓, madewithml.com). End-to-end MLOps with strong software-engineering rigor (FastAPI serving, MLflow, Ray, testing).
+4. Coursera: **Machine Learning in Production** — DeepLearning.AI / Andrew Ng. 1 course (the other 3 present in coursera today dont exists). Well structured Coursera introduction.
+5. Coursera: **MLOps Specialization — Duke University** (✅ included). Lighter alternative — use it since it's already paid for, but don't rely on it alone.
+6. **Full Stack Deep Learning** — fullstackdeeplearning.com (🆓). Berkeley/UW lectures on YouTube. Especially strong on the non-modeling parts (data, evaluation, deployment, team workflows).
+7. **Eugene Yan's blog** — eugeneyan.com (🆓). Reference, not a course. High-signal posts on production patterns (recsys design, eval harnesses, online vs offline metrics).
+**Study approach:** *Designing ML Systems* is the spine — read it first if buying time matters, since the courses largely follow it. Pair with MLOps Zoomcamp or Made With ML for hands-on reps. Use Duke (already paid for) and DeepLearning.AI's *Machine Learning in Production* as structured lecture supplements if you want a guided pace. Full Stack DL and Eugene Yan are reference material — dip in when a specific topic (deployment, eval, recsys) needs depth.
 **Project:** Take the Phase 1 ML project and add: experiment tracking (MLflow), data versioning (DVC), model registry, drift monitoring, CI/CD for retraining. Architecture diagram in README.
 
 ### 🔴 CUDA & GPU computing
