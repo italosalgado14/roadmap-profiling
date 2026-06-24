@@ -1,21 +1,29 @@
 # roadmap-profiling
 
-A small two-page static site that publishes my Edge AI / Physical AI learning
-plan on GitHub Pages.
-Change to jelly
+A small static site that publishes my engineering learning roadmaps on GitHub
+Pages. It now covers **two career paths**, each with an interactive curriculum
+graph and a long-form roadmap:
+
+- **Edge AI / Physical AI** — the ML/deployment career (TensorRT, Jetson, robotics, MLOps).
+- **Control Systems & Robotics** — the classical / model-based control career (signals & classical control, state-space, estimation/Kalman, MPC, GNC).
 
 **Live site:** <https://italosalgado14.github.io/roadmap-profiling/>
 
-- Curriculum graph: <https://italosalgado14.github.io/roadmap-profiling/#/malla>
-- Full roadmap: <https://italosalgado14.github.io/roadmap-profiling/#/roadmap>
+- Edge AI graph: <https://italosalgado14.github.io/roadmap-profiling/#/malla>
+- Edge AI roadmap: <https://italosalgado14.github.io/roadmap-profiling/#/roadmap>
+- Control & Robotics graph: <https://italosalgado14.github.io/roadmap-profiling/#/control-malla>
+- Control & Robotics roadmap: <https://italosalgado14.github.io/roadmap-profiling/#/control-roadmap>
 
 | Page | Route | Source |
 |------|-------|--------|
-| Curriculum graph (interactive) | `#/malla` | [`edge_ai_malla_v3.jsx`](./edge_ai_malla_v3.jsx) |
-| Full roadmap (long-form) | `#/roadmap` | [`final_roadmap_reference.md`](./final_roadmap_reference.md) |
+| Edge AI — curriculum graph | `#/malla` | [`edge_ai_malla_v3.jsx`](./edge_ai_malla_v3.jsx) |
+| Edge AI — full roadmap | `#/roadmap` | [`final_roadmap_reference.md`](./final_roadmap_reference.md) |
+| Control & Robotics — curriculum graph | `#/control-malla` | [`control_robotics_malla.jsx`](./control_robotics_malla.jsx) |
+| Control & Robotics — full roadmap | `#/control-roadmap` | [`control_robotics_roadmap.md`](./control_robotics_roadmap.md) |
 
-The two source files at the repo root are the **single source of truth**. The
-`preview-app/` directory is a thin Vite wrapper that ships them as a web app.
+The four source files at the repo root are the **single source of truth** (one
+`*.jsx` graph and one `*.md` roadmap per career). The `preview-app/` directory is
+a thin Vite wrapper that ships them as a web app.
 
 ## Running locally
 
@@ -41,15 +49,15 @@ npm run preview
    `preview-app/` with the correct base path and publishes `dist/` to Pages.
 
 The site will be available at
-`https://<your-user>.github.io/<repo-name>/`, with the two pages at:
-
-- `https://<your-user>.github.io/<repo-name>/#/malla`
-- `https://<your-user>.github.io/<repo-name>/#/roadmap`
+`https://<your-user>.github.io/<repo-name>/`, with the four pages at
+`#/malla`, `#/roadmap`, `#/control-malla` and `#/control-roadmap`.
 
 For this repo, that resolves to:
 
 - <https://italosalgado14.github.io/roadmap-profiling/#/malla>
 - <https://italosalgado14.github.io/roadmap-profiling/#/roadmap>
+- <https://italosalgado14.github.io/roadmap-profiling/#/control-malla>
+- <https://italosalgado14.github.io/roadmap-profiling/#/control-roadmap>
 
 The base path is derived from the repo name at build time via the
 `BASE_PATH` env var — no code change needed if you rename or fork the repo.
@@ -126,8 +134,10 @@ either would be overhead without payoff.
 
 ```
 .
-├── edge_ai_malla_v3.jsx            ← source of truth (Malla component)
-├── final_roadmap_reference.md ← source of truth (long-form roadmap)
+├── edge_ai_malla_v3.jsx            ← source of truth (Edge AI graph)
+├── final_roadmap_reference.md      ← source of truth (Edge AI roadmap)
+├── control_robotics_malla.jsx      ← source of truth (Control & Robotics graph)
+├── control_robotics_roadmap.md     ← source of truth (Control & Robotics roadmap)
 ├── .github/workflows/deploy.yml    ← GitHub Pages build & deploy
 ├── README.md                       ← this file
 └── preview-app/                    ← Vite + React wrapper
@@ -136,9 +146,13 @@ either would be overhead without payoff.
     ├── vite.config.js              ← base path, react alias, fs.allow
     └── src/
         ├── main.jsx
-        ├── App.jsx                 ← HashRouter + nav + layout
+        ├── App.jsx                 ← HashRouter + nav + layout (both careers)
         ├── index.css               ← theme, nav, markdown styles
+        ├── components/
+        │   └── RoadmapView.jsx     ← shared markdown→tabs renderer
         └── pages/
-            ├── MallaPage.jsx       ← imports ../../../edge_ai_malla_v3.jsx
-            └── RoadmapPage.jsx     ← imports the .md with ?raw
+            ├── MallaPage.jsx           ← imports ../../../edge_ai_malla_v3.jsx
+            ├── RoadmapPage.jsx         ← Edge AI roadmap (RoadmapView)
+            ├── ControlMallaPage.jsx    ← imports ../../../control_robotics_malla.jsx
+            └── ControlRoadmapPage.jsx  ← Control & Robotics roadmap (RoadmapView)
 ```

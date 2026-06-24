@@ -1,6 +1,8 @@
 import { HashRouter, Routes, Route, NavLink, Navigate } from 'react-router-dom'
 import MallaPage from './pages/MallaPage.jsx'
 import RoadmapPage from './pages/RoadmapPage.jsx'
+import ControlMallaPage from './pages/ControlMallaPage.jsx'
+import ControlRoadmapPage from './pages/ControlRoadmapPage.jsx'
 
 export default function App() {
   return (
@@ -8,15 +10,21 @@ export default function App() {
       <div className="app-shell">
         <header className="app-header">
           <div className="app-brand">
-            <strong>Edge AI / Physical AI Roadmap</strong>
-            <span>Learning plan & curriculum graph</span>
+            <strong>Engineering Roadmaps</strong>
+            <span>Curriculum graphs &amp; learning plans</span>
           </div>
           <nav className="app-nav" aria-label="Primary">
             <NavLink to="/malla" className={({ isActive }) => (isActive ? 'active' : undefined)}>
-              Curriculum graph
+              Edge AI · Graph
             </NavLink>
             <NavLink to="/roadmap" className={({ isActive }) => (isActive ? 'active' : undefined)}>
-              Full roadmap
+              Edge AI · Roadmap
+            </NavLink>
+            <NavLink to="/control-malla" className={({ isActive }) => (isActive ? 'active' : undefined)}>
+              Control &amp; Robotics · Graph
+            </NavLink>
+            <NavLink to="/control-roadmap" className={({ isActive }) => (isActive ? 'active' : undefined)}>
+              Control &amp; Robotics · Roadmap
             </NavLink>
           </nav>
         </header>
@@ -26,6 +34,8 @@ export default function App() {
             <Route path="/" element={<Navigate to="/malla" replace />} />
             <Route path="/malla" element={<MallaPage />} />
             <Route path="/roadmap" element={<RoadmapPage />} />
+            <Route path="/control-malla" element={<ControlMallaPage />} />
+            <Route path="/control-roadmap" element={<ControlRoadmapPage />} />
             <Route path="*" element={<Navigate to="/malla" replace />} />
           </Routes>
         </main>
