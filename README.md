@@ -1,11 +1,12 @@
 # roadmap-profiling
 
 A small static site that publishes my engineering learning roadmaps on GitHub
-Pages. It now covers **two career paths**, each with an interactive curriculum
+Pages. It now covers **three career paths**, each with an interactive curriculum
 graph and a long-form roadmap:
 
 - **Edge AI / Physical AI** — the ML/deployment career (TensorRT, Jetson, robotics, MLOps).
 - **Control Systems & Robotics** — the classical / model-based control career (signals & classical control, state-space, estimation/Kalman, MPC, GNC).
+- **Quantum AI** — the quantum machine-learning / quantum-systems career (QM & qubits, gates & SDKs, algorithms, error correction, QML, hardware & control). A long-horizon (5–10+ year) bet.
 
 **Live site:** <https://italosalgado14.github.io/roadmap-profiling/>
 
@@ -13,6 +14,8 @@ graph and a long-form roadmap:
 - Edge AI roadmap: <https://italosalgado14.github.io/roadmap-profiling/#/roadmap>
 - Control & Robotics graph: <https://italosalgado14.github.io/roadmap-profiling/#/control-malla>
 - Control & Robotics roadmap: <https://italosalgado14.github.io/roadmap-profiling/#/control-roadmap>
+- Quantum AI graph: <https://italosalgado14.github.io/roadmap-profiling/#/quantum-malla>
+- Quantum AI roadmap: <https://italosalgado14.github.io/roadmap-profiling/#/quantum-roadmap>
 
 | Page | Route | Source |
 |------|-------|--------|
@@ -20,8 +23,10 @@ graph and a long-form roadmap:
 | Edge AI — full roadmap | `#/roadmap` | [`final_roadmap_reference.md`](./final_roadmap_reference.md) |
 | Control & Robotics — curriculum graph | `#/control-malla` | [`control_robotics_malla.jsx`](./control_robotics_malla.jsx) |
 | Control & Robotics — full roadmap | `#/control-roadmap` | [`control_robotics_roadmap.md`](./control_robotics_roadmap.md) |
+| Quantum AI — curriculum graph | `#/quantum-malla` | [`quantum_ai_malla.jsx`](./quantum_ai_malla.jsx) |
+| Quantum AI — full roadmap | `#/quantum-roadmap` | [`quantum_ai_roadmap.md`](./quantum_ai_roadmap.md) |
 
-The four source files at the repo root are the **single source of truth** (one
+The six source files at the repo root are the **single source of truth** (one
 `*.jsx` graph and one `*.md` roadmap per career). The `preview-app/` directory is
 a thin Vite wrapper that ships them as a web app.
 
@@ -49,8 +54,9 @@ npm run preview
    `preview-app/` with the correct base path and publishes `dist/` to Pages.
 
 The site will be available at
-`https://<your-user>.github.io/<repo-name>/`, with the four pages at
-`#/malla`, `#/roadmap`, `#/control-malla` and `#/control-roadmap`.
+`https://<your-user>.github.io/<repo-name>/`, with the six pages at
+`#/malla`, `#/roadmap`, `#/control-malla`, `#/control-roadmap`,
+`#/quantum-malla` and `#/quantum-roadmap`.
 
 For this repo, that resolves to:
 
@@ -58,6 +64,8 @@ For this repo, that resolves to:
 - <https://italosalgado14.github.io/roadmap-profiling/#/roadmap>
 - <https://italosalgado14.github.io/roadmap-profiling/#/control-malla>
 - <https://italosalgado14.github.io/roadmap-profiling/#/control-roadmap>
+- <https://italosalgado14.github.io/roadmap-profiling/#/quantum-malla>
+- <https://italosalgado14.github.io/roadmap-profiling/#/quantum-roadmap>
 
 The base path is derived from the repo name at build time via the
 `BASE_PATH` env var — no code change needed if you rename or fork the repo.
@@ -138,6 +146,8 @@ either would be overhead without payoff.
 ├── final_roadmap_reference.md      ← source of truth (Edge AI roadmap)
 ├── control_robotics_malla.jsx      ← source of truth (Control & Robotics graph)
 ├── control_robotics_roadmap.md     ← source of truth (Control & Robotics roadmap)
+├── quantum_ai_malla.jsx            ← source of truth (Quantum AI graph)
+├── quantum_ai_roadmap.md           ← source of truth (Quantum AI roadmap)
 ├── .github/workflows/deploy.yml    ← GitHub Pages build & deploy
 ├── README.md                       ← this file
 └── preview-app/                    ← Vite + React wrapper
@@ -146,7 +156,7 @@ either would be overhead without payoff.
     ├── vite.config.js              ← base path, react alias, fs.allow
     └── src/
         ├── main.jsx
-        ├── App.jsx                 ← HashRouter + nav + layout (both careers)
+        ├── App.jsx                 ← HashRouter + nav + layout (all three careers)
         ├── index.css               ← theme, nav, markdown styles
         ├── components/
         │   └── RoadmapView.jsx     ← shared markdown→tabs renderer
@@ -154,5 +164,7 @@ either would be overhead without payoff.
             ├── MallaPage.jsx           ← imports ../../../edge_ai_malla_v3.jsx
             ├── RoadmapPage.jsx         ← Edge AI roadmap (RoadmapView)
             ├── ControlMallaPage.jsx    ← imports ../../../control_robotics_malla.jsx
-            └── ControlRoadmapPage.jsx  ← Control & Robotics roadmap (RoadmapView)
+            ├── ControlRoadmapPage.jsx  ← Control & Robotics roadmap (RoadmapView)
+            ├── QuantumMallaPage.jsx    ← imports ../../../quantum_ai_malla.jsx
+            └── QuantumRoadmapPage.jsx  ← Quantum AI roadmap (RoadmapView)
 ```

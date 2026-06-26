@@ -3,6 +3,8 @@ import MallaPage from './pages/MallaPage.jsx'
 import RoadmapPage from './pages/RoadmapPage.jsx'
 import ControlMallaPage from './pages/ControlMallaPage.jsx'
 import ControlRoadmapPage from './pages/ControlRoadmapPage.jsx'
+import QuantumMallaPage from './pages/QuantumMallaPage.jsx'
+import QuantumRoadmapPage from './pages/QuantumRoadmapPage.jsx'
 
 export default function App() {
   return (
@@ -26,6 +28,12 @@ export default function App() {
             <NavLink to="/control-roadmap" className={({ isActive }) => (isActive ? 'active' : undefined)}>
               Control &amp; Robotics · Roadmap
             </NavLink>
+            <NavLink to="/quantum-malla" className={({ isActive }) => (isActive ? 'active' : undefined)}>
+              Quantum AI · Graph
+            </NavLink>
+            <NavLink to="/quantum-roadmap" className={({ isActive }) => (isActive ? 'active' : undefined)}>
+              Quantum AI · Roadmap
+            </NavLink>
           </nav>
         </header>
 
@@ -36,6 +44,8 @@ export default function App() {
             <Route path="/roadmap" element={<RoadmapPage />} />
             <Route path="/control-malla" element={<ControlMallaPage />} />
             <Route path="/control-roadmap" element={<ControlRoadmapPage />} />
+            <Route path="/quantum-malla" element={<QuantumMallaPage />} />
+            <Route path="/quantum-roadmap" element={<QuantumRoadmapPage />} />
             <Route path="*" element={<Navigate to="/malla" replace />} />
           </Routes>
         </main>
