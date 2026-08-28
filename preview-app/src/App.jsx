@@ -1,4 +1,5 @@
-import { HashRouter, Routes, Route, NavLink, Navigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { HashRouter, Routes, Route, NavLink, Navigate, useLocation } from 'react-router-dom'
 import OptionsPage from './pages/OptionsPage.jsx'
 import MyPathPage from './pages/MyPathPage.jsx'
 import StrategyPage from './pages/StrategyPage.jsx'
@@ -11,47 +12,126 @@ import SecurityRoadmapPage from './pages/SecurityRoadmapPage.jsx'
 import QuantumMallaPage from './pages/QuantumMallaPage.jsx'
 import QuantumRoadmapPage from './pages/QuantumRoadmapPage.jsx'
 
+// Eleven routes with a real hierarchy: two catalog entries, four career paths
+// with two views each, and one personal page. As a flat row of buttons that
+// wrapped onto three lines and flattened the structure away. A sidebar shows
+// the grouping, keeps the current page visible while scrolling, collapses when
+// a graph needs the horizontal room, and has space to grow.
 const CATALOG = [
-  ['/options', 'Wide map'],
-  ['/strategy', 'Career strategy'],
+  { to: '/options', label: 'Wide map', hint: 'All career options' },
+  { to: '/strategy', label: 'Career strategy', hint: 'Which path to commit to' },
 ]
 
 const PATHS = [
-  ['/malla', 'Edge AI · Graph'],
-  ['/roadmap', 'Edge AI · Roadmap'],
-  ['/control-malla', 'Control & Robotics · Graph'],
-  ['/control-roadmap', 'Control & Robotics · Roadmap'],
-  ['/security-malla', 'AI Security · Graph'],
-  ['/security-roadmap', 'AI Security · Roadmap'],
-  ['/quantum-malla', 'Quantum AI · Graph'],
-  ['/quantum-roadmap', 'Quantum AI · Roadmap'],
+  { name: 'Edge AI / Physical AI', graph: '/malla', roadmap: '/roadmap' },
+  { name: 'Control & Robotics', graph: '/control-malla', roadmap: '/control-roadmap' },
+  { name: 'AI Security', graph: '/security-malla', roadmap: '/security-roadmap' },
+  { name: 'Quantum AI', graph: '/quantum-malla', roadmap: '/quantum-roadmap' },
 ]
 
-const link = ([to, label]) => (
-  <NavLink key={to} to={to} className={({ isActive }) => (isActive ? 'active' : undefined)}>
-    {label}
-  </NavLink>
-)
+const PERSONAL = [
+  { to: '/my-path', label: 'My path', hint: 'One reader’s overlay' },
+]
 
-export default function App() {
+const NAV_KEY = 'roadmap-profiling:nav-open'
+const NARROW = 900
+
+function readNavOpen() {
+  try {
+    const stored = window.localStorage.getItem(NAV_KEY)
+    if (stored !== null) return stored === '1'
+    return window.innerWidth > NARROW
+  } catch {
+    return true
+  }
+}
+
+const activeClass = ({ isActive }) => (isActive ? 'active' : undefined)
+
+function SideNav({ onNavigate }) {
   return (
-    <HashRouter>
-      <div className="app-shell">
-        <header className="app-header">
-          <div className="app-brand">
-            <strong>Engineering Roadmaps</strong>
-            <span>A catalog of engineering career paths, and one person's path through it</span>
-          </div>
-          <nav className="app-nav" aria-label="Primary">
-            <span className="nav-group">Catalog</span>
-            {CATALOG.map(link)}
-            {PATHS.map(link)}
-            <span className="nav-group">Personal</span>
-            {link(['/my-path', 'My path'])}
-          </nav>
-        </header>
+    <nav className="side-nav" aria-label="Primary">
+      <p className="side-group">Catalog</p>
+      <ul className="side-list">
+        {CATALOG.map(item => (
+          <li key={item.to}>
+            <NavLink to={item.to} className={activeClass} onClick={onNavigate}>
+              <span>{item.label}</span>
+              <small>{item.hint}</small>
+            </NavLink>
+          </li>
+        ))}
+      </ul>
 
-        <main>
+      <p className="side-group">Career paths</p>
+      <ul className="side-list side-paths">
+        {PATHS.map(path => (
+          <li key={path.name}>
+            <span className="side-path-name">{path.name}</span>
+            <span className="side-path-links">
+              <NavLink to={path.graph} className={activeClass} onClick={onNavigate}>Graph</NavLink>
+              <NavLink to={path.roadmap} className={activeClass} onClick={onNavigate}>Roadmap</NavLink>
+            </span>
+          </li>
+        ))}
+      </ul>
+
+      <p className="side-group">Personal</p>
+      <ul className="side-list">
+        {PERSONAL.map(item => (
+          <li key={item.to}>
+            <NavLink to={item.to} className={activeClass} onClick={onNavigate}>
+              <span>{item.label}</span>
+              <small>{item.hint}</small>
+            </NavLink>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
+}
+
+function Shell() {
+  const [navOpen, setNavOpen] = useState(readNavOpen)
+  const location = useLocation()
+
+  useEffect(() => {
+    try { window.localStorage.setItem(NAV_KEY, navOpen ? '1' : '0') } catch { /* storage unavailable */ }
+  }, [navOpen])
+
+  // On a narrow screen the sidebar stacks above the content, so following a
+  // link should close it. On a wide screen it is a permanent column and stays.
+  const closeOnNarrow = () => {
+    try { if (window.innerWidth <= NARROW) setNavOpen(false) } catch { /* no window */ }
+  }
+
+  return (
+    <div className={`app-shell ${navOpen ? '' : 'nav-collapsed'}`}>
+      <header className="app-header">
+        <button
+          type="button"
+          className="nav-toggle"
+          aria-expanded={navOpen}
+          aria-controls="site-nav"
+          onClick={() => setNavOpen(v => !v)}
+        >
+          <span aria-hidden="true">{navOpen ? '‹' : '≡'}</span>
+          <span className="sr-only">{navOpen ? 'Hide navigation' : 'Show navigation'}</span>
+        </button>
+        <div className="app-brand">
+          <strong>Engineering Roadmaps</strong>
+          <span>A catalog of engineering career paths, and one reader&apos;s path through it</span>
+        </div>
+      </header>
+
+      <div className="app-body">
+        {navOpen && (
+          <aside id="site-nav" className="app-sidebar">
+            <SideNav onNavigate={closeOnNarrow} />
+          </aside>
+        )}
+
+        <main key={location.pathname}>
           <Routes>
             <Route path="/" element={<Navigate to="/options" replace />} />
             <Route path="/options" element={<OptionsPage />} />
@@ -68,14 +148,22 @@ export default function App() {
             <Route path="*" element={<Navigate to="/options" replace />} />
           </Routes>
         </main>
-
-        <footer className="app-footer">
-          <span>
-            Built with Vite + React ·{' '}
-            <a href="https://github.com/italosalgado14/roadmap-profiling" target="_blank" rel="noreferrer">Source on GitHub</a>
-          </span>
-        </footer>
       </div>
+
+      <footer className="app-footer">
+        <span>
+          Built with Vite + React ·{' '}
+          <a href="https://github.com/italosalgado14/roadmap-profiling" target="_blank" rel="noreferrer">Source on GitHub</a>
+        </span>
+      </footer>
+    </div>
+  )
+}
+
+export default function App() {
+  return (
+    <HashRouter>
+      <Shell />
     </HashRouter>
   )
 }
