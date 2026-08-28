@@ -5,9 +5,8 @@ export default function ControlRoadmapPage() {
   return (
     <RoadmapView
       source={roadmap}
-      subtitleToSkip="Control, Estimation & Autonomy Engineer Path"
-      title="Control & Robotics — full roadmap"
-      subtitle="The complete reference for the control-systems & robotics-control career: phases, priorities, resources and projects. Companion to the curriculum graph."
+      title="Control & Robotics: full roadmap"
+      subtitle="The complete reference for the control-systems and robotics-control career: phases, priorities, resources and projects. Companion to the curriculum graph."
     />
   )
 }

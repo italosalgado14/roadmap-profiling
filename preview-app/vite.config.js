@@ -13,9 +13,10 @@ export default defineConfig({
   base,
   plugins: [react()],
   resolve: {
-    // edge_ai_malla_v3.jsx lives one level up from preview-app/ and imports
-    // "react". Force it to resolve to this app's installed copy so we don't
-    // need a duplicate node_modules at the repo root.
+    // The curriculum data modules live one level up from preview-app/. They
+    // are plain data now and import nothing, but the alias is kept so a root
+    // file that ever does import "react" resolves to this app's copy rather
+    // than needing a duplicate node_modules at the repo root.
     alias: {
       react: resolve(here, 'node_modules/react'),
       'react-dom': resolve(here, 'node_modules/react-dom'),
@@ -24,7 +25,7 @@ export default defineConfig({
   },
   server: {
     fs: {
-      // Let Vite read the .jsx and .md files that live one level up.
+      // Let Vite read the data and markdown files that live one level up.
       allow: ['..'],
     },
   },

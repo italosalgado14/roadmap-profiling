@@ -1,8 +1,6 @@
 import { useMemo, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import rehypeHighlight from 'rehype-highlight'
-import 'highlight.js/styles/github.css'
 
 function splitSections(md) {
   const lines = md.split('\n')
@@ -20,21 +18,30 @@ function splitSections(md) {
   return sections.map((s) => ({ ...s, body: s.lines.join('\n').trim() }))
 }
 
+// Every roadmap opens with "# Title" then "## Subtitle", and the subtitle
+// section carries no prose of its own, only a horizontal rule. Detect that
+// shape instead of matching the subtitle text: renaming a heading in the
+// markdown should not silently dump it into the Reference tab.
+function isDocSubtitle(section) {
+  const body = section.lines.slice(1).join('\n')
+  return body.replace(/-{3,}/g, '').trim() === ''
+}
+
 // Turn the `## `-delimited sections into tabs:
-//   - the document subtitle (one H2 right under the H1 title) is skipped
+//   - the document subtitle (one empty H2 right under the H1 title) is skipped
 //   - "Executive Summary" becomes the Overview tab
 //   - "PHASE N: ..." sections each become a phase tab
 //   - everything else is concatenated into a single Reference tab
-function buildTabs(sections, subtitleToSkip) {
+function buildTabs(sections) {
   const tabs = []
   const phaseRe = /^PHASE (\d+):\s*(.+)$/i
   const referenceBodies = []
 
-  for (const s of sections) {
-    if (subtitleToSkip && s.heading === subtitleToSkip) continue
+  sections.forEach((s, i) => {
+    if (i === 0 && isDocSubtitle(s)) return
     if (s.heading === 'Executive Summary') {
       tabs.push({ id: 'overview', short: 'Overview', title: s.heading, body: s.body })
-      continue
+      return
     }
     const m = s.heading.match(phaseRe)
     if (m) {
@@ -45,10 +52,10 @@ function buildTabs(sections, subtitleToSkip) {
         subtitle: m[2].trim(),
         body: s.body,
       })
-      continue
+      return
     }
     referenceBodies.push(s.body)
-  }
+  })
 
   if (referenceBodies.length) {
     tabs.push({
@@ -61,11 +68,8 @@ function buildTabs(sections, subtitleToSkip) {
   return tabs
 }
 
-export default function RoadmapView({ source, subtitleToSkip, title, subtitle }) {
-  const tabs = useMemo(
-    () => buildTabs(splitSections(source), subtitleToSkip),
-    [source, subtitleToSkip],
-  )
+export default function RoadmapView({ source, title, subtitle }) {
+  const tabs = useMemo(() => buildTabs(splitSections(source)), [source])
   const [activeId, setActiveId] = useState(tabs[0]?.id)
   const active = tabs.find((t) => t.id === activeId) ?? tabs[0]
 
@@ -82,7 +86,7 @@ export default function RoadmapView({ source, subtitleToSkip, title, subtitle })
             className={`roadmap-tab ${t.id === active?.id ? 'active' : ''}`}
             onClick={() => setActiveId(t.id)}
             aria-current={t.id === active?.id ? 'page' : undefined}
-            title={t.subtitle ? `${t.short} — ${t.subtitle}` : t.title}
+            title={t.subtitle ? `${t.short}: ${t.subtitle}` : t.title}
           >
             {t.short}
           </button>
@@ -90,10 +94,7 @@ export default function RoadmapView({ source, subtitleToSkip, title, subtitle })
       </nav>
 
       <article className="markdown roadmap-section">
-        <ReactMarkdown
-          remarkPlugins={[remarkGfm]}
-          rehypePlugins={[rehypeHighlight]}
-        >
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>
           {active?.body ?? ''}
         </ReactMarkdown>
       </article>

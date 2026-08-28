@@ -5,8 +5,7 @@ export default function RoadmapPage() {
   return (
     <RoadmapView
       source={roadmap}
-      subtitleToSkip="Edge AI / Physical AI Specialist Path"
-      title="Full roadmap"
+      title="Edge AI: full roadmap"
       subtitle="The complete reference document: phases, priorities, resources, costs and time allocation. Companion to the curriculum graph."
     />
   )

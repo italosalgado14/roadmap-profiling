@@ -5,8 +5,7 @@ export default function QuantumRoadmapPage() {
   return (
     <RoadmapView
       source={roadmap}
-      subtitleToSkip="Quantum Machine Learning & Quantum Systems Engineer Path"
-      title="Full roadmap"
+      title="Quantum AI: full roadmap"
       subtitle="The complete reference document: phases, priorities, resources, costs and time allocation. Companion to the curriculum graph."
     />
   )

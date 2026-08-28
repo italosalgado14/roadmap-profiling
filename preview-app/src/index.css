@@ -18,7 +18,7 @@
   --sans: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --mono: ui-monospace, 'JetBrains Mono', Menlo, Consolas, monospace;
 
-  /* These are the CSS variables that edge_ai_malla_v3.jsx reads */
+  /* These are the CSS variables that CurriculumGraph.jsx reads */
   --color-background-primary: var(--bg);
   --color-background-secondary: var(--bg-secondary);
   --color-background-success: #f0fdf4;
@@ -307,4 +307,191 @@ body { margin: 0; background: var(--bg); }
   padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0,0,0,0);
   white-space: nowrap; border: 0;
+}
+
+/* ─── Catalog and personal layer ─────────────────────────────────────── */
+
+.app-nav { flex-wrap: wrap; align-items: center; }
+
+.nav-group {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-tertiary);
+  padding: 0 2px 0 8px;
+  align-self: center;
+}
+.nav-group:first-child { padding-left: 0; }
+
+.verdict-notice {
+  border: 1px solid var(--accent-border);
+  background: var(--accent-soft);
+  border-radius: var(--border-radius-lg);
+  padding: 0.7rem 0.9rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 1rem 0;
+}
+
+.overlay-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--border-radius-lg);
+  background: var(--bg-secondary);
+  padding: 0.55rem 0.8rem;
+  font-size: 0.85rem;
+  margin: 0.8rem 0;
+}
+.overlay-actions { display: flex; gap: 6px; align-items: center; }
+.overlay-actions button,
+.overlay-import {
+  font: inherit;
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border-secondary);
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+}
+.overlay-actions button:hover,
+.overlay-import:hover { border-color: var(--accent-border); color: var(--accent); }
+.overlay-import input { display: none; }
+.overlay-status {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin: -0.4rem 0 0.8rem;
+}
+
+.option-filters { display: flex; flex-wrap: wrap; gap: 6px; margin: 0.8rem 0 0.4rem; }
+.option-count { font-size: 0.8rem; color: var(--text-tertiary); margin: 0 0 1rem; }
+
+.option-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 14px;
+}
+
+.option-card {
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--border-secondary);
+  border-radius: var(--border-radius-lg);
+  background: var(--bg-secondary);
+  padding: 0.85rem 1rem 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.option-card.verdict-primary { border-left-color: #16a34a; }
+.option-card.verdict-hedge   { border-left-color: #2563eb; }
+.option-card.verdict-ignore  { border-left-color: var(--border-secondary); opacity: 0.86; }
+
+.option-card header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+.option-card h2 { font-size: 1.02rem; margin: 0; color: var(--text-h); }
+
+.verdict-badge {
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 7px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.verdict-badge.verdict-primary { background: #dcfce7; color: #14532d; }
+.verdict-badge.verdict-hedge   { background: #dbeafe; color: #1e3a8a; }
+.verdict-badge.verdict-ignore  { background: var(--bg-tertiary); color: var(--text-tertiary); }
+
+.option-job { margin: 0; font-size: 0.9rem; }
+
+.option-meta { margin: 0; font-size: 0.82rem; }
+.option-meta dt {
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 0.4rem;
+}
+.option-meta dd { margin: 0.1rem 0 0; color: var(--text-secondary); }
+
+.option-fit { margin: 0; font-size: 0.85rem; font-style: italic; color: var(--text-secondary); }
+
+.option-why {
+  margin: 0;
+  font-size: 0.82rem;
+  border-top: 1px dashed var(--border-secondary);
+  padding-top: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.option-card footer { margin-top: auto; padding-top: 0.2rem; }
+.option-link { font-size: 0.85rem; font-weight: 500; }
+.option-nolink { font-size: 0.78rem; color: var(--text-tertiary); }
+
+.section-title {
+  font-size: 1.05rem;
+  margin: 1.8rem 0 0.3rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-h);
+}
+.section-note { font-size: 0.85rem; color: var(--text-secondary); margin: 0.3rem 0 0.9rem; }
+
+.verdict-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 0.8rem;
+}
+.verdict-columns h3 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-tertiary);
+  margin: 0 0 0.5rem;
+}
+.verdict-item { margin-bottom: 0.7rem; font-size: 0.85rem; }
+.verdict-item p { margin: 0.15rem 0 0; color: var(--text-secondary); }
+
+.sequence { margin: 0; padding-left: 1.1rem; }
+.sequence li { margin-bottom: 1rem; }
+.sequence p { margin: 0.35rem 0 0; font-size: 0.85rem; color: var(--text-secondary); }
+.sequence-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; }
+.sequence-head span { font-size: 0.85rem; color: var(--text-secondary); }
+.sequence-items { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 0.35rem; }
+
+.chip {
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border-secondary);
+  background: var(--bg);
+}
+.chip-done {
+  background: var(--color-background-success);
+  border-color: var(--color-border-success);
+  color: var(--color-text-success);
+  text-decoration: line-through;
+}
+
+.overrides { border-collapse: collapse; font-size: 0.85rem; width: 100%; max-width: 520px; }
+.overrides th, .overrides td {
+  text-align: left;
+  padding: 5px 10px;
+  border-bottom: 1px solid var(--border);
+}
+.overrides th { color: var(--text-tertiary); font-weight: 600; font-size: 0.78rem; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .verdict-badge.verdict-primary { background: #052e16; color: #86efac; }
+  :root:not([data-theme="light"]) .verdict-badge.verdict-hedge   { background: #172554; color: #93c5fd; }
 }

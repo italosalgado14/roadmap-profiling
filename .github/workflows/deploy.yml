@@ -15,7 +15,19 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Structural checks on the curriculum data at the repo root. These files are
+  # data only, so a bad prerequisite or a row collision is not a build error;
+  # it just renders a wrong graph. Catch it before the site goes out.
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check curriculum data
+        run: python3 tools/check_curriculum.py
+
   build:
+    needs: validate
     runs-on: ubuntu-latest
     defaults:
       run:

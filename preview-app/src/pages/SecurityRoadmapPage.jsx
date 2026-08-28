@@ -5,8 +5,7 @@ export default function SecurityRoadmapPage() {
   return (
     <RoadmapView
       source={roadmap}
-      subtitleToSkip="Application, Cloud & AI Security Engineer Path"
-      title="Full roadmap"
+      title="AI Security: full roadmap"
       subtitle="The complete reference document: phases, priorities, resources, study approaches and projects. Companion to the curriculum graph."
     />
   )
