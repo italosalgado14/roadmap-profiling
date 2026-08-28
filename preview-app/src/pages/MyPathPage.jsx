@@ -42,6 +42,11 @@ export default function MyPathPage() {
     if (!file) return
     try {
       const data = await readOverlayFile(file)
+      if (data.graph && data.graph !== graph.id) {
+        setStatus(`That overlay is for "${data.graph}", not the Edge AI graph. Nothing changed.`)
+        event.target.value = ''
+        return
+      }
       const next = { done: data.done ?? [], tracks: data.tracks ?? [] }
       setProgress(next)
       saveProgress(graph.id, next)
