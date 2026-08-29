@@ -4,19 +4,20 @@ A small static site that publishes a set of engineering learning roadmaps on
 GitHub Pages.
 
 It is built in two layers. The **catalog** is neutral and meant to be useful to
-anyone: a wide map of career options, four full curricula, and the long-form
-roadmaps behind them. The **personal layer** is one overlay file on top of it,
+anyone: a wide map of career options, five curricula, and the long-form
+roadmaps behind four of them. The **personal layer** is one overlay file on top of it,
 holding one person's verdicts, priority overrides and calendar. Keeping them
 apart is what lets the same curriculum carry a different opinion for every
 reader, and it is why a node is rated by the discipline rather than by whoever
 wrote the site.
 
 The site opens on the wide map. Behind it sit a **Career Strategy** overview and
-**four career paths**, each with an interactive curriculum graph and a long-form
-roadmap:
+**five career paths**. Four have both an interactive curriculum graph and a
+long-form roadmap; Applied AI currently ships the graph only:
 
 - **Career Strategy**: the meta layer. A 5/10/15-year outlook, durable career principles, and a decision framework (primary specialization, hedge, 90-day actions, annual signals) that ties the four roadmaps together.
 - **Edge AI / Physical AI**: the ML and deployment career (TensorRT, Jetson, robotics, MLOps).
+- **Applied AI / LLM engineering**: building products on foundation models (retrieval, agents, evaluation, serving). Its own path rather than an Edge AI track, because the spine is Python and backend services, not C++ and model export.
 - **Control Systems & Robotics**: the classical, model-based control career (signals and classical control, state-space, estimation/Kalman, MPC, GNC).
 - **AI Security & Trustworthy Systems**: the security career (AppSec, DevSecOps, cloud security, AI/LLM security and AI-code auditing, cryptography, governance). The scenario-robust hedge that pairs with every other path.
 - **Quantum AI**: the quantum machine-learning and quantum-systems career (QM and qubits, gates and SDKs, algorithms, error correction, QML, hardware and control). A long-horizon (5-10+ year) bet.
@@ -30,6 +31,7 @@ roadmap:
 | Career Strategy | `#/strategy` | [`career_strategy.md`](./career_strategy.md) |
 | Edge AI, curriculum graph | `#/malla` | [`edge_ai_malla_v3.js`](./edge_ai_malla_v3.js) |
 | Edge AI, full roadmap | `#/roadmap` | [`final_roadmap_reference.md`](./final_roadmap_reference.md) |
+| Applied AI / LLM, curriculum graph | `#/applied-malla` | [`applied_ai_malla.js`](./applied_ai_malla.js) |
 | Control & Robotics, curriculum graph | `#/control-malla` | [`control_robotics_malla.js`](./control_robotics_malla.js) |
 | Control & Robotics, full roadmap | `#/control-roadmap` | [`control_robotics_roadmap.md`](./control_robotics_roadmap.md) |
 | AI Security, curriculum graph | `#/security-malla` | [`ai_security_malla.js`](./ai_security_malla.js) |
@@ -117,8 +119,9 @@ python3 tools/check_curriculum.py
 
 It fails on unknown or duplicate ids, prerequisites that do not exist or sit in
 a later phase, prerequisite cycles, row collisions and gaps, unknown phases,
-tracks, priorities or kinds, spine/branch inconsistency, and missing `desc`/`res`.
-It warns on tracks that no course uses. No dependencies beyond the standard library.
+tracks, priorities or kinds, spine/branch inconsistency, missing `desc`/`res`, a
+course id that means different things in two graphs, and an overlay pointing at
+an option or course the catalog does not have. It warns on tracks that no course uses. No dependencies beyond the standard library.
 
 ## Running locally
 
@@ -148,6 +151,26 @@ The base path is derived from the repo name at build time via the `BASE_PATH`
 env var, so no code change is needed if the repo is renamed or forked.
 
 ## Design decisions
+
+**A track becomes a path when the spine diverges.** Applied AI was first added
+as a track inside the Edge AI graph, which meant it inherited that graph's
+spine: a reader who chose it was told C++, ONNX export and CUDA were required,
+none of which are on that career. Measuring the overlap between tracks made the
+line visible. Edge and robotics share 0.63 of their non-common nodes and are one
+family; platform and data shared 0.47 and were merged into a single ML platform
+and data track; Applied AI overlapped everything else by at most 0.25, so it
+became its own path with its own spine of Python, backend services, evaluation
+and serving. The underlying reason is that `priority` and `kind` are
+path-relative, and a track living inside another path's graph cannot express
+that.
+
+**Ids are shared across graphs when the topic is the same, and only then.**
+Python is Python whether it is reached through security or through robotics, so
+`PY` carries the same label everywhere and only the descriptions differ. What is
+not allowed is one id meaning two things: `CLOUD` once meant both "Cloud ML
+platforms" and "Cloud security fundamentals", and `ARCH` meant two unrelated
+architectures. Those were renamed, and `tools/check_curriculum.py` now fails the
+build if a shared id ever disagrees with itself again.
 
 **One renderer, four data modules.** The four graphs were originally four
 complete copies of the same component, 431 identical lines of rendering code
@@ -214,6 +237,7 @@ occurs here, which is bad data rather than bad types.
 ## What is not done
 
 - **Overlay sharing is by file, not by URL.** Export and import round-trip a JSON overlay. Encoding one into a link fights `HashRouter` and URL length limits, so it was not built.
+- **Applied AI has no long-form roadmap yet.** It ships as a curriculum graph and a wide-map card. The 600-line reference document the other four paths carry is a separate writing job.
 - **Verdict and priority edits need a file edit.** The browser owns progress and track selection; changing verdicts or priority overrides means editing `my_path.js` (or an exported overlay) directly.
 - **Code-splitting.** Not needed now that `highlight.js` is out of the bundle.
 - **A custom domain.** The workflow publishes to the default `<user>.github.io/<repo>` URL. Add a `CNAME` file to `preview-app/public/` if that changes.
@@ -228,6 +252,7 @@ occurs here, which is bad data rather than bad types.
 ├── career_strategy.md              ← source of truth (Career Strategy essay)
 ├── edge_ai_malla_v3.js             ← curriculum data (Edge AI graph)
 ├── final_roadmap_reference.md      ← source of truth (Edge AI roadmap)
+├── applied_ai_malla.js             ← curriculum data (Applied AI graph)
 ├── control_robotics_malla.js       ← curriculum data (Control & Robotics graph)
 ├── control_robotics_roadmap.md     ← source of truth (Control & Robotics roadmap)
 ├── ai_security_malla.js            ← curriculum data (AI Security graph)
@@ -256,6 +281,7 @@ occurs here, which is bad data rather than bad types.
             ├── MyPathPage.jsx      ← the personal layer
             ├── StrategyPage.jsx
             ├── MallaPage.jsx
+            ├── AppliedMallaPage.jsx
             ├── RoadmapPage.jsx
             ├── ControlMallaPage.jsx
             ├── ControlRoadmapPage.jsx

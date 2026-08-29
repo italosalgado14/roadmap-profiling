@@ -7,9 +7,12 @@ import { OPTIONS } from '../../../career_options.js'
 // page where it is clearly one reader's, alongside the reasons.
 const FILTERS = [
   { id: 'all', label: 'All options' },
-  { id: 'roadmap', label: 'Has a full roadmap' },
+  { id: 'roadmap', label: 'Full roadmap' },
+  { id: 'graph', label: 'Curriculum graph' },
   { id: 'card', label: 'Overview only' },
 ]
+
+const LINK_LABEL = { roadmap: 'Open the roadmap', graph: 'Open the curriculum graph' }
 
 export default function OptionsPage() {
   const [filter, setFilter] = useState('all')
@@ -24,7 +27,7 @@ export default function OptionsPage() {
       <h1 id="options-title" className="page-title">The wide map</h1>
       <p className="page-subtitle">
         Every career option this site considers, described the same way and in no
-        particular order. {OPTIONS.length} options, four of which have a full curriculum
+        particular order. {OPTIONS.length} options, five of which have a curriculum
         behind them. Read this to work out which path is worth your time.
       </p>
 
@@ -71,9 +74,9 @@ export default function OptionsPage() {
             <p className="option-fit">{o.fit}</p>
 
             <footer>
-              {o.depth === 'roadmap'
-                ? <a className="option-link" href={o.route}>Open the roadmap</a>
-                : <span className="option-nolink">Overview only, no full curriculum on this site yet</span>}
+              {o.route
+                ? <a className="option-link" href={o.route}>{LINK_LABEL[o.depth]}</a>
+                : <span className="option-nolink">Overview only, no curriculum on this site yet</span>}
             </footer>
           </article>
         ))}

@@ -22,6 +22,7 @@ import sys
 
 FILES = [
     "edge_ai_malla_v3.js",
+    "applied_ai_malla.js",
     "control_robotics_malla.js",
     "ai_security_malla.js",
     "quantum_ai_malla.js",
@@ -52,6 +53,7 @@ def parse_courses(src: str) -> list[dict]:
     )
     courses = []
     for cid, rest in entries:
+        label = re.search(r'label:\s*"([^"]+)"', rest)
         phase = re.search(r'phase:\s*"([^"]+)"', rest)
         row = re.search(r"row:\s*(\d+)", rest)
         priority = re.search(r'priority:\s*"([^"]+)"', rest)
@@ -61,6 +63,7 @@ def parse_courses(src: str) -> list[dict]:
         courses.append(
             {
                 "id": cid,
+                "label": label.group(1) if label else None,
                 "phase": phase.group(1) if phase else None,
                 "row": int(row.group(1)) if row else None,
                 "priority": priority.group(1) if priority else None,
@@ -190,6 +193,38 @@ def check(path: pathlib.Path) -> tuple[list[str], list[str]]:
     return errors, warnings
 
 
+def check_shared_ids(root: pathlib.Path) -> list[str]:
+    """A course id used in more than one graph must mean the same thing.
+
+    The graphs deliberately share foundation topics: Python is Python whether
+    you reach it through security or through robotics. What is not allowed is
+    the same id standing for two different topics, which is how CLOUD came to
+    mean both "Cloud ML platforms" and "Cloud security fundamentals". Left
+    alone that blocks ever carrying progress across paths, and it quietly
+    misleads anyone reading two graphs side by side.
+    """
+    labels: dict[str, dict[str, str]] = collections.defaultdict(dict)
+    for name in FILES:
+        path = root / name
+        if not path.exists():
+            continue
+        for course in parse_courses(path.read_text(encoding="utf-8")):
+            label = course.get("label")
+            if label:
+                labels[course["id"]][name] = label
+
+    errors = []
+    for cid, per_file in sorted(labels.items()):
+        distinct = set(per_file.values())
+        if len(distinct) > 1:
+            detail = "; ".join(f"{f} says {l!r}" for f, l in sorted(per_file.items()))
+            errors.append(
+                f"id {cid!r} means different things in different graphs ({detail}). "
+                f"Either align the labels or give one of them its own id."
+            )
+    return errors
+
+
 def check_overlay(root: pathlib.Path) -> list[str]:
     """The personal overlay must only reference things the catalog actually has.
 
@@ -271,6 +306,15 @@ def main() -> int:
             print(f"ok   {name} ({summary})")
         for w in warnings:
             print(f"     warning: {w}")
+
+    shared_errors = check_shared_ids(root)
+    if shared_errors:
+        failed = True
+        print("FAIL shared course ids")
+        for e in shared_errors:
+            print(f"       {e}")
+    else:
+        print("ok   ids shared between graphs agree on what they mean")
 
     overlay_errors = check_overlay(root)
     if overlay_errors:

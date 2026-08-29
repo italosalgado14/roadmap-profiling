@@ -1,9 +1,10 @@
 // The wide map: the career options this site considers, as a neutral catalog.
 //
 // This is the layer that is meant to be useful to anyone. Every card here
-// describes a job, not a recommendation. The opinionated part (which option is
-// a primary bet, which is a hedge, which is ruled out) lives in my_path.js and
-// is rendered as one person's verdict, clearly labelled as such.
+// describes a job, not a recommendation, and the wide map renders them in no
+// particular order with nothing ranked. The opinionated part (which option is a
+// primary bet, which is a hedge, which was ruled out and why) lives in
+// my_path.js and is shown only on the My path page.
 //
 // Deliberate constraint on the market fields: sectors and employer types only.
 // No salary figures, no market-size projections. Those numbers were removed
@@ -17,9 +18,10 @@
 //   hiring    { cl, de, ca } who employs this, by sector, per market
 //   entry     what a realistic entry point looks like
 //   fit       one line: "good fit if ..."
-//   depth     "roadmap" if this site has a full curriculum for it, else "card"
-//   route     hash route to the roadmap or graph, when depth is "roadmap"
-//   track     track id inside the Edge AI graph, when the option maps to one
+//   depth     "roadmap" (curriculum graph plus a long-form document),
+//             "graph" (curriculum graph only), or "card" (this overview only)
+//   route     hash route to the roadmap or graph, unless depth is "card"
+//   track     track id inside that path's graph, when the option maps to one
 
 export const OPTIONS = [
   {
@@ -48,9 +50,8 @@ export const OPTIONS = [
     },
     entry: "The shortest hop for a working backend or full-stack engineer. One shipped system with a real evaluation suite is worth more than any certificate.",
     fit: "Good fit if you like product velocity and treating evaluation, not training, as the hard part.",
-    depth: "roadmap",
-    route: "#/malla",
-    track: "applied",
+    depth: "graph",
+    route: "#/applied-malla",
   },
   {
     id: "data-platform",
@@ -65,7 +66,7 @@ export const OPTIONS = [
     fit: "Good fit if you would rather build the thing ten teams depend on than the model on top of it.",
     depth: "roadmap",
     route: "#/malla",
-    track: "data",
+    track: "platform",
   },
   {
     id: "cloud-sre",

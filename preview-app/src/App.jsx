@@ -4,6 +4,7 @@ import OptionsPage from './pages/OptionsPage.jsx'
 import MyPathPage from './pages/MyPathPage.jsx'
 import StrategyPage from './pages/StrategyPage.jsx'
 import MallaPage from './pages/MallaPage.jsx'
+import AppliedMallaPage from './pages/AppliedMallaPage.jsx'
 import RoadmapPage from './pages/RoadmapPage.jsx'
 import ControlMallaPage from './pages/ControlMallaPage.jsx'
 import ControlRoadmapPage from './pages/ControlRoadmapPage.jsx'
@@ -24,6 +25,7 @@ const CATALOG = [
 
 const PATHS = [
   { name: 'Edge AI / Physical AI', graph: '/malla', roadmap: '/roadmap' },
+  { name: 'Applied AI / LLM', graph: '/applied-malla' },
   { name: 'Control & Robotics', graph: '/control-malla', roadmap: '/control-roadmap' },
   { name: 'AI Security', graph: '/security-malla', roadmap: '/security-roadmap' },
   { name: 'Quantum AI', graph: '/quantum-malla', roadmap: '/quantum-roadmap' },
@@ -70,7 +72,9 @@ function SideNav({ onNavigate }) {
             <span className="side-path-name">{path.name}</span>
             <span className="side-path-links">
               <NavLink to={path.graph} className={activeClass} onClick={onNavigate}>Graph</NavLink>
-              <NavLink to={path.roadmap} className={activeClass} onClick={onNavigate}>Roadmap</NavLink>
+              {path.roadmap
+                ? <NavLink to={path.roadmap} className={activeClass} onClick={onNavigate}>Roadmap</NavLink>
+                : <span className="side-path-soon" title="No long-form roadmap for this path yet">Graph only</span>}
             </span>
           </li>
         ))}
@@ -138,6 +142,7 @@ function Shell() {
             <Route path="/my-path" element={<MyPathPage />} />
             <Route path="/strategy" element={<StrategyPage />} />
             <Route path="/malla" element={<MallaPage />} />
+            <Route path="/applied-malla" element={<AppliedMallaPage />} />
             <Route path="/roadmap" element={<RoadmapPage />} />
             <Route path="/control-malla" element={<ControlMallaPage />} />
             <Route path="/control-roadmap" element={<ControlRoadmapPage />} />

@@ -563,3 +563,13 @@ body { margin: 0; background: var(--bg); }
   }
   .side-path-links a { flex: 0 0 auto; min-width: 84px; }
 }
+
+.side-path-soon {
+  flex: 1;
+  padding: 4px 8px;
+  font-size: 12px;
+  text-align: center;
+  border: 1px dashed var(--border);
+  border-radius: 6px;
+  color: var(--text-tertiary);
+}

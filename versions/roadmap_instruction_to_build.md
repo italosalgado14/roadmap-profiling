@@ -168,3 +168,76 @@ catalog now has a front door.
   instructions and was not built.
 - The new tracks and nodes were added to the Edge AI graph only. The other three
   curricula were left at their v1.0 shape.
+
+# version 1.2 Splitting Applied AI out of Edge AI
+
+*Implemented 2026-08-28, after v1.1 shipped and the structure it produced turned
+out not to hold.*
+
+## What was wrong
+
+v1.1 said "add an Applied AI/LLM track" and that is what was built: a track
+inside the Edge AI graph. Implementing it exposed why it wants to be a path.
+A track inherits its graph's spine, so a reader who selected Applied AI was told
+C++, ONNX model export and CUDA were critical and required. None of those are on
+that career.
+
+The measurement that settled it. Overlap between every pair of Edge AI tracks,
+counting only their non-shared nodes:
+
+| pair | overlap |
+|------|---------|
+| edge and robotics | 0.63 |
+| platform and data | 0.47 |
+| applied against anything | at most 0.25 |
+| applied and safety | 0.00 |
+
+The rule that falls out: a track belongs inside a path when it shares that
+path's spine, and needs its own path when the spine diverges.
+
+The deeper cause is that `priority` and `kind` are path-relative. CUDA is
+critical for a compiler track, desirable for edge and irrelevant for applied.
+v1.1 solved the personal version of this with the overlay. This is the same
+problem one level up, and a track cannot express it.
+
+## What changed
+
+**Applied AI / LLM engineering is now its own path.** `applied_ai_malla.js`,
+39 topics across 9 phases, 5 tracks (AI product engineer, Retrieval and
+knowledge, Agentic systems, LLM platform and serving, Evaluation and trust). Its
+spine is Python, SQL, backend services, testing, LLM fundamentals, prompting,
+context engineering, evaluation, distributed systems and architecture. No C++,
+no CUDA, no ONNX. `CAPAPP` moved here from the Edge AI graph. Route
+`#/applied-malla`.
+
+**Data merged into platform inside Edge AI.** They overlapped 0.47 and are both
+the infrastructure career. The `platform` track is now "ML platform & data
+infra" and Edge AI is back to 5 tracks and 57 topics.
+
+**Course ids that meant two things were renamed.** `ARCH` was both "Security
+architecture" and "Hybrid quantum-classical architecture"; the quantum one is
+now `QARCH`. `CLOUD` was both "Cloud ML platforms" and "Cloud security
+fundamentals"; the security one is now `CLOUDSEC`. `CALC` in quantum covered
+optimization and became `CALCOPT`. Where the topic really was the same and only
+the wording drifted (`PY`, `LEAD`, `LINUX`, `CPP`, `PROB`, `PQC`), the labels
+were aligned instead and the specialisation now lives in the description. The
+validator enforces this from here on: a course id used in more than one graph
+must carry the same label in all of them. That is also what makes carrying
+progress across paths possible later.
+
+**The wide map is opinion-free.** Verdict badges, verdict filters and the
+per-card verdict text were removed, and the page no longer imports the overlay
+at all. The ranking moved entirely to My path, where it is labelled as one
+reader's decision and keeps the reasons, including for the options set aside.
+
+**Navigation is a collapsible sidebar** grouped Catalog, Career paths, Personal,
+instead of eleven pill buttons wrapping onto three lines.
+
+## Not done
+
+- Applied AI has a curriculum graph and a wide-map card, not the long-form
+  roadmap document the other four paths carry. That is a separate writing job.
+- Data and AI platform is still a track inside Edge AI rather than a sixth path.
+  Its 0.47 overlap with platform did not justify a second split in one go.
+- Progress is still stored per graph, so shared ids do not yet carry completion
+  between paths. The id cleanup is what makes that possible, not what does it.
