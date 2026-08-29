@@ -97,6 +97,12 @@ export default function MyPathPage() {
       {status && <p className="overlay-status" role="status">{status}</p>}
 
       <h2 className="section-title">The decision</h2>
+      <p className="section-note">
+        The <a href="#/options">wide map</a> ranks nothing, because what counts as a good path
+        depends on circumstances it cannot know. This is where the ranking lives instead: one
+        reader's primary bet, the hedges kept alongside it, and the options that were considered
+        and set aside, with the reason in each case. Set aside is not the same as bad.
+      </p>
       <div className="verdict-columns">
         <div>
           <h3>Primary</h3>
