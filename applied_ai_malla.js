@@ -67,7 +67,7 @@ export const COURSES = [
   { id: "SQL", phase: "P0", row: 3, label: "SQL & data access",
     priority: "critical", kind: "spine", tracks: ["all"], prereqs: [],
     desc: "Relational modelling, joins, indexes and query plans. Most retrieval systems are a database problem wearing an AI hat.",
-    res:  "Mode SQL tutorial (free) | Use The Index, Luke (free), why: indexing is where naive retrieval gets slow | PostgreSQL docs (free)" },
+    res:  "ThoughtSpot SQL tutorial, formerly Mode (free) | Use The Index, Luke (free), why: indexing is where naive retrieval gets slow | PostgreSQL docs (free)" },
   { id: "PROB", phase: "P0", row: 4, label: "Probability & statistics",
     priority: "critical", kind: "spine", tracks: ["all"], prereqs: [],
     desc: "Distributions, sampling, confidence intervals and significance. The literacy needed to say whether an evaluation result is real.",
@@ -122,7 +122,7 @@ export const COURSES = [
     priority: "critical", kind: "branch", tracks: ["product","agents","quality"],
     prereqs: ["PROMPT"],
     desc: "Prompt injection and indirect injection, input and output filtering, least-privilege tool scopes, and refusing to treat retrieved text as instructions.",
-    res:  "OWASP Top 10 for LLM Applications (free), why: it is the shared vocabulary teams use | Provider safety docs (free) | See also the AI Security roadmap" },
+    res:  "OWASP GenAI Security Project: LLM Top 10 (free), why: it is the shared vocabulary teams use | Provider safety docs (free) | See also the AI Security roadmap" },
 
   // ─── P4 ─ Retrieval ───────────────────────────────────────────────────
   { id: "EMB", phase: "P4", row: 0, label: "Embeddings & semantic search",
@@ -181,8 +181,8 @@ export const COURSES = [
   { id: "SERVE", phase: "P6", row: 2, label: "LLM serving & inference",
     priority: "critical", kind: "branch", tracks: ["platform"],
     prereqs: ["LLM","DOC"],
-    desc: "vLLM and TGI, continuous batching, KV-cache management, quantized serving, streaming, and what happens to tail latency under real concurrency.",
-    res:  "vLLM docs (free), why: the reference implementation of paged attention | Hugging Face TGI docs (free)" },
+    desc: "vLLM and SGLang, continuous batching, KV-cache management, quantized serving, streaming, and what happens to tail latency under real concurrency.",
+    res:  "vLLM docs (free), why: the reference implementation of paged attention | SGLang docs (free)" },
   { id: "COST", phase: "P6", row: 3, label: "Cost & latency engineering",
     priority: "critical", kind: "branch", tracks: ["platform","product"],
     prereqs: ["SERVE"],

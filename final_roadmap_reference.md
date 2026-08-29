@@ -98,7 +98,7 @@ This is a consolidated reference combining major industry analyses (Gartner, WEF
 **Resources:**
 - Coursera: **Machine Learning Specialization**, Andrew Ng, Stanford (✅ included)
 - Book: *Hands-On Machine Learning*, Aurélien Géron (💰 ~$50). Best practical reference.
-- fast.ai Practical ML (🆓)
+- fast.ai Practical Deep Learning for Coders (🆓)
 **Study approach:** Andrew Ng's spec for theory baseline (top-down concepts). Then *Hands-On ML* chapters 1-9 for practical implementation. Skip the theory courses if already comfortable with the math.
 **Project:** End-to-end ML pipeline on a custom dataset: collect/scrape → clean → train → evaluate → ship as a FastAPI endpoint. Public on GitHub with a README that explains every choice. Aim for top-30% on a relevant Kaggle leaderboard with the same model.
 
@@ -156,7 +156,7 @@ This is a consolidated reference combining major industry analyses (Gartner, WEF
 **Prerequisites:** C++, Linear Algebra
 **Unlocks:** TensorRT, GPU kernels
 **Resources:**
-- NVIDIA DLI: **Fundamentals of Accelerated Computing with CUDA C/C++** (💰 ~$90). High signal.
+- NVIDIA DLI: **Fundamentals of Accelerated Computing with Modern CUDA C++** (💰 ~$90). High signal.
 - Coursera: **GPU Programming Specialization**, Johns Hopkins (✅ included)
 - Book: *Programming Massively Parallel Processors* (PMPP), Hwu & Kirk (💰 ~$70). The reference text.
 **Study approach:** NVIDIA DLI Fundamentals course (intensive, paid, worth it). Pair with PMPP textbook for memory-hierarchy depth. Always pair theory with profiling: never write a kernel without measuring it.
@@ -178,7 +178,7 @@ This is a consolidated reference combining major industry analyses (Gartner, WEF
 
 ### 🔴 ONNX & model export
 **Prerequisites:** Deep Learning
-**Unlocks:** TensorRT, TFLite & OpenVINO
+**Unlocks:** TensorRT, LiteRT & OpenVINO
 **Resources:**
 - ONNX Runtime docs: onnxruntime.ai (🆓)
 - ONNX GitHub tutorials (🆓)
@@ -252,15 +252,15 @@ This is a consolidated reference combining major industry analyses (Gartner, WEF
 **Study approach:** UToronto specialization for Kalman/EKF mechanics. Cyrill Stachniss YouTube playlist for SLAM depth: better than any course on this topic.
 **Project:** Implement Kalman filter and EKF from scratch in C++ on simulated GPS+IMU data. Add a particle filter for non-Gaussian cases. Compare your output against a reference solution from Stachniss exercises.
 
-### 🟡 TFLite & OpenVINO
+### 🟡 LiteRT & OpenVINO
 **Prerequisites:** ONNX
 **Unlocks:** Cross-platform edge, MCU deployment
 **Resources:**
-- TFLite docs (🆓)
+- LiteRT docs, formerly TensorFlow Lite (🆓)
 - OpenVINO docs: docs.openvino.ai (🆓)
 - Edge Impulse free tier: edgeimpulse.com
 - Book: *TinyML*, Pete Warden (💰 ~$50)
-**Study approach:** TFLite official guide + Edge Impulse hands-on. Don't skip int8 quantization-aware training (QAT): it's the difference between "barely works" and "production-ready" on MCUs.
+**Study approach:** LiteRT official guide + Edge Impulse hands-on. Don't skip int8 quantization-aware training (QAT): it's the difference between "barely works" and "production-ready" on MCUs.
 **Project:** Deploy a small CV model to a Coral USB accelerator OR Raspberry Pi (CPU). Benchmark against the same model on Jetson. Document the tradeoffs (accuracy vs latency vs power vs cost).
 
 ### 🔴 GPU kernels & profiling (Compiler track)
@@ -296,7 +296,7 @@ This is a consolidated reference combining major industry analyses (Gartner, WEF
 - NVIDIA Jetson tutorials: developer.nvidia.com/blog (🆓). Follow weekly.
 - NVIDIA DLI Jetson workshops (💰 ~$30 each)
 - Book: *AI at the Edge*, Situnayake & Plunkett (💰 ~$50)
-- Hardware: Jetson Orin Nano dev kit (~$249)
+- Hardware: Jetson Orin Nano Super dev kit (~$399)
 **Study approach:** NVIDIA developer blog as the rolling reference. AI at the Edge book as the conceptual framing. Real hardware required: emulators don't exercise the same memory/thermal envelope.
 **Project:** End-to-end edge deployment pipeline on Jetson: TensorRT-optimized model + DeepStream pipeline + Docker container + remote OTA updates + basic monitoring (Prometheus). Public architecture diagram and a writeup of one production gotcha you discover.
 
@@ -310,7 +310,7 @@ This is a consolidated reference combining major industry analyses (Gartner, WEF
 - LangGraph docs: langchain-ai.github.io/langgraph (🆓). **Better than any course for production patterns.**
 - MCP (Model Context Protocol) docs: modelcontextprotocol.io (🆓)
 - Udemy: **The Complete Agentic AI Engineering Course**, Ed Donner (💰 ~$15 on sale)
-**Study approach:** CrewAI free course as warm-up (2 hours). IBM Agentic AI for structure. Then LangGraph documentation: production patterns are not in any course yet, only in the docs. Be skeptical of agentic AI hype: pick one framework and learn it well.
+**Study approach:** CrewAI free course as warm-up (2 hours). IBM RAG and Agentic AI for structure. Then LangGraph documentation: production patterns are not in any course yet, only in the docs. Be skeptical of agentic AI hype: pick one framework and learn it well.
 **Project:** Build a multi-agent system for a real domain task (e.g., industrial sensor monitoring with sensor-agent + analysis-agent + alerts-agent). Add an eval harness with success-rate and cost-per-task metrics. Public repo + writeup that includes failure modes.
 
 ### 🔴 ROS2
@@ -352,9 +352,9 @@ This is a consolidated reference combining major industry analyses (Gartner, WEF
 **Prerequisites:** ROS2, Jetson
 **Unlocks:** Fleet architect
 **Resources:**
-- NVIDIA DLI: Isaac Sim workshops (💰 ~$30)
+- NVIDIA DLI: Introduction to Robotic Simulations in Isaac Sim (💰)
 - Isaac Lab on GitHub: isaac-sim.github.io/IsaacLab (🆓)
-- GR00T Jetson deployment guide: NVIDIA developer blog (🆓)
+- Isaac GR00T deployment guide: github.com/NVIDIA/Isaac-GR00T (🆓)
 **Study approach:** DLI Isaac Sim workshop for structure. Then Isaac Lab examples: production-quality reference code. Sim2real is the hard part; budget extra time for it.
 **Project:** Train a manipulation policy in Isaac Sim, deploy on Jetson with TensorRT, evaluate on a real or simulated robot arm. Document sim2real transfer challenges in a writeup (domain randomization, observation gap, action delay).
 
@@ -471,19 +471,20 @@ This is a consolidated reference combining major industry analyses (Gartner, WEF
 **Prerequisites:** C++, Jetson
 **Why:** An Electronic Engineering + C++ + embedded + Jetson background is an unusually rare fit. Market growing fast, almost no competition for talent.
 **Resources:**
-- Intel Neuromorphic Research Community (INRC): intel.com/neuromorphic (🆓 to apply). Gives access to Loihi 2 hardware.
-- Lava framework: github.com/lava-nc (🆓). Intel's open-source neuromorphic software.
+- snnTorch: snntorch.readthedocs.io (🆓). Actively maintained SNN framework, the practical sandbox now.
+- Lava framework: github.com/lava-nc (🆓, archived by Intel in May 2026; still readable, no longer developed. A successor SDK for the next Loihi is promised but unreleased).
+- Intel Neuromorphic Research Community (INRC): intel.com/neuromorphic. Gave access to Loihi 2 hardware; verify it still accepts members before planning around it.
 - Book: *Neuromorphic Engineering*, Indiveri et al., Springer (💰 ~$100). Academic reference.
-**Study approach:** Apply to INRC early (acceptance can take months). Lava framework as the sandbox. Indiveri's book for theory depth. Read recent Loihi 2 papers: the field publishes mostly in conference proceedings, not journals.
-**Project:** Implement a small SNN model in Lava simulator. If accepted to INRC, deploy on Loihi 2 hardware. Publish on a niche blog or arxiv. The community is small enough that one good blog post gets noticed.
+**Study approach:** Build in snnTorch first; treat Lava as read-only reference material while Intel's tooling is in limbo. Indiveri's book for theory depth. Read recent Loihi 2 papers: the field publishes mostly in conference proceedings, not journals.
+**Project:** Implement a small SNN model in snnTorch. If you get hardware access through INRC, deploy on Loihi 2. Publish on a niche blog or arxiv. The community is small enough that one good blog post gets noticed.
 
 ### 🟢 Quantum-AI hybrids (alternative frontier)
 **Prerequisites:** Linear Algebra, Machine Learning
 **Resources:**
-- IBM Quantum Learning: learning.quantum.ibm.com (🆓)
-- Qiskit Textbook: qiskit.org/learn (🆓)
+- IBM Quantum Learning: quantum.cloud.ibm.com/learning (🆓; it absorbed the retired Qiskit Textbook)
+- Qiskit docs: quantum.cloud.ibm.com/docs (🆓)
 - Book: *Quantum Computation and Quantum Information*, Nielsen & Chuang (💰 ~$75)
-**Study approach:** IBM Quantum Learning + Qiskit Textbook for hands-on. Nielsen & Chuang as the multi-year reference. Be honest about the time horizon: practical commercial impact is 5-10 years out, possibly longer.
+**Study approach:** IBM Quantum Learning for hands-on. Nielsen & Chuang as the multi-year reference. Be honest about the time horizon: practical commercial impact is 5-10 years out, possibly longer.
 **Project:** Implement Grover's search and a quantum-classical hybrid optimization (QAOA) in Qiskit. Run on free IBM Quantum hardware. Blog the experience including the gap between theory and current hardware noise.
 
 ### 🟢 Bio-digital / medical AI (alternative frontier)
@@ -636,7 +637,7 @@ Assuming 10-15 hours/week outside work:
 | Activity | Hours/week |
 |----------|-----------|
 | DeepLearning.AI CrewAI course | 2 |
-| IBM Agentic AI Coursera course | 3 |
+| IBM RAG and Agentic AI Coursera course | 3 |
 | LangGraph + MCP docs | 2 |
 | Build multi-agent project | 3 |
 | italki English | 1 |

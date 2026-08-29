@@ -192,7 +192,7 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 **Resources:**
 - Terraform / OpenTofu: official docs (🆓)
 - Open Policy Agent (OPA) and Rego: docs and playground (🆓)
-- Checkov and tfsec: IaC scanners (🆓)
+- Checkov and Trivy: IaC scanners (🆓; tfsec is retired, its checks live in Trivy now)
 **Study approach:** Infrastructure is code now, which means misconfiguration is a code bug you can catch before it ships. Learn to scan IaC for insecure defaults and to *codify* your own guardrails with OPA/Rego so policy violations fail the plan, not the audit six months later. The habit that matters: express every "we should never do X" as an automated policy, not a wiki page.
 **Project:** Write an OPA/Rego policy that blocks a specific dangerous Terraform pattern (public S3 bucket, security group open to `0.0.0.0/0`), wire it into `terraform plan` via Conftest, and show it failing a bad plan and passing a fixed one.
 
@@ -256,7 +256,7 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 **Resources:**
 - AWS IAM and Microsoft Entra ID: docs (🆓)
 - Rhino Security Labs: cloud privilege-escalation research (🆓)
-- PMapper / Permiso: IAM path-analysis tooling (🆓)
+- Cloudsplaining and pathfinding.cloud: IAM path-analysis tooling (🆓; PMapper has gone unmaintained)
 **Study approach:** Cloud breaches are overwhelmingly IAM breaches: over-broad roles, forgotten access keys, and escalation paths through chained permissions. Master policy evaluation, roles vs. users, federation, and how attackers pivot from a low-privilege foothold to admin. Learn to right-size permissions with access analyzers rather than guessing. The habit that matters: grant the minimum permission that makes the task work, then verify with tooling that no escalation path remains.
 **Project:** Map the privilege-escalation paths in a test cloud account with an IAM analysis tool, find one chain from a low-privilege principal to admin, and remediate it by tightening a single over-broad policy.
 
@@ -362,8 +362,8 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 **Prerequisites:** OWASP Top 10 & web vulns, ML / LLM systems literacy
 **Tracks:** AI/ML & LLM security
 **Resources:**
-- OWASP, *Top 10 for LLM Applications* (🆓)
-- Lakera *Gandalf* and prompt-injection primers (🆓)
+- OWASP GenAI Security Project, *LLM Top 10* (🆓)
+- Lakera *Gandalf: Agent Breaker* and prompt-injection primers (🆓)
 - Simon Willison: ongoing writing on prompt injection (🆓)
 **Study approach:** This is the defining vulnerability class of the AI era, and it has no clean fix: treat the model as a confused, gullible interpreter that cannot reliably separate instructions from data. Master direct prompt injection, *indirect* injection (malicious instructions hidden in retrieved documents or web pages), insecure output handling, and sensitive-information disclosure. Understand why input filtering is a mitigation, not a solution. The habit that matters: never let model output take a privileged action without an independent authorization check.
 **Project:** Build a small LLM app with a tool or database lookup, then demonstrate both a direct and an indirect prompt injection that makes it misbehave (leak data or call a tool it shouldn't). Write up which OWASP-LLM mitigations reduce the risk and which don't.
@@ -446,7 +446,7 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 **Prerequisites:** Detection engineering & threat hunting
 **Tracks:** Cloud & infra security · Application security
 **Resources:**
-- NIST, *SP 800-61: Computer Security Incident Handling Guide* (🆓)
+- NIST, *SP 800-61r3: Incident Response Recommendations and Considerations for Cybersecurity Risk Management* (🆓; Rev 3 replaced the old Incident Handling Guide in 2025)
 - Don Murdoch, *Blue Team Handbook* (💰)
 - TheHive and Velociraptor: IR platforms (🆓)
 **Study approach:** When (not if) something gets through, a calm, practiced process is the difference between a contained incident and a disaster. Learn the IR lifecycle (prepare, detect, contain, eradicate, recover, learn), evidence preservation and chain of custody, and cloud/host forensics basics. Emphasize the blameless post-incident review: the learning step is where security actually improves. The habit that matters: preserve evidence before you remediate, and write the timeline as you go.
@@ -502,7 +502,7 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 **Resources:**
 - AICPA SOC 2 and PCI-DSS: quick references (🆓)
 - GDPR and Chile *Law 21.719* (data protection): primers (🆓)
-- OpenControl and compliance-as-code approaches (🆓)
+- NIST OSCAL and compliance-as-code approaches (🆓; OSCAL superseded OpenControl)
 **Study approach:** Compliance is the price of doing business in regulated sectors: fintech (PCI-DSS, SOC 2), anything with EU users (GDPR), and now Chile's new data-protection law. You don't need to become an auditor, but you should be able to map controls to requirements and, ideally, automate evidence collection so audits stop being fire drills. The habit that matters: collect compliance evidence continuously and automatically, so an audit is a query rather than a scramble.
 **Project:** Pick one framework (SOC 2 or PCI-DSS), map five of its controls to concrete technical implementations in a system you know, and automate evidence collection for at least one of them.
 

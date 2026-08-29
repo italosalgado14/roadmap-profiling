@@ -213,7 +213,7 @@ For a software engineer moving laterally, the highest-return combination is **AI
 **Prerequisites:** Prompting & structured output
 **Tracks:** AI product engineer / Agentic systems / Evaluation & trust
 **Resources:**
-- OWASP, *Top 10 for LLM Applications* (🆓)
+- OWASP GenAI Security Project, *LLM Top 10* (🆓)
 - Provider safety and trust documentation (🆓)
 - See also the AI Security roadmap on this site
 **Study approach:** Prompt injection and indirect injection, input and output filtering, and least-privilege tool scopes. The single rule that prevents most incidents is that retrieved or user-supplied text is data, never instructions. Assume any content your system ingests may be hostile, including a document a user uploaded in good faith that someone else authored.

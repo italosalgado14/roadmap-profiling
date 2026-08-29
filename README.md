@@ -95,7 +95,7 @@ Each entry in `COURSES` looks like this:
   priority: "critical", kind: "spine", tracks: ["all"],
   prereqs: ["ML","DOC"],
   desc: "MLflow, experiment tracking, model serving, monitoring, CI/CD for ML.",
-  res:  "Coursera: MLOps Spec, Andrew Ng | MLOps Zoomcamp (free)" },
+  res:  "Coursera: Machine Learning in Production, Andrew Ng | MLOps Zoomcamp (free)" },
 ```
 
 | Field | Meaning |

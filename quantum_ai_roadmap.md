@@ -126,8 +126,8 @@
 **Tracks:** All specializations
 **Resources:**
 - Nielsen & Chuang, *Quantum Computation and Quantum Information*, ch. 2 is the canonical postulates treatment (💰)
-- IBM Quantum Learning, *Basics of Quantum Information* course, learning.quantum.ibm.com (🆓)
-- Umesh Vazirani, *Quantum Mechanics and Quantum Computation*, UC Berkeley on edX (🆓 audit)
+- IBM Quantum Learning, *Basics of Quantum Information* course, quantum.cloud.ibm.com/learning (🆓)
+- Umesh Vazirani, *Quantum Mechanics and Quantum Computation*, UC Berkeley (🆓; the edX run is archived, use the surviving lecture notes and videos)
 - John Preskill, *Ph219/CS219 Lecture Notes*, Caltech, for postulate-level depth (🆓)
 - 3Blue1Brown, *Essence of Linear Algebra*, YouTube, to lock the prerequisite intuition (🆓)
 **Study approach:** You have the math, so skip the historical wave-particle and Schrödinger-PDE material that physics courses open with and go straight to the linear-algebra formulation. Learn the four postulates as concrete operations: states are complex unit vectors, observables are Hermitian matrices, evolution is a unitary, and the Born rule turns amplitudes into probabilities. Do not let Dirac notation intimidate you: a ket is just a column vector and a bra its conjugate transpose. The one habit that matters: re-derive every postulate as a small NumPy computation on 2- and 4-dimensional vectors until the abstraction feels like matrix algebra you already know.
@@ -165,7 +165,7 @@
 **Prerequisites:** Multi-qubit systems & entanglement
 **Tracks:** All specializations
 **Resources:**
-- IBM Quantum Learning, *Basics of Quantum Information*, gates & circuits modules, learning.quantum.ibm.com (🆓)
+- IBM Quantum Learning, *Basics of Quantum Information*, gates & circuits modules, quantum.cloud.ibm.com/learning (🆓)
 - Nielsen & Chuang, *Quantum Computation and Quantum Information*, ch. 4 (quantum circuits, universal gate sets) (💰)
 - PennyLane, *Codebook*, single- and multi-qubit gate modules, pennylane.ai (🆓)
 - Microsoft, *Quantum Katas*, BasicGates module, Q#/Azure Quantum (🆓)
@@ -278,7 +278,7 @@
 - John Preskill: Caltech *Ph219/CS219* lecture notes, complexity-theory sections (🆓)
 - Scott Aaronson, *Quantum Computing Since Democritus* (💰) and his complexity lecture notes (🆓)
 - Nielsen & Chuang, *Quantum Computation and Quantum Information*, computational-complexity chapter (💰)
-- Umesh Vazirani: UC Berkeley *Quantum Mechanics and Quantum Computation* on edX, complexity lectures (🆓 audit)
+- Umesh Vazirani: UC Berkeley *Quantum Mechanics and Quantum Computation*, complexity lectures (🆓; the edX run is archived, the lectures survive)
 **Study approach:** Build a clear mental map first: BQP sits between P and PSPACE, is believed to *not* contain NP-complete problems, and is not known to be strictly larger than P, so 'quantum solves NP-hard problems fast' is simply wrong. Focus on query complexity, where the provable separations (Deutsch-Jozsa, Simon, Grover lower bounds) actually live, since that is where you can rigorously say 'quantum needs fewer queries.' Skip trying to prove the deep results; aim instead to articulate the speedup taxonomy: exponential for structured problems like factoring, only quadratic for unstructured search, none for many others. This node is your hype vaccine, so treat it as the lens you carry into every QML and 'quantum advantage' claim. The habit: classify each speedup claim by problem structure before believing the marketing.
 **Project:** Write a concise, well-cited explainer (blog post or repo README) that maps the quantum-speedup landscape: a diagram of P/NP/BQP relationships with the actual conjectures stated correctly, a table of known speedups by class (exponential vs. quadratic vs. none) with one canonical algorithm each, and a 'red flags' checklist for spotting overstated quantum-advantage claims. Include a Simon's-algorithm notebook demonstrating a provable exponential query separation.
 
@@ -403,7 +403,7 @@
 - PennyLane / Xanadu: embedding & feature-map demos and the Codebook, pennylane.ai (🆓)
 - Schuld & Petruccione, *Machine Learning with Quantum Computers*, Springer, encoding chapters (💰)
 - Cerezo et al., *Variational Quantum Algorithms*, Nature Reviews Physics / arXiv:2012.09265 (🆓)
-- IBM Quantum Learning: learning.quantum.ibm.com, QML modules (🆓)
+- IBM Quantum Learning: quantum.cloud.ibm.com/learning, QML modules (🆓)
 **Study approach:** Start in PennyLane: implement basis, angle, and amplitude encoding on the same toy dataset so you feel the differences in your hands. The one habit that matters is asking, for every scheme, 'how does the data physically get into the state, and what does loading cost in depth and qubits?': amplitude encoding looks free in big-O but hides expensive state preparation. Skip the QRAM hype; assume you cannot load classical data for free. Internalize that this single bottleneck is why most claimed exponential QML speedups evaporate.
 **Project:** Build a notebook that encodes one small dataset (e.g. Iris, downsampled) three ways (basis, angle, and amplitude) and benchmarks each on qubit count, circuit depth, and state-preparation cost. Note that basis encoding maps bitstrings, so you must first discretize each continuous feature (threshold or k-bin it) before encoding: expect this step rather than misreading it as a bug. The three schemes will land on very different qubit counts (e.g. 4 Iris features → ~2 qubits for amplitude, ~4 for angle, many more for basis after binarization); that asymmetry is part of the lesson, not an error. Visualize the resulting feature states and write a short honest paragraph on which encoding you would use for a real classifier and why the loading cost matters more than the model.
 
@@ -509,11 +509,11 @@
 **Tracks:** Quantum hardware & control
 **Resources:**
 - Krantz et al., *A Quantum Engineer's Guide to Superconducting Qubits*, arXiv:1904.06560, single-qubit drive & DRAG pulse sections (🆓)
-- IBM Quantum / Qiskit, *Qiskit Pulse & OpenPulse* documentation (🆓)
+- Qiskit Dynamics documentation (🆓; Qiskit Pulse was removed in Qiskit 2.0, so pulse work is simulation-first now)
 - Khaneja et al., *Optimal Control of Coupled Spin Dynamics (GRAPE)*, J. Magn. Reson. 2005 (🆓, the classic paper)
 - QuTiP: open-source quantum dynamics simulator with the optimal-control module, qutip.org (🆓)
 - Qiskit Global Summer School: pulse-level control lectures, YouTube (🆓)
-**Study approach:** Start from the physics, not the API: a gate is a rotation generated by driving the qubit at its transition frequency. Pulse area (integrated Rabi frequency) sets the rotation angle; the drive phase sets the rotation axis in the xy-plane and a finite detuning tilts that axis toward z. Use a Rabi sweep to calibrate amplitude→angle and a Ramsey sequence to measure detuning and T2*. Reproduce a Rabi and a Ramsey numerically in QuTiP before touching cloud hardware so the parameters mean something. Then learn Qiskit Pulse to schedule and shape DRAG pulses, and study GRAPE/CRAB as the optimization layer that finds high-fidelity, leakage-suppressed waveforms, but note they suppress leakage only when the leakage levels (e.g. the transmon |2⟩ state) are part of the simulated Hilbert space. The one habit: always connect a pulse parameter (amplitude, duration, detuning, phase) to the Bloch-sphere rotation it produces.
+**Study approach:** Start from the physics, not the API: a gate is a rotation generated by driving the qubit at its transition frequency. Pulse area (integrated Rabi frequency) sets the rotation angle; the drive phase sets the rotation axis in the xy-plane and a finite detuning tilts that axis toward z. Use a Rabi sweep to calibrate amplitude→angle and a Ramsey sequence to measure detuning and T2*. Reproduce a Rabi and a Ramsey numerically in QuTiP before touching cloud hardware so the parameters mean something. Then build pulse schedules in Qiskit Dynamics (Qiskit Pulse itself was removed in Qiskit 2.0) and shape DRAG pulses, and study GRAPE/CRAB as the optimization layer that finds high-fidelity, leakage-suppressed waveforms, but note they suppress leakage only when the leakage levels (e.g. the transmon |2⟩ state) are part of the simulated Hilbert space. The one habit: always connect a pulse parameter (amplitude, duration, detuning, phase) to the Bloch-sphere rotation it produces.
 **Project:** A QuTiP notebook that simulates a driven transmon: extract a Rabi frequency, run a Ramsey to measure detuning and T2*, then calibrate a DRAG pulse for a high-fidelity X gate, reporting the gate fidelity; that single-qubit loop is the shippable core. Stretch goal: use GRAPE to optimize a two-qubit gate, reporting process fidelity versus pulse duration. Replaying the calibration on real IBM hardware is optional and increasingly infeasible: IBM has deprecated Qiskit Pulse/OpenPulse access on its cloud backends, so do not waste time hunting for a free pulse-enabled backend; instead use a simulator-only fallback (qiskit-dynamics pulse simulation, or a Lindblad model in QuTiP with injected noise) to exercise the full calibration loop end to end.
 
 ### 🔴 Control electronics & cryo/RF
@@ -546,7 +546,7 @@
 **Resources:**
 - Fermilab, *QICK*, open-source FPGA/RFSoC qubit-control framework (🆓)
 - Krantz et al., *A Quantum Engineer's Guide to Superconducting Qubits*, arXiv:1904.06560 (🆓)
-- IBM, *Qiskit Pulse* docs, pulse-level control (🆓)
+- Qiskit Dynamics docs, pulse-level simulation (🆓; Qiskit Pulse is retired)
 - QuTiP: open-systems and control simulation toolkit (🆓)
 - Zurich Instruments / Quantum Machines OPX: control-hardware documentation (🆓/vendor)
 **Study approach:** This node converts an embedded/FPGA background directly into a quantum-hardware differentiator. Start with QICK to see real open-source FPGA qubit control (pulse generation, readout, fast feedback) on RFSoC, and read Krantz et al. to ground the control problem in superconducting-qubit physics. Frame the QEC feedback loop as a real-time-systems latency budget: measurement → decode → feedforward must close inside the coherence/round time, often sub-microsecond to a few microseconds. Treat decode latency as deterministic-gateware and pipelining engineering, which is ordinary embedded work in unfamiliar clothes. Skip cloud-only abstractions here.
@@ -556,7 +556,7 @@
 **Prerequisites:** Quantum SDKs & simulators
 **Tracks:** All specializations
 **Resources:**
-- IBM Quantum Learning: learning.quantum.ibm.com, including the Qiskit Runtime *Sampler* and *Estimator* primitives (🆓)
+- IBM Quantum Learning: quantum.cloud.ibm.com/learning, including the Qiskit Runtime *Sampler* and *Estimator* primitives (🆓)
 - Qiskit documentation: transpilation, backends and primitives (🆓)
 - AWS, *Amazon Braket* documentation and example notebooks on GitHub (💰 pay-per-shot)
 - Microsoft, *Azure Quantum* documentation and Q# tooling (🆓 tooling; providers charge per job)
@@ -576,7 +576,7 @@
 - PennyLane / Xanadu, *Hybrid computation* demos, pennylane.ai (🆓)
 - Cerezo et al., *Variational Quantum Algorithms*, Nature Reviews Physics / arXiv (🆓)
 - AWS, *Amazon Braket Hybrid Jobs* documentation (💰 pay-per-shot)
-- IBM Quantum Learning: learning.quantum.ibm.com courses (🆓)
+- IBM Quantum Learning: quantum.cloud.ibm.com/learning courses (🆓)
 **Study approach:** Start by treating the QPU as a slow, noisy, expensive accelerator sitting behind a classical control loop: that framing kills most magical thinking. Build one end-to-end hybrid job on a real cloud QPU and instrument everything: queue time, transpilation, shot count, classical-optimizer iterations. Read the Qiskit Runtime primitives docs to see how IBM actually productionizes this with sessions, batching, and error mitigation. Mind the free tier: IBM's Open Plan now caps real-QPU use at roughly 10 minutes of execution time per month, and error mitigation (resilience levels / ZNE) multiplies the number of circuit executions, so iterate on a simulator and spend hardware time only on a final, deliberately tiny run. The one habit that matters: always benchmark the same problem on a strong classical baseline first, so you can state precisely what (if anything) quantum buys you. Edge-AI orchestration instincts transfer directly here: this is MLOps with a weirder accelerator.
 **Project:** Build a reproducible hybrid-pipeline repo: a classical driver that formulates a small problem, calls a parameterized circuit via Qiskit Runtime primitives (sessions + error mitigation), post-processes the results, and logs latency, shots, and cost. Do all iteration and optimization on a simulator first, then demonstrate it on a real IBM QPU using a single, deliberately tiny circuit (few qubits, low depth, modest shots) with error mitigation enabled only for that final hardware run: keeping you inside IBM's ~10 min/month free-tier budget. Log cost as QPU execution-time in seconds for the IBM path, noting that a dollar figure only applies if you opt into the paid Braket Hybrid Jobs path. Ship a README that compares wall-clock time and solution quality against a pure-classical solver and states honestly when quantum was worth it.
 
@@ -609,7 +609,7 @@
 **Tracks:** Quantum algorithms · Quantum ML researcher
 **Resources:**
 - IBM Quantum, *Qiskit Finance* tutorials: amplitude estimation, option pricing, portfolio optimization (🆓)
-- IBM Quantum Learning: amplitude-estimation course material, learning.quantum.ibm.com (🆓)
+- IBM Quantum Learning: amplitude-estimation course material, quantum.cloud.ibm.com/learning (🆓)
 - Andrew Childs, *Lecture Notes on Quantum Algorithms*, UMD (amplitude amplification) (🆓)
 - Nielsen & Chuang, *Quantum Computation and Quantum Information* (amplitude-estimation foundations) (💰 ~$75)
 - Ronald de Wolf, *Quantum Computing: Lecture Notes*, arXiv (🆓)
