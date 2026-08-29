@@ -40,7 +40,7 @@ export const OVERLAY = {
     "control":        { verdict: "ignore",  why: "Genuinely the most AI-resistant path on this map. Set aside on time cost: entering it properly is a multi-year mathematics investment that would compete with the primary." },
     "cloud-sre":      { verdict: "ignore",  why: "Always hiring and highly portable, but the most commoditised option here and the least differentiated." },
     "governance":     { verdict: "ignore",  why: "Follows from the security hedge without needing its own spine. Literacy is enough." },
-    "embedded":       { verdict: "ignore",  why: "Already present as background. Treated as an input to Physical AI rather than a destination." },
+    "embedded":       { verdict: "ignore",  why: "Now a full path on this site rather than a card, and the one that supplies three of the others. Still set aside personally: it is already present as background, and the intent is to use it as an input to Physical AI rather than to enter hardware design as a destination." },
     "quantum":        { verdict: "ignore",  why: "A long-horizon bet kept as background reading. It must not displace a paying, compounding specialisation." },
     "pqc":            { verdict: "ignore",  why: "Real work with real budgets, but it belongs inside the security hedge rather than as a separate bet." },
     "research":       { verdict: "ignore",  why: "Gated by a PhD that is not on the plan." },

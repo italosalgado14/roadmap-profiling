@@ -27,7 +27,7 @@ export default function OptionsPage() {
       <h1 id="options-title" className="page-title">The wide map</h1>
       <p className="page-subtitle">
         Every career option this site considers, described the same way and in no
-        particular order. {OPTIONS.length} options, five of which have a curriculum
+        particular order. {OPTIONS.length} options, six of which have a curriculum
         behind them. Read this to work out which path is worth your time.
       </p>
 

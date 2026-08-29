@@ -23,6 +23,7 @@ import sys
 FILES = [
     "edge_ai_malla_v3.js",
     "applied_ai_malla.js",
+    "fpga_hardware_malla.js",
     "control_robotics_malla.js",
     "ai_security_malla.js",
     "quantum_ai_malla.js",

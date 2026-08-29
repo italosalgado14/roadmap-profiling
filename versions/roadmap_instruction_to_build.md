@@ -259,3 +259,63 @@ bug: the document cannot disagree with the data it was built from.
 All five paths now have both a graph and a roadmap, so the "Graph only" state in
 the sidebar is currently unused. The branch is kept for the next path that needs
 it.
+
+# version 1.3 FPGA & Digital Hardware path
+
+*Added 2026-08-28, in answer to the question of whether hardware work was
+already covered inside Edge AI.*
+
+## It was not covered
+
+A search across all five graphs found eight hardware-adjacent nodes in total,
+scattered across three of them, and none teaching digital design. What Edge AI
+calls hardware is software running on somebody else's silicon: CUDA, TensorRT,
+GPU kernels, deploying to a Jetson. Control had exactly one embedded node.
+Quantum had two, and named them its highest-moat entry precisely because so few
+candidates arrive with them. Nothing anywhere taught HDL, timing closure,
+verification or board bring-up.
+
+The measurement, taken after the new graph existed. The FPGA path and the Edge
+AI path share six nodes, of which five are generic foundations: Python, C++,
+Git, Linux and technical leadership. **Sixteen of the FPGA path's twenty-one
+spine nodes exist nowhere else on the site.** By the rule established in v1.2,
+that is a divergent spine and therefore a path rather than a track.
+
+## What was added
+
+`fpga_hardware_malla.js`, 45 topics across 9 phases, 5 tracks: ML accelerators,
+Embedded and real-time, DSP and communications, Safety-critical hardware, and
+Instrumentation and control. Route `#/fpga-malla`. The `embedded` wide-map card
+was promoted from overview-only to a curriculum, renamed from "Embedded & FPGA"
+to "FPGA & digital hardware", and rewritten to say plainly that the work is
+designing the datapath rather than writing software for hardware someone else
+designed.
+
+Two ids were chosen around existing collisions: `LOGIC` for digital logic
+design, because `DIGITAL` already means "Digital control" in the Control graph,
+and `TB` for simulation and testbenches, because `SIM` already means "Simulation
+& digital twins" there. Quantum's `CTRL` and `FPGA` nodes were deliberately not
+absorbed; they are that path's differentiator, and the new path cross-links to
+them instead through its own quantum control electronics node.
+
+## The hub argument
+
+This is the only path on the site that supplies three others. ML accelerators
+feed Edge AI from the other side of the interface, real-time execution and motor
+control feed Control and Robotics, and data converters plus the RF signal chain
+feed the Quantum hardware track. Those handoffs are named in node descriptions
+rather than duplicated as nodes.
+
+## Personal layer amendment
+
+`my_path.js` previously justified ignoring the embedded option with "treated as
+an input to Physical AI rather than a destination", which described a card that
+no longer exists in that form. The verdict itself is unchanged, since that is
+the site author's decision and not the catalog's business, but the reason now
+acknowledges that the option is a full path and states the personal position
+explicitly.
+
+## Not done
+
+- No long-form roadmap document yet. The graph and the card ship first, the same
+  order Applied AI followed.

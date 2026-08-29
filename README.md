@@ -4,20 +4,21 @@ A small static site that publishes a set of engineering learning roadmaps on
 GitHub Pages.
 
 It is built in two layers. The **catalog** is neutral and meant to be useful to
-anyone: a wide map of career options, five curricula, and the long-form
-roadmap behind each of them. The **personal layer** is one overlay file on top of it,
+anyone: a wide map of career options, six curricula, and the long-form
+roadmap behind five of them. The **personal layer** is one overlay file on top of it,
 holding one person's verdicts, priority overrides and calendar. Keeping them
 apart is what lets the same curriculum carry a different opinion for every
 reader, and it is why a node is rated by the discipline rather than by whoever
 wrote the site.
 
 The site opens on the wide map. Behind it sit a **Career Strategy** overview and
-**five career paths**, each with an interactive curriculum graph and a
-long-form roadmap:
+**six career paths**. Five have both an interactive curriculum graph and a
+long-form roadmap; FPGA & Digital Hardware currently ships the graph only:
 
 - **Career Strategy**: the meta layer. A 5/10/15-year outlook, durable career principles, and a decision framework (primary specialization, hedge, 90-day actions, annual signals) that ties the four roadmaps together.
 - **Edge AI / Physical AI**: the ML and deployment career (TensorRT, Jetson, robotics, MLOps).
 - **Applied AI / LLM engineering**: building products on foundation models (retrieval, agents, evaluation, serving). Its own path rather than an Edge AI track, because the spine is Python and backend services, not C++ and model export.
+- **FPGA & Digital Hardware**: designing the silicon behaviour itself (digital logic, HDL, timing closure, verification, board bring-up, firmware). The supplier path: accelerators feed Edge AI, real-time execution feeds Control, and the converter and RF signal chain feeds the Quantum hardware track.
 - **Control Systems & Robotics**: the classical, model-based control career (signals and classical control, state-space, estimation/Kalman, MPC, GNC).
 - **AI Security & Trustworthy Systems**: the security career (AppSec, DevSecOps, cloud security, AI/LLM security and AI-code auditing, cryptography, governance). The scenario-robust hedge that pairs with every other path.
 - **Quantum AI**: the quantum machine-learning and quantum-systems career (QM and qubits, gates and SDKs, algorithms, error correction, QML, hardware and control). A long-horizon (5-10+ year) bet.
@@ -33,6 +34,7 @@ long-form roadmap:
 | Edge AI, full roadmap | `#/roadmap` | [`final_roadmap_reference.md`](./final_roadmap_reference.md) |
 | Applied AI / LLM, curriculum graph | `#/applied-malla` | [`applied_ai_malla.js`](./applied_ai_malla.js) |
 | Applied AI / LLM, full roadmap | `#/applied-roadmap` | [`applied_ai_roadmap.md`](./applied_ai_roadmap.md) |
+| FPGA & Hardware, curriculum graph | `#/fpga-malla` | [`fpga_hardware_malla.js`](./fpga_hardware_malla.js) |
 | Control & Robotics, curriculum graph | `#/control-malla` | [`control_robotics_malla.js`](./control_robotics_malla.js) |
 | Control & Robotics, full roadmap | `#/control-roadmap` | [`control_robotics_roadmap.md`](./control_robotics_roadmap.md) |
 | AI Security, curriculum graph | `#/security-malla` | [`ai_security_malla.js`](./ai_security_malla.js) |
@@ -237,6 +239,7 @@ occurs here, which is bad data rather than bad types.
 
 ## What is not done
 
+- **FPGA & Digital Hardware has no long-form roadmap yet.** It ships as a curriculum graph and a wide-map card, the same way Applied AI did before its document was written.
 - **Overlay sharing is by file, not by URL.** Export and import round-trip a JSON overlay. Encoding one into a link fights `HashRouter` and URL length limits, so it was not built.
 - **Verdict and priority edits need a file edit.** The browser owns progress and track selection; changing verdicts or priority overrides means editing `my_path.js` (or an exported overlay) directly.
 - **Code-splitting.** Not needed now that `highlight.js` is out of the bundle.
@@ -254,6 +257,7 @@ occurs here, which is bad data rather than bad types.
 ├── final_roadmap_reference.md      ← source of truth (Edge AI roadmap)
 ├── applied_ai_malla.js             ← curriculum data (Applied AI graph)
 ├── applied_ai_roadmap.md           ← source of truth (Applied AI roadmap)
+├── fpga_hardware_malla.js          ← curriculum data (FPGA & Hardware graph)
 ├── control_robotics_malla.js       ← curriculum data (Control & Robotics graph)
 ├── control_robotics_roadmap.md     ← source of truth (Control & Robotics roadmap)
 ├── ai_security_malla.js            ← curriculum data (AI Security graph)
@@ -284,6 +288,7 @@ occurs here, which is bad data rather than bad types.
             ├── MallaPage.jsx
             ├── AppliedMallaPage.jsx
             ├── AppliedRoadmapPage.jsx
+            ├── FpgaMallaPage.jsx
             ├── RoadmapPage.jsx
             ├── ControlMallaPage.jsx
             ├── ControlRoadmapPage.jsx
