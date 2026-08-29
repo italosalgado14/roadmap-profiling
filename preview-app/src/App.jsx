@@ -5,6 +5,7 @@ import MyPathPage from './pages/MyPathPage.jsx'
 import StrategyPage from './pages/StrategyPage.jsx'
 import MallaPage from './pages/MallaPage.jsx'
 import AppliedMallaPage from './pages/AppliedMallaPage.jsx'
+import AppliedRoadmapPage from './pages/AppliedRoadmapPage.jsx'
 import RoadmapPage from './pages/RoadmapPage.jsx'
 import ControlMallaPage from './pages/ControlMallaPage.jsx'
 import ControlRoadmapPage from './pages/ControlRoadmapPage.jsx'
@@ -25,7 +26,7 @@ const CATALOG = [
 
 const PATHS = [
   { name: 'Edge AI / Physical AI', graph: '/malla', roadmap: '/roadmap' },
-  { name: 'Applied AI / LLM', graph: '/applied-malla' },
+  { name: 'Applied AI / LLM', graph: '/applied-malla', roadmap: '/applied-roadmap' },
   { name: 'Control & Robotics', graph: '/control-malla', roadmap: '/control-roadmap' },
   { name: 'AI Security', graph: '/security-malla', roadmap: '/security-roadmap' },
   { name: 'Quantum AI', graph: '/quantum-malla', roadmap: '/quantum-roadmap' },
@@ -143,6 +144,7 @@ function Shell() {
             <Route path="/strategy" element={<StrategyPage />} />
             <Route path="/malla" element={<MallaPage />} />
             <Route path="/applied-malla" element={<AppliedMallaPage />} />
+            <Route path="/applied-roadmap" element={<AppliedRoadmapPage />} />
             <Route path="/roadmap" element={<RoadmapPage />} />
             <Route path="/control-malla" element={<ControlMallaPage />} />
             <Route path="/control-roadmap" element={<ControlRoadmapPage />} />

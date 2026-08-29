@@ -241,3 +241,21 @@ instead of eleven pill buttons wrapping onto three lines.
   Its 0.47 overlap with platform did not justify a second split in one go.
 - Progress is still stored per graph, so shared ids do not yet carry completion
   between paths. The id cleanup is what makes that possible, not what does it.
+
+## v1.2 amendment
+
+The Applied AI long-form roadmap was written straight after the split.
+`applied_ai_roadmap.md`, 533 lines, covering all 39 nodes with the same
+structure as the other four documents: an executive summary, nine phase
+sections with prerequisites, unlocks, tracks, resources, a study approach and a
+project per node, then the reference sections. Route `#/applied-roadmap`.
+
+The phase sections were generated from `applied_ai_malla.js` rather than typed
+by hand, so every heading, priority marker, prerequisite list and track list is
+guaranteed to match the graph. Only the prose between them was written by hand.
+That removes the drift class that produced the original "41 topics, 4 tracks"
+bug: the document cannot disagree with the data it was built from.
+
+All five paths now have both a graph and a roadmap, so the "Graph only" state in
+the sidebar is currently unused. The branch is kept for the next path that needs
+it.

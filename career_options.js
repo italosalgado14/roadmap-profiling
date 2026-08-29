@@ -36,7 +36,7 @@ export const OPTIONS = [
     entry: "A software or electronics engineer who can already ship code, plus one deployed perception system on real hardware with measured latency and accuracy.",
     fit: "Good fit if you want your code to move something physical and you are comfortable being accountable when it misbehaves.",
     depth: "roadmap",
-    route: "#/malla",
+    route: "#/roadmap",
     track: "edge",
   },
   {
@@ -50,8 +50,9 @@ export const OPTIONS = [
     },
     entry: "The shortest hop for a working backend or full-stack engineer. One shipped system with a real evaluation suite is worth more than any certificate.",
     fit: "Good fit if you like product velocity and treating evaluation, not training, as the hard part.",
-    depth: "graph",
-    route: "#/applied-malla",
+    depth: "roadmap",
+    route: "#/applied-roadmap",
+    track: "product",
   },
   {
     id: "data-platform",
@@ -65,7 +66,7 @@ export const OPTIONS = [
     entry: "A backend engineer who learns SQL at analytical scale and one orchestration tool well. Demand is steady and less hype-driven than modelling roles.",
     fit: "Good fit if you would rather build the thing ten teams depend on than the model on top of it.",
     depth: "roadmap",
-    route: "#/malla",
+    route: "#/roadmap",
     track: "platform",
   },
   {
