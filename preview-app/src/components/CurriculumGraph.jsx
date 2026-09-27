@@ -44,8 +44,9 @@ function trackColorsFor(course, tracks) {
   return course.tracks.map(t => tracks[t]?.color).filter(Boolean);
 }
 
+// With no specialization picked, only the spine counts as the path, so every
+// track-tagged course stays dimmed until its track is selected.
 function isInActiveTracks(course, active) {
-  if (active.size === 0) return true;
   if (course.kind === "spine" || course.tracks.includes("all")) return true;
   return course.tracks.some(t => active.has(t));
 }
@@ -425,7 +426,6 @@ export default function CurriculumGraph({
   }, [sel, chain, courses]);
 
   const relevantSet = useMemo(() => {
-    if (activeTracks.size === 0) return new Set(courses.map(c => c.id));
     return new Set(courses.filter(c => isInActiveTracks(c, activeTracks)).map(c => c.id));
   }, [activeTracks, courses]);
 
@@ -602,7 +602,7 @@ export default function CurriculumGraph({
       ) : (
         <div style={{ fontSize: 12, color: "var(--text-alt)", marginTop: "0.8rem" }}>
           <span style={{ color: "var(--c-green-dim)" }}># </span>
-          Toggle a specialization above to filter the graph. Click a course to see its prerequisites,
+          Pick a specialization above to reveal its courses; the spine shows for every track. Click a course to see its prerequisites,
           what it unlocks, and its resources. Tick [ ] to track progress.
         </div>
       )}
