@@ -122,7 +122,7 @@ function Shell() {
           aria-controls="site-nav"
           onClick={() => setNavOpen(v => !v)}
         >
-          <span aria-hidden="true">{navOpen ? '‹' : '≡'}</span>
+          <span aria-hidden="true">{navOpen ? '[-]' : '[+]'}</span>
           <span className="sr-only">{navOpen ? 'Hide navigation' : 'Show navigation'}</span>
         </button>
         <div className="app-brand">
@@ -162,8 +162,7 @@ function Shell() {
 
       <footer className="app-footer">
         <span>
-          Built with Vite + React ·{' '}
-          <a href="https://github.com/italosalgado14/roadmap-profiling" target="_blank" rel="noreferrer">Source on GitHub</a>
+          Built with Vite + React. <a href="https://github.com/italosalgado14/roadmap-profiling" target="_blank" rel="noreferrer">Source on GitHub</a>
         </span>
       </footer>
     </div>

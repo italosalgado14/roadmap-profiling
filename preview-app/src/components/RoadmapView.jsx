@@ -68,6 +68,25 @@ function buildTabs(sections) {
   return tabs
 }
 
+// Course headings carry their priority as inline code (`critical`,
+// `desirable`, `frontier`). Tag exactly those three so the document's tags use
+// the same colours as the graph's cards; every other inline code is untouched.
+const PRIORITY_TAGS = new Set(['critical', 'desirable', 'frontier'])
+
+const markdownComponents = {
+  code(props) {
+    // react-markdown passes its AST node along; it is not a DOM attribute.
+    const { className, children } = props
+    const rest = { ...props }
+    delete rest.node
+    const text = typeof children === 'string' ? children : null
+    if (!className && text && PRIORITY_TAGS.has(text)) {
+      return <code {...rest} className={`tag tag-${text}`} />
+    }
+    return <code {...rest} />
+  },
+}
+
 export default function RoadmapView({ source, title, subtitle }) {
   const tabs = useMemo(() => buildTabs(splitSections(source)), [source])
   const [activeId, setActiveId] = useState(tabs[0]?.id)
@@ -94,7 +113,7 @@ export default function RoadmapView({ source, title, subtitle }) {
       </nav>
 
       <article className="markdown roadmap-section">
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+        <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
           {active?.body ?? ''}
         </ReactMarkdown>
       </article>

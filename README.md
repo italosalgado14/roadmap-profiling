@@ -54,7 +54,7 @@ Content and presentation are kept apart on purpose:
 
 - **`*_malla.js` at the root** export data only: `PHASES`, `TRACKS` and `COURSES`. No JSX, no imports, no drawing logic. Adding a topic means adding one object to `COURSES`.
 - **`preview-app/src/components/CurriculumGraph.jsx`** is the single renderer for all six graphs. It owns the layout, the SVG dependency edges, the track filter, the legend, the detail panel, and the constants that are the same for every path (priority levels, node kinds).
-- **`preview-app/src/components/MallaPageShell.jsx`** derives the counts shown on each page (`8 phases, 44 topics, 4 specialization tracks`) from the data itself, so a page can never describe a graph that no longer exists.
+- **`preview-app/src/components/MallaPageShell.jsx`** titles each graph page with its path name and derives the counts shown under it (`8 phases of about three months each, 44 topics, 4 specializations`) from the data itself, so a page can never describe a graph that no longer exists.
 - **`preview-app/src/components/RoadmapView.jsx`** splits a roadmap `.md` into Overview / Phase / Reference tabs by reading its heading structure.
 - **`preview-app/src/lib/overlay.js`** handles overlay persistence (localStorage, per graph, every access guarded) and JSON export/import.
 
@@ -263,9 +263,20 @@ contain zero fenced code blocks. The imports are gone. The packages are still in
 code blocks are ever added, re-add highlighting with an explicit, restricted
 language set rather than the full grammar bundle.
 
-**CSS variables shared with the graph.** `CurriculumGraph.jsx` reads CSS custom
-properties like `--color-background-secondary` and `--color-text-info`. They are
-defined in `src/index.css`, with a dark-mode variant via `prefers-color-scheme`.
+**Soft dev-brutalism, one palette for the page and the graph.** The look follows
+`.claude/skills/roadmap-ui`, whose reference is the author's cv-automat page: one
+monospace face (JetBrains Mono), square 2px borders, no radius or shadow, and
+colour used the way a terminal uses it (green headings and active navigation,
+blue links and table heads, cyan sub-labels, amber code and phases, magenta tags).
+The "soft" part is a wider line height for the long roadmaps. The palette lives
+once in `src/index.css` as `--c-*` tokens with light and dark values, and
+`CurriculumGraph.jsx` reads the same tokens instead of hardcoding hex, which is
+what used to leave its pastel cards glaring on a dark page. Priority colours are
+red for critical, amber for desirable and magenta for frontier; green is kept for
+"done", so a finished card can no longer be mistaken for a frontier one. Every
+card also names its priority in text, so colour is never the only signal.
+`RoadmapView` gives the documents' `critical` / `desirable` / `frontier` tags the
+same colours, so a course reads the same in the graph and in its roadmap.
 
 **GitHub Actions via `actions/deploy-pages`.** The current official path, which
 replaces the older `gh-pages` branch pattern. `BASE_PATH` is set from

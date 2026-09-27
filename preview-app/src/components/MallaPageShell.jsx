@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import CurriculumGraph from './CurriculumGraph.jsx'
 import { loadProgress, saveProgress, clearProgress, downloadOverlay, readOverlayFile } from '../lib/overlay.js'
 
-// Page frame shared by the four curriculum graphs.
+// Page frame shared by every curriculum graph.
 //
 // The counts in the subtitle are derived from the data rather than typed in, so
 // adding a phase, a topic or a track cannot leave the page describing a graph
@@ -101,11 +101,11 @@ export default function MallaPageShell({ graph, note, overlay }) {
 
   return (
     <section aria-labelledby="malla-title">
-      <h1 id="malla-title" className="page-title">Curriculum graph</h1>
+      <h1 id="malla-title" className="page-title">{graph.name ?? 'Curriculum graph'}</h1>
       <p className="page-subtitle">
-        {phases} phases, {topics} topics, {trackCount} specialization tracks.
+        Curriculum graph: {phases} phases of about three months each, {topics} topics, {trackCount} specializations.
         {note ? ` ${note}` : ''} Toggle a track to filter the graph; click a node to
-        highlight its dependency chain; tick the checkbox to mark progress.
+        highlight its dependency chain; tick [ ] to mark progress.
       </p>
 
       <div className="overlay-bar">

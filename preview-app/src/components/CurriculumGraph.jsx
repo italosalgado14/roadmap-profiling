@@ -8,10 +8,13 @@ import { useState, useCallback, useMemo } from "react";
 // geometry) is defined here rather than repeated per path.
 
 // ─── Priority (absolute importance) ────────────────────────────────────
+// Colours come from the console palette in index.css, so they follow the
+// light and dark themes. Frontier is magenta rather than green: green means
+// "done" on this graph, and a finished card must not look like a frontier one.
 const PRIORITY = {
-  critical:  { bg: "#fef2f2", border: "#ef4444", text: "#991b1b", label: "Critical"  },
-  desirable: { bg: "#fefce8", border: "#eab308", text: "#854d0e", label: "Desirable" },
-  frontier:  { bg: "#f0fdf4", border: "#22c55e", text: "#166534", label: "Frontier"  },
+  critical:  { color: "var(--c-red)",     label: "Critical"  },
+  desirable: { color: "var(--c-amber)",   label: "Desirable" },
+  frontier:  { color: "var(--c-magenta)", label: "Frontier"  },
 };
 
 // ─── Kind (role in the path) ───────────────────────────────────────────
@@ -24,10 +27,12 @@ const KINDS = {
   elective: { label: "Elective", desc: "Optional, cross-cutting"           },
 };
 
-const SPINE_COLOR = "#64748b";
+const SPINE_COLOR = "var(--text-alt)";
 
 // ─── Layout ───────────────────────────────────────────────────────────
-const W = 126, H = 50, GX = 28, GY = 8, PT = 40, PB = 12, PX = 8, STRIPE = 3;
+// Sized for a monospace face: at 10px a glyph is about 6px wide, so a 150px
+// card fits the longest label (46 characters) on two lines.
+const W = 150, H = 54, GX = 28, GY = 8, PT = 48, PB = 12, PX = 8, STRIPE = 3;
 const CW = W + 2 * PX;
 // How far a same-column edge bulges into the gutter to clear the cards it
 // would otherwise pass behind. There is PX + GX = 36px of clear space beside
@@ -84,71 +89,73 @@ function edgePath(from, to, pos, colOf, lastCol) {
 
 function TrackFilter({ tracks, trackIds, active, onToggle, onClear, count, total }) {
   const btnStyle = (id, on) => ({
-    fontSize: 11, padding: "4px 9px", borderRadius: 6, cursor: "pointer",
-    border: `1px solid ${tracks[id].color}`,
+    fontSize: 12, padding: "0 8px", cursor: "pointer", fontWeight: 700,
+    border: `2px solid ${tracks[id].color}`,
     background: on ? tracks[id].color : "transparent",
-    color: on ? "#fff" : tracks[id].color,
-    fontWeight: 500, transition: "all 0.15s",
+    color: on ? "var(--bg)" : tracks[id].color,
   });
   return (
     <div style={{
-      display: "flex", alignItems: "center", flexWrap: "wrap", gap: 6,
-      marginBottom: "0.5rem", paddingBottom: "0.5rem",
-      borderBottom: "0.5px solid var(--color-border-tertiary)",
+      display: "flex", alignItems: "center", flexWrap: "wrap", gap: 8,
+      marginBottom: "0.6rem", paddingBottom: "0.6rem",
+      borderBottom: "2px solid var(--text)",
     }}>
-      <span style={{ fontSize: 11, color: "var(--color-text-secondary)", fontWeight: 500, marginRight: 4 }}>
-        Specialization:
+      <span style={{
+        fontSize: 11, fontWeight: 800, textTransform: "uppercase",
+        color: "var(--c-cyan)", marginRight: 2,
+      }}>
+        Specialization
       </span>
       {trackIds.map(id => (
-        <button key={id} onClick={() => onToggle(id)} aria-pressed={active.has(id)} style={btnStyle(id, active.has(id))}>
+        <button key={id} type="button" onClick={() => onToggle(id)} aria-pressed={active.has(id)} style={btnStyle(id, active.has(id))}>
           {tracks[id].label}
         </button>
       ))}
       {active.size > 0 && (
-        <button onClick={onClear} style={{
-          fontSize: 10, padding: "3px 8px", cursor: "pointer", marginLeft: 4,
-          color: "var(--color-text-tertiary)", background: "transparent",
-          border: "1px solid var(--color-border-tertiary)", borderRadius: 6,
-        }}>Clear</button>
+        <button type="button" onClick={onClear} style={{
+          fontSize: 12, padding: 0, cursor: "pointer", marginLeft: 2,
+          color: "var(--text-alt)", background: "transparent", border: 0,
+        }}>[clear]</button>
       )}
-      <span style={{ marginLeft: "auto", fontSize: 11, color: "var(--color-text-tertiary)" }}>
-        {count}/{total} done {total > 0 && `(${Math.round((count / total) * 100)}%)`}
+      <span style={{ marginLeft: "auto", fontSize: 12, color: "var(--text-alt)" }}>
+        <strong style={{ color: "var(--c-green)" }}>{count}</strong>/{total} done
+        {total > 0 && ` (${Math.round((count / total) * 100)}%)`}
       </span>
     </div>
   );
 }
 
-function Legend({ tracks, trackIds }) {
-  const swatch = (bg, border) => (
-    <div style={{ width: 9, height: 9, borderRadius: 2, background: bg, border: `1.5px solid ${border}` }} />
+function Legend({ tracks, trackIds, hasOverrides }) {
+  const swatch = (color) => (
+    <div style={{ width: 10, height: 10, border: `2px solid ${color}` }} />
   );
+  const item = { display: "flex", alignItems: "center", gap: 5 };
   return (
     <div style={{
       display: "flex", alignItems: "center", flexWrap: "wrap",
-      gap: 14, fontSize: 10, marginBottom: "0.6rem",
-      color: "var(--color-text-tertiary)",
+      gap: "6px 18px", fontSize: 11, marginBottom: "0.7rem",
+      color: "var(--text-alt)",
     }}>
-      <div style={{ display: "flex", gap: 8 }}>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
         {Object.entries(PRIORITY).map(([k, v]) => (
-          <div key={k} style={{ display: "flex", alignItems: "center", gap: 3 }}>
-            {swatch(v.bg, v.border)}<span>{v.label}</span>
-          </div>
+          <div key={k} style={item}>{swatch(v.color)}<span>{v.label}</span></div>
         ))}
+        <div style={item}>{swatch("var(--c-green)")}<span>Done</span></div>
       </div>
-      <span style={{ color: "var(--color-border-tertiary)" }}>·</span>
-      <div style={{ display: "flex", gap: 10 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 3 }}>
-          <div style={{ width: 14, height: 3, background: SPINE_COLOR, borderRadius: 1 }} />
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+        <div style={item}>
+          <div style={{ width: 16, height: 3, background: SPINE_COLOR }} />
           <span>Spine stripe</span>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 3 }}>
-          <div style={{ width: 14, height: 3, display: "flex", borderRadius: 1, overflow: "hidden" }}>
+        <div style={item}>
+          <div style={{ width: 16, height: 3, display: "flex" }}>
             {trackIds.map(t => (
               <div key={t} style={{ flex: 1, background: tracks[t].color }} />
             ))}
           </div>
           <span>Branch / elective stripe (per track)</span>
         </div>
+        {hasOverrides && <div style={item}><span>* personal rating</span></div>}
       </div>
     </div>
   );
@@ -164,6 +171,8 @@ function CourseNode({ course, priority, overridden, tracks, pos, isSel, isDim, i
     fn(e);
   };
 
+  const borderColor = isSel ? "var(--c-blue)" : isDone ? "var(--c-green)" : pr.color;
+
   return (
     <div
       role="button"
@@ -175,36 +184,39 @@ function CourseNode({ course, priority, overridden, tracks, pos, isSel, isDim, i
       style={{
         position: "absolute", left: pos.x, top: pos.y, width: W, height: H,
         zIndex: isSel ? 10 : 2,
-        background: isDone ? "var(--color-background-success, #f0fdf4)" : pr.bg,
-        border: isSel ? "2px solid #3b82f6"
-              : `1px solid ${isDone ? "var(--color-border-success, #22c55e)" : pr.border}`,
-        borderRadius: "var(--border-radius-md, 8px)",
+        background: isSel ? "var(--c-blue-bg)" : isDone ? "var(--bg-alt)" : "var(--bg)",
+        border: `2px solid ${borderColor}`,
         cursor: "pointer",
         opacity: isDim ? 0.15 : 1,
-        transition: "opacity 0.2s, transform 0.15s",
-        transform: isSel ? "scale(1.05)" : "scale(1)",
+        transition: "opacity 0.2s",
         overflow: "hidden",
         display: "flex", flexDirection: "column",
       }}>
       {/* Track stripe */}
-      <div style={{
-        height: STRIPE, display: "flex",
-        borderTopLeftRadius: "var(--border-radius-md, 8px)",
-        borderTopRightRadius: "var(--border-radius-md, 8px)",
-        overflow: "hidden", flexShrink: 0,
-      }}>
+      <div style={{ height: STRIPE, display: "flex", flexShrink: 0 }}>
         {stripeColors.map((c, i) => (
           <div key={i} style={{ flex: 1, background: c }} />
         ))}
       </div>
 
-      {/* Body */}
+      {/* Body: the label on top, then the checkbox, id and priority */}
       <div style={{
-        flex: 1, padding: "3px 6px 2px",
-        display: "flex", flexDirection: "column", justifyContent: "center", overflow: "hidden",
+        flex: 1, padding: "2px 5px 2px 6px", minHeight: 0,
+        display: "flex", flexDirection: "column", justifyContent: "space-between",
       }}>
-        <div style={{ display: "flex", alignItems: "flex-start", gap: 3 }}>
-          <div
+        <span style={{
+          fontSize: 10, fontWeight: 700, lineHeight: "12px",
+          color: isDone ? "var(--text-alt)" : "var(--text)",
+          textDecoration: isDone ? "line-through" : "none",
+          overflow: "hidden", display: "-webkit-box",
+          WebkitLineClamp: 2, WebkitBoxOrient: "vertical",
+        }}>{course.label}</span>
+
+        <div style={{
+          display: "flex", alignItems: "center", gap: 4,
+          fontSize: 8.5, lineHeight: "11px", whiteSpace: "nowrap",
+        }}>
+          <span
             role="checkbox"
             aria-checked={isDone}
             tabIndex={isDim ? -1 : 0}
@@ -212,22 +224,16 @@ function CourseNode({ course, priority, overridden, tracks, pos, isSel, isDim, i
             onClick={onToggleDone}
             onKeyDown={activate(onToggleDone)}
             style={{
-              width: 12, height: 12, borderRadius: 2, flexShrink: 0, marginTop: 1,
-              border: isDone ? "none" : `1.5px solid ${pr.border}`,
-              background: isDone ? "var(--color-text-success, #16a34a)" : "white",
-              display: "flex", alignItems: "center", justifyContent: "center",
-              fontSize: 8, color: "white", cursor: "pointer",
-            }}>{isDone ? "✓" : ""}</div>
+              flexShrink: 0, cursor: "pointer", fontWeight: 800,
+              color: isDone ? "var(--c-green)" : "var(--text-alt)",
+            }}>{isDone ? "[x]" : "[ ]"}</span>
           <span style={{
-            fontSize: 10, fontWeight: 500, lineHeight: 1.2,
-            color: isDone ? "var(--color-text-success, #166534)" : pr.text,
-            textDecoration: isDone ? "line-through" : "none",
-            overflow: "hidden", display: "-webkit-box",
-            WebkitLineClamp: 2, WebkitBoxOrient: "vertical",
-          }}>{course.label}</span>
-        </div>
-        <div style={{ fontSize: 7, color: "var(--color-text-tertiary)", marginTop: 1, marginLeft: 15 }}>
-          {course.id}{overridden ? " ·override" : ""}
+            flex: 1, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis",
+            color: "var(--text-alt)",
+          }}>{course.id}</span>
+          <span style={{ flexShrink: 0, fontWeight: 700, color: pr.color }}>
+            {priority}{overridden ? "*" : ""}
+          </span>
         </div>
       </div>
     </div>
@@ -240,78 +246,84 @@ function DetailPanel({ course, priority, overridden, courses, cMap, phases, trac
   const unlocks = courses.filter(c => c.prereqs.includes(course.id));
   const tracksDisplay = course.tracks.includes("all")
     ? "All specializations"
-    : course.tracks.map(t => tracks[t]?.label).filter(Boolean).join(" · ");
+    : course.tracks.map(t => tracks[t]?.label).filter(Boolean).join(", ");
+  // Resources are listed best match first (the career-roadmaps standard), so
+  // the first entry is labelled as the one to start with.
+  const resources = course.res.split("|").map(r => r.trim()).filter(Boolean);
 
-  const tag = (text, color, bg) => (
+  const tag = (text, color) => (
     <span style={{
-      fontSize: 9, padding: "1px 5px", borderRadius: 3,
-      background: bg, color, border: `1px solid ${color}66`,
-      fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.04em",
+      fontSize: 10, padding: "0 5px", color, border: `2px solid ${color}`,
+      fontWeight: 700, textTransform: "uppercase",
     }}>{text}</span>
   );
+  const label = (text) => (
+    <span style={{
+      fontSize: 10, fontWeight: 800, textTransform: "uppercase",
+      color: "var(--c-cyan)", marginRight: 6,
+    }}>{text}</span>
+  );
+  const linkBtn = {
+    color: "var(--c-blue)", cursor: "pointer", fontSize: 12,
+    textDecoration: "underline", textDecorationThickness: 2, textUnderlineOffset: 2,
+    background: "none", border: "none", padding: 0, font: "inherit",
+  };
 
   return (
     <div style={{
-      marginTop: "0.6rem", padding: "0.6rem 0.8rem",
-      background: "var(--color-background-primary)",
-      border: "0.5px solid var(--color-border-tertiary)",
-      borderRadius: "var(--border-radius-lg, 12px)", fontSize: 12,
+      marginTop: "0.8rem", padding: "0.7rem 1.5ch",
+      background: "var(--bg)", border: "2px solid var(--text)", fontSize: 12,
     }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 6 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
         <div style={{ flex: 1 }}>
-          <div style={{ display: "flex", gap: 4, alignItems: "center", flexWrap: "wrap" }}>
-            {tag(pr.label, pr.text, pr.bg)}
-            {overridden && tag("your rating", "#4338ca", "#eef2ff")}
-            {tag(KINDS[course.kind].label, "#475569", "#f1f5f9")}
-            <span style={{ fontSize: 9, color: "var(--color-text-tertiary)" }}>
-              {phase?.label} · {phase?.subtitle}
+          <div style={{ display: "flex", gap: 6, alignItems: "center", flexWrap: "wrap" }}>
+            {tag(pr.label, pr.color)}
+            {overridden && tag("your rating", "var(--c-blue)")}
+            {tag(KINDS[course.kind].label, "var(--c-cyan)")}
+            <span style={{ fontSize: 11, fontWeight: 700, color: "var(--c-amber)" }}>
+              {phase?.label}: {phase?.subtitle}
             </span>
           </div>
-          <h3 style={{ fontSize: 14, fontWeight: 500, margin: "4px 0 0" }}>{course.label}</h3>
-          <div style={{ fontSize: 11, color: "var(--color-text-tertiary)", marginTop: 2 }}>
-            <strong style={{ color: "var(--color-text-secondary)", fontWeight: 500 }}>Tracks:</strong> {tracksDisplay}
+          <h3 style={{ fontSize: 15, fontWeight: 800, margin: "8px 0 2px" }}>
+            <span style={{ color: "var(--c-green)", fontWeight: 600 }}>$ </span>{course.label}
+          </h3>
+          <div style={{ fontSize: 12, marginTop: 4 }}>
+            {label("Tracks")}<span style={{ color: "var(--text-alt)" }}>{tracksDisplay}</span>
           </div>
           {overridden && (
-            <div style={{ fontSize: 10, color: "var(--color-text-tertiary)", marginTop: 2 }}>
+            <div style={{ fontSize: 11, color: "var(--text-alt)", marginTop: 4 }}>
               The catalog rates this <strong>{PRIORITY[course.priority].label}</strong>. Your overlay raises or lowers it.
             </div>
           )}
         </div>
-        <button onClick={onClose} style={{ fontSize: 10, padding: "1px 6px", cursor: "pointer", flexShrink: 0 }}>
-          Close
-        </button>
+        <button type="button" onClick={onClose} style={{
+          fontSize: 12, padding: 0, cursor: "pointer", flexShrink: 0,
+          color: "var(--text-alt)", background: "transparent", border: 0,
+        }}>[close]</button>
       </div>
 
-      <p style={{ fontSize: 12, color: "var(--color-text-secondary)", margin: "6px 0", lineHeight: 1.5 }}>
+      <p style={{ fontSize: 12.5, margin: "10px 0", lineHeight: 1.6 }}>
         {course.desc}
       </p>
 
       {course.prereqs.length > 0 && (
-        <div style={{ marginBottom: 4 }}>
-          <span style={{ color: "var(--color-text-tertiary)", fontSize: 11 }}>Requires: </span>
+        <div style={{ marginBottom: 6 }}>
+          {label("Requires")}
           {course.prereqs.map((pid, i) => (
             <span key={pid}>
-              <button type="button" onClick={() => onSelect(pid)} style={{
-                color: "var(--color-text-info, #2563eb)",
-                cursor: "pointer", textDecoration: "underline", fontSize: 11,
-                background: "none", border: "none", padding: 0, font: "inherit",
-              }}>{cMap[pid]?.label}</button>
-              {i < course.prereqs.length - 1 ? " → " : ""}
+              <button type="button" onClick={() => onSelect(pid)} style={linkBtn}>{cMap[pid]?.label}</button>
+              {i < course.prereqs.length - 1 ? ", " : ""}
             </span>
           ))}
         </div>
       )}
 
       {unlocks.length > 0 && (
-        <div style={{ marginBottom: 4 }}>
-          <span style={{ color: "var(--color-text-tertiary)", fontSize: 11 }}>Unlocks: </span>
+        <div style={{ marginBottom: 6 }}>
+          {label("Unlocks")}
           {unlocks.map((u, i) => (
             <span key={u.id}>
-              <button type="button" onClick={() => onSelect(u.id)} style={{
-                color: "var(--color-text-info, #2563eb)",
-                cursor: "pointer", textDecoration: "underline", fontSize: 11,
-                background: "none", border: "none", padding: 0, font: "inherit",
-              }}>{u.label}</button>
+              <button type="button" onClick={() => onSelect(u.id)} style={linkBtn}>{u.label}</button>
               {i < unlocks.length - 1 ? ", " : ""}
             </span>
           ))}
@@ -319,12 +331,20 @@ function DetailPanel({ course, priority, overridden, courses, cMap, phases, trac
       )}
 
       <div style={{
-        fontSize: 11, padding: "6px 8px", marginTop: 4,
-        background: "var(--color-background-secondary)",
-        borderRadius: "var(--border-radius-md, 8px)", lineHeight: 1.5,
+        marginTop: 8, padding: "6px 1.5ch", lineHeight: 1.55,
+        background: "var(--bg-alt)", borderLeft: "2px solid var(--c-green-dim)",
       }}>
-        <span style={{ fontWeight: 500 }}>Resources: </span>
-        <span style={{ color: "var(--color-text-secondary)" }}>{course.res}</span>
+        {label("Resources")}
+        <ol style={{ margin: "4px 0 0", paddingLeft: "3ch" }}>
+          {resources.map((r, i) => (
+            <li key={i} style={{ margin: "2px 0" }}>
+              {i === 0 && (
+                <span style={{ color: "var(--c-green)", fontWeight: 800 }}>best match: </span>
+              )}
+              <span style={{ color: i === 0 ? "var(--text)" : "var(--text-alt)" }}>{r}</span>
+            </li>
+          ))}
+        </ol>
       </div>
     </div>
   );
@@ -334,7 +354,7 @@ function ArrowDefs({ id, color, width }) {
   return (
     <defs>
       <marker id={id} markerWidth="6" markerHeight="6" refX="6" refY="3" orient="auto">
-        <path d="M0,0 L6,3 L0,6" fill="none" stroke={color} strokeWidth={width} />
+        <path d="M0,0 L6,3 L0,6" fill="none" strokeWidth={width} style={{ stroke: color }} />
       </marker>
     </defs>
   );
@@ -471,12 +491,14 @@ export default function CurriculumGraph({
       : (sel && !chainEdges.has(e.key)) || !relevantSet.has(e.f) || !relevantSet.has(e.t);
     return (
       <path key={e.key} d={e.d} fill="none"
-        stroke={highlighted ? "#3b82f6" : "var(--color-border-secondary)"}
-        strokeWidth={highlighted ? 1.5 : 0.75}
-        strokeDasharray={highlighted ? "none" : "3,2"}
+        strokeWidth={highlighted ? 2 : 1}
+        strokeDasharray={highlighted ? "none" : "3,3"}
         markerEnd={highlighted ? "url(#edge-arrow-hl)" : "url(#edge-arrow)"}
-        opacity={dimmed ? 0.08 : highlighted ? 1 : 0.4}
-        style={{ transition: "opacity 0.2s" }} />
+        opacity={dimmed ? 0.08 : highlighted ? 1 : 0.45}
+        style={{
+          stroke: highlighted ? "var(--c-blue)" : "var(--text-alt)",
+          transition: "opacity 0.2s",
+        }} />
     );
   };
 
@@ -484,7 +506,7 @@ export default function CurriculumGraph({
   const otherPaths = sel ? edges.filter(e => !chainEdges.has(e.key)) : edges;
 
   return (
-    <div style={{ fontFamily: "var(--font-sans, system-ui)", padding: "0.5rem 0" }}>
+    <div style={{ fontFamily: "var(--font)", padding: "0.5rem 0" }}>
       <h2 className="sr-only">
         {srLabel} with {phases.length} phases, {trackIds.length} specialization tracks,
         and prerequisite dependencies
@@ -499,33 +521,39 @@ export default function CurriculumGraph({
         count={doneInRelevant}
         total={relevantSet.size}
       />
-      <Legend tracks={tracks} trackIds={trackIds} />
+      <Legend tracks={tracks} trackIds={trackIds} hasOverrides={Object.keys(priorityOverrides).length > 0} />
 
       <div style={{ width: "100%", overflowX: "auto", WebkitOverflowScrolling: "touch", paddingBottom: 6 }}>
         <div style={{ position: "relative", width: TW, height: TH }}>
 
           {/* Phase columns (background) */}
+          {/* A phase is a quarter, so each column header also names its months. */}
           {phases.map((p, col) => (
             <div key={p.id} style={{
               position: "absolute", left: col * (CW + GX), top: 0, width: CW, height: TH - 12,
-              background: "var(--color-background-secondary)",
-              borderRadius: "var(--border-radius-lg, 12px)",
-              border: "0.5px solid var(--color-border-tertiary)", zIndex: 0,
+              background: "var(--bg-alt)", zIndex: 0,
             }}>
               <div style={{
-                padding: "6px 8px", fontSize: 11, fontWeight: 500, color: p.color,
-                borderBottom: `1.5px solid ${p.color}22`,
-                display: "flex", justifyContent: "space-between", alignItems: "baseline",
+                padding: "5px 8px 4px", borderBottom: "2px solid var(--c-amber)",
+                whiteSpace: "nowrap", overflow: "hidden",
               }}>
-                <span>{p.label}</span>
-                <span style={{ fontSize: 8, fontWeight: 400, color: "var(--color-text-tertiary)" }}>{p.subtitle}</span>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 6 }}>
+                  <span style={{ fontSize: 11, fontWeight: 800, textTransform: "uppercase", color: "var(--c-amber)" }}>
+                    {p.label}
+                  </span>
+                  <span style={{ fontSize: 9, color: "var(--text-alt)" }}>m{col * 3}-{col * 3 + 3}</span>
+                </div>
+                <div title={p.subtitle} style={{
+                  fontSize: 9, color: "var(--text-alt)", marginTop: 1,
+                  overflow: "hidden", textOverflow: "ellipsis",
+                }}>{p.subtitle}</div>
               </div>
             </div>
           ))}
 
           {/* Unhighlighted edges, behind the cards */}
           <svg style={{ ...svgBox, zIndex: 1 }}>
-            <ArrowDefs id="edge-arrow" color="var(--color-border-secondary)" width="1" />
+            <ArrowDefs id="edge-arrow" color="var(--text-alt)" width="1" />
             {otherPaths.map(e => renderEdge(e, false))}
           </svg>
 
@@ -553,7 +581,7 @@ export default function CurriculumGraph({
               chain is never hidden behind the nodes it passes. */}
           {chainPaths.length > 0 && (
             <svg style={{ ...svgBox, zIndex: 20 }}>
-              <ArrowDefs id="edge-arrow-hl" color="#3b82f6" width="1.5" />
+              <ArrowDefs id="edge-arrow-hl" color="var(--c-blue)" width="1.5" />
               {chainPaths.map(e => renderEdge(e, true))}
             </svg>
           )}
@@ -572,12 +600,10 @@ export default function CurriculumGraph({
           onClose={() => setSel(null)}
           onSelect={setSel} />
       ) : (
-        <div style={{
-          fontSize: 10, color: "var(--color-text-tertiary)",
-          marginTop: "0.6rem", textAlign: "center",
-        }}>
-          Toggle a specialization above to filter the graph. Click a course to see prerequisites,
-          unlocked courses, and resources. Check boxes to track progress.
+        <div style={{ fontSize: 12, color: "var(--text-alt)", marginTop: "0.8rem" }}>
+          <span style={{ color: "var(--c-green-dim)" }}># </span>
+          Toggle a specialization above to filter the graph. Click a course to see its prerequisites,
+          what it unlocks, and its resources. Tick [ ] to track progress.
         </div>
       )}
     </div>
