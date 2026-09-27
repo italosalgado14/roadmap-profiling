@@ -533,5 +533,3 @@ strong { font-weight: 800; }
 .markdown code.tag-critical  { color: var(--c-red); }
 .markdown code.tag-desirable { color: var(--c-amber); }
 .markdown code.tag-frontier  { color: var(--c-magenta); }
-.markdown li code,
-.markdown h3 code { white-space: nowrap; }
