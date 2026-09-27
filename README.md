@@ -15,7 +15,7 @@ The site opens on the wide map. Behind it sit a **Career Strategy** overview and
 **six career paths**. Five have both an interactive curriculum graph and a
 long-form roadmap; FPGA & Digital Hardware currently ships the graph only:
 
-- **Career Strategy**: the meta layer. A 5/10/15-year outlook, durable career principles, and a decision framework (primary specialization, hedge, 90-day actions, annual signals) that ties the four roadmaps together.
+- **Career Strategy**: the meta layer. A 5/10/15-year outlook, durable career principles, and a decision framework (primary specialization, hedge, 90-day actions, annual signals) that ties the roadmaps together.
 - **Edge AI / Physical AI**: the ML and deployment career (TensorRT, Jetson, robotics, MLOps).
 - **Applied AI / LLM engineering**: building products on foundation models (retrieval, agents, evaluation, serving). Its own path rather than an Edge AI track, because the spine is Python and backend services, not C++ and model export.
 - **FPGA & Digital Hardware**: designing the silicon behaviour itself (digital logic, HDL, timing closure, verification, board bring-up, firmware). The supplier path: accelerators feed Edge AI, real-time execution feeds Control, and the converter and RF signal chain feeds the Quantum hardware track.
@@ -53,8 +53,8 @@ them as a web app, and it owns all the rendering.
 Content and presentation are kept apart on purpose:
 
 - **`*_malla.js` at the root** export data only: `PHASES`, `TRACKS` and `COURSES`. No JSX, no imports, no drawing logic. Adding a topic means adding one object to `COURSES`.
-- **`preview-app/src/components/CurriculumGraph.jsx`** is the single renderer for all four graphs. It owns the layout, the SVG dependency edges, the track filter, the legend, the detail panel, and the constants that are the same for every path (priority levels, node kinds).
-- **`preview-app/src/components/MallaPageShell.jsx`** derives the counts shown on each page (`9 phases, 44 topics, 5 specialization tracks`) from the data itself, so a page can never describe a graph that no longer exists.
+- **`preview-app/src/components/CurriculumGraph.jsx`** is the single renderer for all six graphs. It owns the layout, the SVG dependency edges, the track filter, the legend, the detail panel, and the constants that are the same for every path (priority levels, node kinds).
+- **`preview-app/src/components/MallaPageShell.jsx`** derives the counts shown on each page (`8 phases, 44 topics, 4 specialization tracks`) from the data itself, so a page can never describe a graph that no longer exists.
 - **`preview-app/src/components/RoadmapView.jsx`** splits a roadmap `.md` into Overview / Phase / Reference tabs by reading its heading structure.
 - **`preview-app/src/lib/overlay.js`** handles overlay persistence (localStorage, per graph, every access guarded) and JSON export/import.
 
@@ -65,9 +65,13 @@ them made the catalog quietly wrong for everyone except its author.
 
 **Catalog** (`career_options.js`, the `*_malla.js` modules, the roadmap `.md`
 files). Neutral. A node's `priority` says how central it is to the discipline,
-not how much one reader should care. Market claims are qualitative: sectors and
-employer types, never salaries or market-size projections, because those cannot
-be verified and dated badly.
+not how much one reader should care. Market claims follow one rule with two
+places. Wide-map cards and course `desc`/`res` stay qualitative: sectors and
+employer types, because an unsourced number in a card cannot be checked and
+dates badly. Demand figures appear only in each roadmap's Executive Summary and
+in the strategy essay, and only as dated citations of the sources listed in
+`.claude/skills/career-roadmaps/references/market-sources.md`, with the horizon
+and geography each source covers. Salaries never appear anywhere.
 
 **Personal** (`my_path.js`, plus whatever a reader keeps in their browser). One
 overlay on top of the catalog:
@@ -78,7 +82,7 @@ overlay on top of the catalog:
 | `priorityOverrides` | Course id to priority, for the places one reader's priorities differ from the discipline's |
 | `tracks` | Track ids to preselect in the graph filter |
 | `done` | Completed course ids |
-| `sequence` | The 12 to 18 month calendar the phases deliberately do not encode |
+| `sequence` | One reader's own calendar. A phase is a quarter of a full specialization; the sequence is a shorter personal plan that cherry-picks and reorders courses across phases |
 
 The wide map and the My path page both read the same overlay, so the verdict
 column and the personal plan can never disagree. Progress is stored per graph in
@@ -101,13 +105,13 @@ Each entry in `COURSES` looks like this:
 | Field | Meaning |
 |-------|---------|
 | `id` | Short stable key, shown on the node |
-| `phase` | Which phase column the node sits in |
+| `phase` | Which phase column the node sits in. A phase is a quarter: about 3 months of study |
 | `row` | Row within that column. Must be `0..n-1`, no gaps, no repeats |
 | `priority` | `critical`, `desirable` or `frontier` |
 | `kind` | `spine` (every track), `branch` (chosen track only) or `elective` |
 | `tracks` | `["all"]` for spine nodes, otherwise the track ids that need it |
 | `prereqs` | Ids of nodes that must come first. May not point at a later phase |
-| `desc` / `res` | Shown in the detail panel when the node is clicked |
+| `desc` / `res` | Shown in the detail panel when the node is clicked. `res` lists the best-match resource first, then at most two alternatives |
 
 ## Checks
 
@@ -125,6 +129,19 @@ a later phase, prerequisite cycles, row collisions and gaps, unknown phases,
 tracks, priorities or kinds, spine/branch inconsistency, missing `desc`/`res`, a
 course id that means different things in two graphs, and an overlay pointing at
 an option or course the catalog does not have. It warns on tracks that no course uses. No dependencies beyond the standard library.
+
+It also enforces the roadmap shape set in `.claude/skills/career-roadmaps/SKILL.md`,
+reading each specialization the way a learner walks it (every spine course plus
+that track's branch courses; electives are optional and do not count):
+
+- 2 to 4 specializations per roadmap
+- 5 to 8 phases per specialization, with no empty phase in the middle of its path
+- 2 to 5 courses per phase
+- every prerequisite of a course a track takes is itself taken by that track, so no learner is sent to a course they never reach
+- no roadmap sharing more than half of its course ids with another
+
+`SHAPE_RULES_ARE_ERRORS` at the top of the script decides whether a shape problem
+fails the build or only prints a warning.
 
 ## Running locally
 
@@ -155,6 +172,27 @@ env var, so no code change is needed if the repo is renamed or forked.
 
 ## Design decisions
 
+**Every roadmap has the shape of a degree programme.** The `career-roadmaps`
+skill fixes the shape: a roadmap holds 2 to 4 specializations, a specialization
+runs through 5 to 8 phases, a phase is a quarter (about 3 months) holding 2 to 5
+courses. The first six graphs had grown to 9 phases and 5 tracks each, with
+Foundations columns of up to 9 courses and late phases where a track had a
+single course or none, which no one can plan a quarter around. The revision
+collapsed the degree-level math in each Foundations column into one refresher
+course (the audience already holds a STEM degree), merged the two thinnest late
+phases, and folded each graph's fifth track into its closest neighbour: Edge
+compiler into edge, Applied retrieval into product, FPGA instrumentation into
+real-time, Control aerospace and automotive into one vehicles track, Security
+GRC into AI security, Quantum software into hardware. Every specialization now
+reads as eight full quarters, and `tools/check_curriculum.py` holds the line.
+
+**A roadmap that shares more than half its courses with another is not its own
+path.** Applied AI shared 22 of its 39 course ids with Edge AI, because Edge AI
+still carried RAG, multi-agent systems and LLM fine-tuning from before the
+split. Those are Applied AI's work, so they left Edge AI (the edge-relevant part
+of fine-tuning now lives in its domain-specific models course) and the overlap
+fell below half without undoing the split described below.
+
 **A track becomes a path when the spine diverges.** Applied AI was first added
 as a track inside the Edge AI graph, which meant it inherited that graph's
 spine: a reader who chose it was told C++, ONNX export and CUDA were required,
@@ -162,8 +200,8 @@ none of which are on that career. Measuring the overlap between tracks made the
 line visible. Edge and robotics share 0.63 of their non-common nodes and are one
 family; platform and data shared 0.47 and were merged into a single ML platform
 and data track; Applied AI overlapped everything else by at most 0.25, so it
-became its own path with its own spine of Python, backend services, evaluation
-and serving. The underlying reason is that `priority` and `kind` are
+became its own path with its own spine of Python, backend services, retrieval
+and evaluation. The underlying reason is that `priority` and `kind` are
 path-relative, and a track living inside another path's graph cannot express
 that.
 
@@ -175,7 +213,7 @@ platforms" and "Cloud security fundamentals", and `ARCH` meant two unrelated
 architectures. Those were renamed, and `tools/check_curriculum.py` now fails the
 build if a shared id ever disagrees with itself again.
 
-**One renderer, four data modules.** The four graphs were originally four
+**One renderer, one data module per path.** The four graphs were originally four
 complete copies of the same component, 431 identical lines of rendering code
 differing only in a component name. That duplication had already drifted: one
 page advertised "41 topics, 4 specialization tracks" for a graph that had grown
@@ -239,7 +277,7 @@ occurs here, which is bad data rather than bad types.
 
 ## What is not done
 
-- **FPGA & Digital Hardware has no long-form roadmap yet.** It ships as a curriculum graph and a wide-map card, the same way Applied AI did before its document was written.
+- **FPGA & Digital Hardware has no long-form roadmap yet.** It ships as a curriculum graph and a wide-map card, the same way Applied AI did before its document was written. Its demand evidence is already in `.claude/skills/career-roadmaps/references/market-claims-ledger.md` (rows L12, L25, L38, L39), waiting for the document to carry it.
 - **Overlay sharing is by file, not by URL.** Export and import round-trip a JSON overlay. Encoding one into a link fights `HashRouter` and URL length limits, so it was not built.
 - **Verdict and priority edits need a file edit.** The browser owns progress and track selection; changing verdicts or priority overrides means editing `my_path.js` (or an exported overlay) directly.
 - **Code-splitting.** Not needed now that `highlight.js` is out of the bundle.
@@ -265,6 +303,7 @@ occurs here, which is bad data rather than bad types.
 ├── quantum_ai_malla.js             ← curriculum data (Quantum AI graph)
 ├── quantum_ai_roadmap.md           ← source of truth (Quantum AI roadmap)
 ├── tools/check_curriculum.py       ← structural checks, run in CI before the build
+├── .claude/skills/                 ← roadmap standards (career-roadmaps) and UI standards (roadmap-ui)
 ├── .github/workflows/deploy.yml    ← validate, build & deploy to GitHub Pages
 ├── README.md                       ← this file
 └── preview-app/                    ← Vite + React wrapper

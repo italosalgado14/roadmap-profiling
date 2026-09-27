@@ -7,9 +7,10 @@
 // my_path.js and is shown only on the My path page.
 //
 // Deliberate constraint on the market fields: sectors and employer types only.
-// No salary figures, no market-size projections. Those numbers were removed
-// from the curriculum nodes for being unverifiable, and they do not come back
-// in through this file.
+// No salary figures and no demand numbers. Dated, sourced demand figures live
+// in each roadmap's Executive Summary and in the strategy essay, cited from
+// .claude/skills/career-roadmaps/references/market-sources.md; they do not
+// come in through this file, where a bare number could not carry its source.
 //
 // Fields:
 //   id        stable key, also used by the verdict overlay

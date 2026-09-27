@@ -298,8 +298,10 @@ body { margin: 0; background: var(--bg); }
   background: var(--bg-secondary);
 }
 
-/* Legend lines like "### 🔴 Critical" render with the emoji inline */
-.markdown li code { white-space: nowrap; }
+/* Priority tags like `critical` sit inline in course headings and legend
+   lines; keep each tag on one line so it never splits across a wrap */
+.markdown li code,
+.markdown h3 code { white-space: nowrap; }
 
 /* Anchor links next to headings */
 .markdown .heading-anchor {

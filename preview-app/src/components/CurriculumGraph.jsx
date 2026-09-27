@@ -2,9 +2,9 @@ import { useState, useCallback, useMemo } from "react";
 
 // Shared renderer for every curriculum graph on the site.
 //
-// The four career paths differ only in their data, so the data lives at the
+// The career paths differ only in their data, so the data lives at the
 // repo root (one module per path) and this component draws it. Anything that
-// is identical across all four paths (priority levels, node kinds, layout
+// is identical across all paths (priority levels, node kinds, layout
 // geometry) is defined here rather than repeated per path.
 
 // ─── Priority (absolute importance) ────────────────────────────────────

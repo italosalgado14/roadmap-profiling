@@ -35,9 +35,10 @@ VALID_KINDS = {"spine", "branch", "elective"}
 # Shape rules from .claude/skills/career-roadmaps/SKILL.md: a roadmap has 2 to
 # 4 specializations, a specialization runs through 5 to 8 phases, a phase holds
 # 2 to 5 courses, and a roadmap sharing more than half its courses with another
-# is really a specialization of it. They report as warnings while the catalog
-# is being brought into line; flip this once it is, so drift fails the build.
-SHAPE_RULES_ARE_ERRORS = False
+# is really a specialization of it. The catalog meets them, so a shape problem
+# fails the build; set this to False to demote them to warnings while a larger
+# restructure is in progress.
+SHAPE_RULES_ARE_ERRORS = True
 TRACKS_PER_ROADMAP = (2, 4)
 PHASES_PER_TRACK = (5, 8)
 COURSES_PER_PHASE = (2, 5)
@@ -235,6 +236,12 @@ def check_shape(path: pathlib.Path) -> list[str]:
             for p in phases
         ]
         used = [(p, n) for p, n in zip(phases, load) if n]
+        # A phase is a quarter of study, so a hole in the middle of a track is
+        # three months with nothing on the plan.
+        span = [i for i, n in enumerate(load) if n]
+        holes = [phases[i] for i in range(span[0], span[-1] + 1) if not load[i]] if span else []
+        if holes:
+            problems.append(f"track {t!r} skips {', '.join(holes)} in the middle of its path")
         lo, hi = PHASES_PER_TRACK
         if not lo <= len(used) <= hi:
             problems.append(f"track {t!r} runs through {len(used)} phases, the skill allows {lo} to {hi}")
@@ -242,6 +249,19 @@ def check_shape(path: pathlib.Path) -> list[str]:
         off = [f"{p}={n}" for p, n in used if not lo <= n <= hi]
         if off:
             problems.append(f"track {t!r} has phases outside {lo} to {hi} courses: {', '.join(off)}")
+
+        # A learner following one track only takes that track's courses, so a
+        # prerequisite that belongs to another track is one they never reach.
+        taken = {
+            c["id"]
+            for c in courses
+            if c["kind"] != "elective" and (c["tracks"] == ["all"] or t in (c["tracks"] or []))
+        }
+        for c in courses:
+            if c["id"] in taken:
+                for p in c["prereqs"] or []:
+                    if p not in taken:
+                        problems.append(f"track {t!r}: {c['id']} needs {p}, which this track does not take")
 
     return problems
 

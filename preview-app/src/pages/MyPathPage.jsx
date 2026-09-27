@@ -73,7 +73,7 @@ export default function MyPathPage() {
       <p className="page-subtitle">
         The personal layer. Everything here is an overlay on top of the neutral catalog:
         which options were chosen and which were ruled out, where personal priorities differ
-        from the catalog's, the calendar the phases deliberately do not encode, and the
+        from the catalog's, a personal calendar shorter than a full specialization, and the
         progress stored in this browser.
       </p>
 
@@ -126,7 +126,7 @@ export default function MyPathPage() {
 
       <h2 className="section-title">Sequence, 12 to 18 months</h2>
       <p className="section-note">
-        The graph's phases are capability tiers, not dates. This is the calendar.
+        Each phase in a graph is a quarter of a full, two-year specialization. This is a shorter personal calendar that picks across tracks.
       </p>
       <ol className="sequence">
         {(overlay.sequence ?? []).map(step => (

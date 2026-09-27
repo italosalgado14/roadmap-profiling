@@ -5,7 +5,7 @@ description: Standards and requirements for all roadmaps in this repo. Use when 
 
 # General Idea
 These Roadmaps are built for people who have some degree in engineering or another STEM field.
-The general idea is to recommend future profiles with high demand in the medium term (2 to 5 years) and the long term (5 to 10 years).
+The general idea is to recommend future profiles with high demand in the medium term (2 to 5 years aprox) and the long term (5 to 10 years or to 15 years aprox).
 
 # How to Do It
 To do that, we present roadmaps in the style of university career paths, made up of Courses, Phases (like university semesters, but each Phase lasts 3 months and contains a few Courses), and Roadmaps/Careers (each with several Phases). Every Course has optional prerequisites; take care to respect them.

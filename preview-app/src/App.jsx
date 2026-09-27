@@ -15,8 +15,8 @@ import SecurityRoadmapPage from './pages/SecurityRoadmapPage.jsx'
 import QuantumMallaPage from './pages/QuantumMallaPage.jsx'
 import QuantumRoadmapPage from './pages/QuantumRoadmapPage.jsx'
 
-// Eleven routes with a real hierarchy: two catalog entries, four career paths
-// with two views each, and one personal page. As a flat row of buttons that
+// Routes with a real hierarchy: two catalog entries, six career paths with
+// one or two views each, and one personal page. As a flat row of buttons that
 // wrapped onto three lines and flattened the structure away. A sidebar shows
 // the grouping, keeps the current page visible while scrolling, collapses when
 // a graph needs the horizontal room, and has space to grow.

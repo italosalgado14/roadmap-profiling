@@ -17,7 +17,7 @@
 //   verdicts           option id -> { verdict: primary|hedge|ignore, why }
 //   priorityOverrides  course id -> critical|desirable|frontier
 //   done               course ids already completed
-//   sequence           the calendar the phases deliberately do not encode
+//   sequence           this reader's own calendar, shorter than a full specialization
 
 export const OVERLAY = {
   version: 1,
@@ -60,8 +60,8 @@ export const OVERLAY = {
 
   done: [],
 
-  // The graph has phases, which are capability tiers, not a calendar. This is
-  // the calendar.
+  // Each phase in the graph is a quarter of a full, two-year specialization.
+  // This is one reader's shorter calendar, cherry-picked across two tracks.
   sequence: [
     { window: "Months 0-3",   focus: "Foundations that gate everything else",
       items: ["ENGLISH", "CPP", "ONNX"],
