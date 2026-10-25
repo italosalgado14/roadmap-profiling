@@ -4,11 +4,15 @@
 // preview-app/src/components/CurriculumGraph.jsx, which owns all the drawing
 // logic shared by the career paths.
 //
-// Shape: eight phases (P0..P7), each about a quarter of study, and four
+// Shape: eight phases (P0..P7), each about a quarter of study, and three
 // specializations. Every specialization takes 2 to 5 courses in every phase,
 // counting the spine plus its own branch courses; electives are extras.
 // The LLM-application courses (RAG, agents, general fine-tuning) live in the
 // Applied AI graph; this one keeps only the edge-relevant slice of them.
+// The ML platform & data infra track left in the same way: pipelines,
+// lakehouse, streaming, feature stores, Kubernetes and cloud ML now live in the
+// Data Engineering & Platforms graph (data_platform_malla.js), whose spine is
+// data, not C++ and model export.
 //
 // Course fields:
 //   id        short stable key, shown on the node
@@ -39,7 +43,6 @@ export const TRACKS = {
   edge:     { color: "#2563eb", label: "Edge inference & compilers",       short: "Edge"     },
   robotics: { color: "#059669", label: "Robotics / Physical AI",           short: "Robotics" },
   safety:   { color: "#d97706", label: "Industrial safety & ML assurance", short: "Safety"   },
-  platform: { color: "#0ea5e9", label: "ML platform & data infra",         short: "Platform" },
 };
 
 export const COURSES = [
@@ -89,13 +92,7 @@ export const COURSES = [
     desc: "Robot Operating System 2. Nodes, topics, services, Nav2, Gazebo simulation. C++ and Python. Early in the robotics track so every later perception and policy course can run inside a ROS 2 graph.",
     res:  "Udemy: ROS2 for Beginners (~$15) | docs.ros.org (free) | Book: Intro to ROS2, Martín Rico" },
 
-  { id: "PIPE", phase: "P1", row: 3, label: "Data pipelines & SQL",
-    priority: "critical", kind: "branch", tracks: ["platform"],
-    prereqs: ["PY","LINUX"],
-    desc: "Batch ETL and ELT, SQL at analytical scale, orchestration with Airflow or Dagster, data-quality tests and schema contracts. The substrate every ML system feeds on.",
-    res:  "Data Engineering Zoomcamp (free) | Book: Fundamentals of Data Engineering, Reis & Housley | dbt docs (free), why: the standard for tested, version-controlled transforms" },
-
-  { id: "AICODE", phase: "P1", row: 4, label: "AI-assisted dev workflows",
+  { id: "AICODE", phase: "P1", row: 3, label: "AI-assisted dev workflows",
     priority: "desirable", kind: "elective", tracks: ["all"],
     prereqs: ["LINUX","GIT","PY"],
     desc: "Claude Code (CLI, hooks, slash commands, sub-agents, MCP), prompt design for coding tasks, agent setup. Productivity multiplier across the rest of the roadmap.",
@@ -118,12 +115,6 @@ export const COURSES = [
     desc: "GPU programming, kernels, memory hierarchy, parallelism. The base of the kernel and compiler half of the edge track; useful but no longer required for TensorRT, which is why the catalog rates it desirable and leaves raising it to the reader.",
     res:  "NVIDIA DLI: Fundamentals of Accelerated Computing with Modern CUDA C++ (paid) | Coursera: GPU Programming Spec" },
 
-  { id: "LAKE", phase: "P2", row: 3, label: "Lakehouse & warehouse",
-    priority: "critical", kind: "branch", tracks: ["platform"],
-    prereqs: ["PIPE"],
-    desc: "Columnar storage, partitioning, open table formats (Delta, Iceberg, Hudi) and warehouse modelling. Where training data lives once it outgrows files.",
-    res:  "Apache Iceberg docs (free) | Delta Lake docs (free) | Book: The Data Warehouse Toolkit, Kimball, why: dimensional modelling still underpins every analytical layer" },
-
   // ─── P3 ─ Vision, LLMs & Export ──────────────────────────────────────
   { id: "ONNX", phase: "P3", row: 0, label: "ONNX & model export",
     priority: "critical", kind: "spine", tracks: ["all"],
@@ -141,16 +132,10 @@ export const COURSES = [
     desc: "ViT architecture, CLIP (zero-shot), SAM and SAM 2 (promptable segmentation), DINOv2/v3 (self-supervised features).",
     res:  "Hugging Face CV Course (free) | Papers: ViT, CLIP, SAM on arxiv (free)" },
   { id: "LLM", phase: "P3", row: 3, label: "LLM fundamentals",
-    priority: "critical", kind: "branch", tracks: ["edge","robotics","platform"],
+    priority: "critical", kind: "branch", tracks: ["edge","robotics"],
     prereqs: ["DL"],
     desc: "Transformer architecture, attention mechanism, tokenization, prompting, context windows.",
     res:  "Coursera: GenAI with LLMs, DeepLearning.AI + AWS | Karpathy: Let's build GPT (free YT)" },
-
-  { id: "STREAM", phase: "P3", row: 4, label: "Real-time streaming",
-    priority: "critical", kind: "branch", tracks: ["platform"],
-    prereqs: ["PIPE","DOC"],
-    desc: "Kafka or Pulsar, stream processing with Flink or Spark Structured Streaming, delivery semantics, windowing and backpressure. The path from a sensor or event to a model in seconds.",
-    res:  "Apache Flink docs (free) | Confluent Kafka tutorials (free) | Book: Designing Data-Intensive Applications, Kleppmann, why: the clearest treatment of streams versus tables" },
 
   // ─── P4 ─ Optimization & Specialization ──────────────────────────────
   { id: "TRT", phase: "P4", row: 0, label: "TensorRT",
@@ -169,7 +154,7 @@ export const COURSES = [
     desc: "Triton language, CUTLASS, Nsight Systems / Compute, NVTX. Authoring custom kernels and profile-driven optimization for the cases an inference engine does not cover.",
     res:  "Triton tutorials (free) | CUTLASS GitHub and NVIDIA Nsight Compute docs (free) | MIT 6.5940 TinyML and Efficient AI Computing (free lectures), why: the best structured course on pruning, quantization and distillation" },
   { id: "EVAL", phase: "P4", row: 3, label: "AI evaluation",
-    priority: "critical", kind: "branch", tracks: ["edge","safety","platform"],
+    priority: "critical", kind: "branch", tracks: ["edge","safety"],
     prereqs: ["DL","MLOPS"],
     desc: "Task-specific benchmarks and slice-level metrics, regression suites that catch accuracy lost to quantization or a data shift, human-review design, offline versus online evaluation, and LLM-as-judge with its failure modes. The discipline that decides whether a model change was an improvement or a regression.",
     res:  "Book: AI Engineering, Chip Huyen, why: the most practical published treatment of evaluation | Voxel51 FiftyOne model evaluation docs (free), why: slice-level metrics for detection and segmentation | OpenAI Evals repo (free)" },
@@ -193,16 +178,6 @@ export const COURSES = [
     prereqs: ["MLOPS","CV"],
     desc: "IEC 61508 and ISO 26262 (automotive). SIL/ASIL levels, hazard analysis, deterministic inference, safety monitors and safety-case structure. Industrial security lives in its own node, because a safe system and a secure one are different arguments.",
     res:  "IEC 61508 white papers (free) | Book: Functional Safety for Embedded Systems, Hobbs | Safety-Critical AI papers (arxiv)" },
-  { id: "FEAT", phase: "P4", row: 8, label: "Feature store & training data",
-    priority: "desirable", kind: "branch", tracks: ["platform"],
-    prereqs: ["LAKE","MLOPS"],
-    desc: "Offline and online feature parity, point-in-time correctness, backfills, and reuse across models. The fix for training and serving skew once more than one model shares data.",
-    res:  "Feast docs (free) | Book: Designing Machine Learning Systems, Chip Huyen, why: the feature chapter frames the skew problem best | Databricks feature engineering docs (free), why: where Tecton's managed feature platform ended up in 2025" },
-  { id: "TSDB", phase: "P4", row: 9, label: "IoT & time-series data",
-    priority: "desirable", kind: "branch", tracks: ["platform"],
-    prereqs: ["STREAM"],
-    desc: "Time-series storage and downsampling, MQTT and OPC UA ingestion, edge buffering under intermittent connectivity, and industrial historians. The data layer of an industrial edge deployment.",
-    res:  "TimescaleDB and InfluxDB docs (free) | Eclipse Mosquitto MQTT tutorials (free) | OPC UA specification overview (free), why: the protocol most plant equipment actually speaks" },
 
   // ─── P5 ─ Deploy & Build ─────────────────────────────────────────────
   { id: "DOMAIN", phase: "P5", row: 0, label: "Domain vertical",
@@ -216,7 +191,7 @@ export const COURSES = [
     desc: "NVIDIA Jetson platform. JetPack SDK, DeepStream, video analytics. Production edge deployment.",
     res:  "NVIDIA Jetson tutorials and Jetson AI Lab (free) | Book: AI at the Edge, Situnayake | HW: Orin Nano Super dev kit, ~$399" },
   { id: "SERVE", phase: "P5", row: 2, label: "LLM serving & inference",
-    priority: "critical", kind: "branch", tracks: ["edge","platform"],
+    priority: "critical", kind: "branch", tracks: ["edge"],
     prereqs: ["LLM","DOC"],
     desc: "vLLM and SGLang, continuous batching, KV-cache management, quantized serving, streaming responses, and latency and cost budgets under real traffic.",
     res:  "vLLM docs (free), why: the reference implementation of paged attention | SGLang docs (free) | Book: AI Engineering, Chip Huyen" },
@@ -226,7 +201,7 @@ export const COURSES = [
     desc: "How a model graph becomes code for a specific chip: graph lowering and operator fusion, tensor-program scheduling and autotuning, and the on-device runtimes built on them (Apache TVM, MLIR, torch.compile, ExecuTorch). The layer to reach for when TensorRT or LiteRT has no path to your accelerator or leaves performance on the table.",
     res:  "Machine Learning Compilation course, Tianqi Chen, mlc.ai (free), why: the one open lecture series that treats ML compilation as a subject | MLIR Toy tutorial, mlir.llvm.org (free) | ExecuTorch docs (free)" },
   { id: "DATAENG", phase: "P5", row: 4, label: "Data engine & synthetic data",
-    priority: "desirable", kind: "branch", tracks: ["robotics","platform"],
+    priority: "desirable", kind: "branch", tracks: ["robotics"],
     prereqs: ["DL","MLOPS"],
     desc: "The loop that turns deployed failures into training data: mining hard cases, active learning, labelling pipelines, and synthetic or simulated data to cover the long tail.",
     res:  "NVIDIA Omniverse Replicator docs (free) | Voxel51 FiftyOne (free), why: the practical tool for curating and slicing image datasets | Published data-engine talks from AV teams (free)" },
@@ -274,17 +249,12 @@ export const COURSES = [
     desc: "Turning ML evidence into a safety argument: the AMLAS process and its safety-case patterns, ISO 21448 (SOTIF) for performance limitations, ISO/PAS 8800 for AI in road vehicles and ISO/IEC TR 5469 for AI inside safety functions, plus runtime monitors and fallback design. Where functional safety and perception verification meet.",
     res:  "AMLAS guidance, University of York (free), why: a published end-to-end method for an ML safety case, with patterns you can reuse | ISO/PAS 8800:2024, Road vehicles: Safety and artificial intelligence (paid) | ISO/IEC TR 5469:2024, Functional safety and AI systems (paid)" },
   { id: "GOVENG", phase: "P6", row: 5, label: "AI governance engineering",
-    priority: "critical", kind: "branch", tracks: ["safety","platform"],
+    priority: "critical", kind: "branch", tracks: ["safety"],
     prereqs: ["MLOPS","EVAL"],
     desc: "Implementing AI governance in production: ISO/IEC 42001 management systems, EU AI Act conformity assessment for high-risk systems, model registries, audit trails, NIST AI RMF mapping. Regulation-driven demand from late 2027 onward, now that the EU deferred the high-risk deadlines to Dec 2027 and Aug 2028.",
     res:  "ISO/IEC 42001 standard | EU AI Act Annex IV (free) | NIST AI RMF Playbook (free)" },
-  { id: "K8S", phase: "P6", row: 6, label: "Kubernetes for ML",
-    priority: "critical", kind: "branch", tracks: ["platform"],
-    prereqs: ["DOC","MLOPS"],
-    desc: "Container orchestration, Helm, Kubeflow, model serving at scale, autoscaling inference.",
-    res:  "Coursera: Google Cloud K8s | Kubeflow docs (free) | Book: Kubernetes in Action" },
 
-  { id: "SAFRES", phase: "P6", row: 7, label: "AI safety research",
+  { id: "SAFRES", phase: "P6", row: 6, label: "AI safety research",
     priority: "desirable", kind: "elective", tracks: ["all"],
     prereqs: ["LLM"],
     desc: "Mechanistic interpretability, alignment evals, capability evaluations. Research-grade safety: understanding model internals and measuring dangerous capabilities. Distinct from governance (compliance) and red-teaming (adversarial probing).",
@@ -322,28 +292,18 @@ export const COURSES = [
     prereqs: ["MLASSURE","OTSEC"],
     desc: "One assured perception function on an industrial edge target: a hazard analysis, an ML safety case built with AMLAS, verification evidence from your own test suite, an IEC 62443 zone and conduit design for the device, and a runtime monitor with a defined safe state. The proof for an industrial safety and ML assurance profile.",
     res:  "No course. Publish the safety case and the evidence behind it, and state plainly which claims the evidence does not yet support" },
-  { id: "CLOUD", phase: "P7", row: 6, label: "Cloud ML platforms",
-    priority: "critical", kind: "branch", tracks: ["platform"],
-    prereqs: ["MLOPS","DL"],
-    desc: "AWS SageMaker, GCP Vertex AI, Azure ML. Training, serving, and monitoring in the cloud.",
-    res:  "Coursera: Google Cloud ML Engineer | AWS ML Specialty prep | Azure ML docs (free)" },
-  { id: "CAPDATA", phase: "P7", row: 7, label: "Capstone: Data platform",
-    priority: "critical", kind: "branch", tracks: ["platform"],
-    prereqs: ["FEAT","STREAM"],
-    desc: "One end-to-end platform slice: ingestion to lakehouse to features to a served model, orchestrated, tested and monitored, with documented data contracts. The proof for a Data and AI platform profile.",
-    res:  "No course. Ship it as infrastructure-as-code with the data-quality tests running in CI" },
 
-  { id: "NEURO", phase: "P7", row: 8, label: "Neuromorphic computing",
+  { id: "NEURO", phase: "P7", row: 6, label: "Neuromorphic computing",
     priority: "frontier", kind: "elective", tracks: ["edge"],
     prereqs: ["CPP","JET"],
     desc: "Spiking neural networks, Intel Loihi 2, ultra-low-power edge AI. Research-grade today with no established hiring market, and Intel archived its Lava SDK in 2026, so treat the tooling as unstable.",
     res:  "snnTorch tutorials (free), why: an actively maintained SNN framework now that Lava is archived | Book: Neuromorphic Engineering, Springer | Loihi 2 papers (free)" },
-  { id: "QUANT", phase: "P7", row: 9, label: "Quantum-AI hybrids",
+  { id: "QUANT", phase: "P7", row: 7, label: "Quantum-AI hybrids",
     priority: "frontier", kind: "elective", tracks: ["edge"],
     prereqs: ["MATHML","ML"],
     desc: "Quantum-classical algorithms, optimization, Qiskit, Cirq. See the Quantum AI roadmap for the full path and an honest horizon.",
     res:  "IBM Quantum Learning (free), why: it absorbed the retired Qiskit Textbook | Qiskit docs (free) | Book: Nielsen & Chuang" },
-  { id: "BIOAI", phase: "P7", row: 10, label: "Bio-digital / medical AI",
+  { id: "BIOAI", phase: "P7", row: 8, label: "Bio-digital / medical AI",
     priority: "frontier", kind: "elective", tracks: ["safety"],
     prereqs: ["CV","DOMAIN"],
     desc: "Medical imaging, computational biology, brain-computer interfaces. Heavily regulated, and entry usually runs through a clinical or research institution.",

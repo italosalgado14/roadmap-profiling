@@ -57,8 +57,8 @@ export const OPTIONS = [
   },
   {
     id: "data-platform",
-    name: "Data & AI platform",
-    job: "Own the substrate: ingestion, streaming, lakehouse storage, feature and model serving infrastructure that other teams build on.",
+    name: "Data engineering & platforms",
+    job: "Own the substrate: pipelines, data modeling, lakehouse storage, streaming, data quality and governance, and the platforms that analytics, ML and AI teams build on.",
     hiring: {
       cl: "Mining, banking and retail, where the data volume is real and the platform teams are small enough to have visible impact.",
       de: "Manufacturing and logistics data platforms, industrial IoT, and the enterprise data-engineering market generally.",
@@ -67,8 +67,7 @@ export const OPTIONS = [
     entry: "A backend engineer who learns SQL at analytical scale and one orchestration tool well. Demand is steady and less hype-driven than modelling roles.",
     fit: "Good fit if you would rather build the thing ten teams depend on than the model on top of it.",
     depth: "roadmap",
-    route: "#/roadmap",
-    track: "platform",
+    route: "#/data-roadmap",
   },
   {
     id: "fintech",

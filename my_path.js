@@ -23,7 +23,7 @@ export const OVERLAY = {
   version: 1,
   graph: "edge-ai",
   owner: "the site author",
-  updated: "2026-08",
+  updated: "2026-10",
 
   tracks: ["edge", "robotics"],
 
@@ -36,7 +36,7 @@ export const OVERLAY = {
     "security":       { verdict: "hedge",   why: "Pays in every AI scenario, since more machine-written code means more to audit. Pairs with whatever the primary builds." },
     "domain-vertical":{ verdict: "hedge",   why: "Pursued as a multiplier on the primary rather than as a separate career. It is the hardest thing here for a remote generalist to replicate." },
     "architect":      { verdict: "hedge",   why: "Where the primary is expected to lead in five to eight years. Not something to enter directly now." },
-    "data-platform":  { verdict: "ignore",  why: "A strong option, set aside because it overlaps the platform work already inside the primary without using the physical or domain moat." },
+    "data-platform":  { verdict: "ignore",  why: "A strong option, and since October 2026 its own path rather than a track of the primary: only MLOps, distributed systems and the data engine are still shared. Set aside because entering it properly means a second spine (modeling, orchestration, lakehouse, data quality) that would compete with the primary. Its industrial data courses touch the mining moat, but from the data side rather than the physical deployment side." },
     "control":        { verdict: "ignore",  why: "Genuinely the most AI-resistant path on this map. Set aside on time cost: entering it properly is a multi-year mathematics investment that would compete with the primary." },
     "cloud-sre":      { verdict: "ignore",  why: "Always hiring and highly portable, but the most commoditised option here and the least differentiated." },
     "governance":     { verdict: "ignore",  why: "Follows from the security hedge without needing its own spine. Literacy is enough." },

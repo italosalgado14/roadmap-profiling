@@ -4,20 +4,21 @@ A small static site that publishes a set of engineering learning roadmaps on
 GitHub Pages.
 
 It is built in two layers. The **catalog** is neutral and meant to be useful to
-anyone: a wide map of career options, seven curricula, and the long-form
-roadmap behind six of them. The **personal layer** is one overlay file on top of it,
+anyone: a wide map of career options, eight curricula, and the long-form
+roadmap behind seven of them. The **personal layer** is one overlay file on top of it,
 holding one person's verdicts, priority overrides and calendar. Keeping them
 apart is what lets the same curriculum carry a different opinion for every
 reader, and it is why a node is rated by the discipline rather than by whoever
 wrote the site.
 
 The site opens on the wide map. Behind it sit a **Career Strategy** overview and
-**seven career paths**. Six have both an interactive curriculum graph and a
+**eight career paths**. Seven have both an interactive curriculum graph and a
 long-form roadmap; FPGA & Digital Hardware currently ships the graph only:
 
 - **Career Strategy**: the meta layer. A 5/10/15-year outlook, durable career principles, and a decision framework (primary specialization, hedge, 90-day actions, annual signals) that ties the roadmaps together.
 - **Edge AI / Physical AI**: the ML and deployment career (TensorRT, Jetson, robotics, MLOps).
 - **Applied AI / LLM engineering**: building products on foundation models (retrieval, agents, evaluation, serving). Its own path rather than an Edge AI track, because the spine is Python and backend services, not C++ and model export.
+- **Data Engineering & Platforms**: the data career (modeling, pipelines, lakehouse and streaming, data quality and governance, and the platforms analytics and ML build on). Split out of Edge AI, where it was the ML platform & data infra track, for the same spine-divergence reason as Applied AI.
 - **FPGA & Digital Hardware**: designing the silicon behaviour itself (digital logic, HDL, timing closure, verification, board bring-up, firmware). The supplier path: accelerators feed Edge AI, real-time execution feeds Control, and the converter and RF signal chain feeds the Quantum hardware track.
 - **Control Systems & Robotics**: the classical, model-based control career (signals and classical control, state-space, estimation/Kalman, MPC, GNC).
 - **AI Security & Trustworthy Systems**: the security career (AppSec, DevSecOps, cloud security, AI/LLM security and AI-code auditing, cryptography, governance). The scenario-robust hedge that pairs with every other path.
@@ -35,6 +36,8 @@ long-form roadmap; FPGA & Digital Hardware currently ships the graph only:
 | Edge AI, full roadmap | `#/roadmap` | [`final_roadmap_reference.md`](./final_roadmap_reference.md) |
 | Applied AI / LLM, curriculum graph | `#/applied-malla` | [`applied_ai_malla.js`](./applied_ai_malla.js) |
 | Applied AI / LLM, full roadmap | `#/applied-roadmap` | [`applied_ai_roadmap.md`](./applied_ai_roadmap.md) |
+| Data Engineering & Platforms, curriculum graph | `#/data-malla` | [`data_platform_malla.js`](./data_platform_malla.js) |
+| Data Engineering & Platforms, full roadmap | `#/data-roadmap` | [`data_platform_roadmap.md`](./data_platform_roadmap.md) |
 | FPGA & Hardware, curriculum graph | `#/fpga-malla` | [`fpga_hardware_malla.js`](./fpga_hardware_malla.js) |
 | Control & Robotics, curriculum graph | `#/control-malla` | [`control_robotics_malla.js`](./control_robotics_malla.js) |
 | Control & Robotics, full roadmap | `#/control-roadmap` | [`control_robotics_roadmap.md`](./control_robotics_roadmap.md) |
@@ -56,7 +59,7 @@ them as a web app, and it owns all the rendering.
 Content and presentation are kept apart on purpose:
 
 - **`*_malla.js` at the root** export data only: `PHASES`, `TRACKS` and `COURSES`. No JSX, no imports, no drawing logic. Adding a topic means adding one object to `COURSES`.
-- **`preview-app/src/components/CurriculumGraph.jsx`** is the single renderer for all seven graphs. It owns the layout, the SVG dependency edges, the track filter, the legend, the detail panel, and the constants that are the same for every path (priority levels, node kinds).
+- **`preview-app/src/components/CurriculumGraph.jsx`** is the single renderer for all eight graphs. It owns the layout, the SVG dependency edges, the track filter, the legend, the detail panel, and the constants that are the same for every path (priority levels, node kinds).
 - **`preview-app/src/components/MallaPageShell.jsx`** titles each graph page with its path name and derives the counts shown under it (`8 phases of about three months each, 44 topics, 4 specializations`) from the data itself, so a page can never describe a graph that no longer exists.
 - **`preview-app/src/components/RoadmapView.jsx`** splits a roadmap `.md` into Overview / Phase / Reference tabs by reading its heading structure.
 - **`preview-app/src/lib/overlay.js`** handles overlay persistence (localStorage, per graph, every access guarded) and JSON export/import.
@@ -208,6 +211,18 @@ and evaluation. The underlying reason is that `priority` and `kind` are
 path-relative, and a track living inside another path's graph cannot express
 that.
 
+**The data platform track followed Applied AI out of Edge AI.** The merged ML
+platform and data track above stayed inside Edge AI until October 2026, and it
+had the same problem Applied AI had: a reader who chose it was told C++, the
+math-for-ML refresher, deep learning and ONNX export were required. Its eight
+platform-only courses (pipelines, lakehouse, streaming, feature store, IoT
+time-series data, Kubernetes, cloud ML and the data capstone) moved with their
+ids into a new Data Engineering & Platforms path built on a data spine
+(modeling, storage engines, distributed processing, orchestration, quality,
+observability, cost). The new graph shares 12 of its 55 ids with Edge AI (0.22
+of it, 0.24 of Edge AI) and 15 with Applied AI (0.27 of it, 0.38 of Applied AI),
+and Edge AI now has three specializations.
+
 **FinTech is a path because its spine is the money, not the code.** Its
 software foundation is deliberately the same as Applied AI's (Python, SQL,
 backend services, testing and distributed systems carry the same ids), and its
@@ -318,6 +333,8 @@ occurs here, which is bad data rather than bad types.
 ├── final_roadmap_reference.md      ← source of truth (Edge AI roadmap)
 ├── applied_ai_malla.js             ← curriculum data (Applied AI graph)
 ├── applied_ai_roadmap.md           ← source of truth (Applied AI roadmap)
+├── data_platform_malla.js          ← curriculum data (Data Engineering & Platforms graph)
+├── data_platform_roadmap.md        ← source of truth (Data Engineering & Platforms roadmap)
 ├── fpga_hardware_malla.js          ← curriculum data (FPGA & Hardware graph)
 ├── control_robotics_malla.js       ← curriculum data (Control & Robotics graph)
 ├── control_robotics_roadmap.md     ← source of truth (Control & Robotics roadmap)
@@ -352,6 +369,8 @@ occurs here, which is bad data rather than bad types.
             ├── MallaPage.jsx
             ├── AppliedMallaPage.jsx
             ├── AppliedRoadmapPage.jsx
+            ├── DataMallaPage.jsx
+            ├── DataRoadmapPage.jsx
             ├── FpgaMallaPage.jsx
             ├── RoadmapPage.jsx
             ├── ControlMallaPage.jsx

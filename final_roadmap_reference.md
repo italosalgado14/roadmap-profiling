@@ -16,7 +16,7 @@ This is a consolidated reference to the Edge / Physical AI skill stack; the dema
 *Medium term (2 to 5 years):*
 - **Machine learning, Deep learning & PyTorch, MLOps fundamentals** (the spine): the [WEF Future of Jobs Report 2025](https://www.weforum.org/publications/the-future-of-jobs-report-2025/) (Jan 2025; employer survey across 55 economies, 2025 to 2030) ranks AI and big data the fastest-growing skill and AI and machine learning specialists the third fastest-growing job. In the US, [BLS](https://www.bls.gov/ooh/math/data-scientists.htm) projects data scientists to grow 34.6% over 2025 to 2035 (released Aug 2026), against 3.5% for all jobs.
 - **ROS2, Computer vision, 3D geometry & SLAM, RL & imitation learning** (Robotics / Physical AI): the [McKinsey Technology Trends Outlook 2026](https://www.mckinsey.com/~/media/mckinsey/business%20functions/mckinsey%20digital/our%20insights/the%20top%20trends%20in%20tech%202026/mckinsey%20technology%20trends%20outlook%202026.pdf) (Sep 2026; 2024 to 2025 job postings, mainly English-speaking countries) counts robotics postings up 12%, with machine learning engineers now the largest robotics role and growing demand for skills in "robot perception, model training, and control systems". Gartner's [Top Strategic Technology Trends for 2026](https://www.gartner.com/en/newsroom/press-releases/2025-10-20-gartner-identifies-the-top-strategic-technology-trends-for-2026) (Oct 2025) names physical AI and says organizations "need new skills that bridge IT, operations, and engineering"; that is a technology-direction call, not a jobs forecast.
-- **LLM serving & inference, Kubernetes for ML, Cloud ML platforms** (ML platform & data infra): the same McKinsey outlook counts AI infrastructure postings up 47% in 2024 to 2025, nearly triple their 2022 level.
+- **LLM serving & inference** (Edge inference & compilers): the same McKinsey outlook counts AI infrastructure postings up 47% in 2024 to 2025, nearly triple their 2022 level.
 - **Domain vertical, Jetson & edge deploy, OT & industrial security** (Chile, large-scale mining): the [Consejo de Competencias Mineras and Fundación Chile workforce study 2025 to 2034](https://ccm-eleva.cl/wp-content/uploads/2025/12/Estudio-Fuerza-Laboral-de-la-Gran-Mineria-2025-2034.pdf) (Dec 2025) projects autonomous haul trucks growing from 178 to about 550 by 2034, with AI implemented or piloted by 44% to 54% of respondents depending on the operating area, and cybersecurity in place in every integrated operations centre surveyed (nine company responses). Chile also had the region's highest AI human-talent score in [ILIA 2025](https://www.cepal.org/en/pressreleases/latin-america-and-caribbean-accelerate-adoption-artificial-intelligence-though) (CENIA and ECLAC, Oct 2025), and 2.4% of its 2025 job postings mentioned AI skills, against 2.6% in the US ([Stanford AI Index 2026, Lightcast data](https://lightcast.io/resources/research/stanford-ai-index-2026)).
 
 *Counter-signals:* the same WEF survey expects robots and autonomous systems to be the largest net displacer of jobs by 2030 (about 5 million globally): the demand is for the people who build, deploy and maintain them, not for the work they replace. McKinsey notes robotics postings are still below earlier highs. Most of the 36,895 new mining workers the Chilean study projects to 2034 are replacement hires for technicians and operators; the engineering opening is the advanced maintenance, digital support and technology management that it says autonomy creates.
@@ -28,13 +28,12 @@ This is a consolidated reference to the Edge / Physical AI skill stack; the dema
 - `desirable`: Competitive edge. Significant ROI but not blocking.
 - `frontier`: Future bets. Long-term positioning.
 
-**Four specializations** (pick one or more in the malla; the doc explains the study material for each node):
+**Three specializations** (pick one or more in the malla; the doc explains the study material for each node):
 - **Edge inference & compilers**: ONNX export, TensorRT, LiteRT and OpenVINO, Jetson, GPU kernels and ML compilers, VLMs on device
 - **Robotics / Physical AI**: ROS2, RL and imitation learning, sensor fusion, 3D geometry and SLAM, Isaac Sim, fleet
 - **Industrial safety & ML assurance**: IEC 61508 and ISO 26262, perception verification, ML safety cases (AMLAS, SOTIF, ISO/PAS 8800), IEC 62443 OT security, industrial edge targets
-- **ML platform & data infra**: data pipelines, lakehouse, streaming, feature stores, LLM serving, Kubernetes for ML, cloud ML
 
-The LLM-application courses (RAG and vector databases, multi-agent systems, general LLM fine-tuning) live in the Applied AI roadmap. This path keeps only the edge-relevant slice: adapting small models for a device, folded into *Domain-specific models*.
+The LLM-application courses (RAG and vector databases, multi-agent systems, general LLM fine-tuning) live in the Applied AI roadmap. This path keeps only the edge-relevant slice: adapting small models for a device, folded into *Domain-specific models*. The data and ML platform work (pipelines, lakehouse, streaming, feature stores, Kubernetes and cloud ML) was a fourth specialization here and now has its own [Data Engineering & Platforms](#/data-roadmap) roadmap, for the same reason: its spine is data, not C++ and model export.
 
 **Resource tagging:**
 - **Best match**: the first resource of every node, the same one the graph card leads with
@@ -52,7 +51,7 @@ The LLM-application courses (RAG and vector databases, multi-agent systems, gene
 
 ### Linux & CLI `critical`
 **Prerequisites:** none
-**Unlocks:** Docker & CI/CD, ROS2, Data pipelines & SQL, AI-assisted dev workflows
+**Unlocks:** Docker & CI/CD, ROS2, AI-assisted dev workflows
 **Resources:**
 - **Best match:** Linux Journey: linuxjourney.com (free)
 - MIT: The Missing Semester, missing.csail.mit.edu (free)
@@ -61,7 +60,7 @@ The LLM-application courses (RAG and vector databases, multi-agent systems, gene
 
 ### Python `critical`
 **Prerequisites:** none
-**Unlocks:** Machine learning, ROS2, Data pipelines & SQL, AI-assisted dev workflows
+**Unlocks:** Machine learning, ROS2, AI-assisted dev workflows
 **Resources:**
 - **Best match:** Coursera: **Python for Everybody**, University of Michigan (Coursera Plus)
 - Book: *Automate the Boring Stuff*, automatetheboringstuff.com (free)
@@ -131,7 +130,7 @@ The LLM-application courses (RAG and vector databases, multi-agent systems, gene
 
 ### Docker & CI/CD `critical`
 **Prerequisites:** Linux & CLI, Git & version control
-**Unlocks:** MLOps fundamentals, Real-time streaming, Jetson & edge deploy, LLM serving & inference, Distributed systems, Kubernetes for ML
+**Unlocks:** MLOps fundamentals, Jetson & edge deploy, LLM serving & inference, Distributed systems
 **Resources:**
 - **Best match:** Docker official getting-started (free)
 - Coursera: **IBM DevOps & SWE** (Coursera Plus)
@@ -150,16 +149,6 @@ The LLM-application courses (RAG and vector databases, multi-agent systems, gene
 **Study approach:** Udemy course on sale for structure. Pair with The Construct for hands-on without hardware. Use Martín Rico book as the desk reference. Learn both C++ and Python ROS2 nodes: the ecosystem is mixed. It sits in Phase 1 of the robotics track so every later perception and policy project can run inside a ROS 2 graph.
 **Project:** Build a small autonomous robot (sim is fine, Gazebo) with the Nav2 stack: SLAM, path planning, obstacle avoidance. Public on GitHub with a recorded Gazebo demo and a README explaining the navigation pipeline.
 
-### Data pipelines & SQL `critical`
-**Prerequisites:** Python, Linux & CLI
-**Unlocks:** Lakehouse & warehouse, Real-time streaming
-**Resources:**
-- **Best match:** Data Engineering Zoomcamp, DataTalks.Club (free)
-- Book: *Fundamentals of Data Engineering*, Reis & Housley (paid)
-- dbt docs (free): the standard for tested, version-controlled transforms
-**Study approach:** Zoomcamp end-to-end as the hands-on backbone (ingestion, orchestration, warehouse, batch). Read *Fundamentals of Data Engineering* alongside it for the lifecycle vocabulary. Learn SQL window functions and query plans properly; most pipeline bugs are SQL bugs. Add dbt tests from the first transform rather than retrofitting them.
-**Project:** A scheduled pipeline that ingests a public, messy dataset (sensor logs or a transit feed), lands it raw, transforms it with dbt into tested tables, and runs under Airflow or Dagster with data-quality checks that fail the run. Public repo with a lineage diagram.
-
 ### AI-assisted dev workflows `desirable`
 **Prerequisites:** Linux & CLI, Git & version control, Python
 **Unlocks:** none in this graph; cross-cutting, it accelerates work on every later node
@@ -177,7 +166,7 @@ The LLM-application courses (RAG and vector databases, multi-agent systems, gene
 
 ### Deep learning & PyTorch `critical`
 **Prerequisites:** Machine learning
-**Unlocks:** ONNX & model export, Computer vision, LLM fundamentals, AI evaluation, RL & imitation learning, Domain vertical, Data engine & synthetic data, AI safety & governance, Cloud ML platforms
+**Unlocks:** ONNX & model export, Computer vision, LLM fundamentals, AI evaluation, RL & imitation learning, Domain vertical, Data engine & synthetic data, AI safety & governance
 **Resources:**
 - **Best match:** Coursera: **Deep Learning Specialization**, Andrew Ng (Coursera Plus). 5 courses.
 - fast.ai Practical Deep Learning (free, course.fast.ai). More code-first.
@@ -187,7 +176,7 @@ The LLM-application courses (RAG and vector databases, multi-agent systems, gene
 
 ### MLOps fundamentals `critical`
 **Prerequisites:** Machine learning, Docker & CI/CD
-**Unlocks:** AI evaluation, Functional safety for ML, Feature store & training data, Domain vertical, Data engine & synthetic data, Distributed systems, AI governance engineering, Kubernetes for ML, Cloud ML platforms
+**Unlocks:** AI evaluation, Functional safety for ML, Domain vertical, Data engine & synthetic data, Distributed systems, AI governance engineering
 **Resources (ranked, most important first):**
 - **Best match:** Book: **Designing Machine Learning Systems**, Chip Huyen (paid, ~$50). **Must-read.** Canonical text; everything else fills in around it.
 - **MLOps Zoomcamp**: DataTalks.Club (free). Best free hands-on, end-to-end course. Project-based.
@@ -208,16 +197,6 @@ The LLM-application courses (RAG and vector databases, multi-agent systems, gene
 - Book: *Programming Massively Parallel Processors* (PMPP), Hwu & Kirk (paid, ~$70). The reference text.
 **Study approach:** Rated desirable for the path: it is the base of the kernel and compiler courses in the edge track, and optional for readers who stop at TensorRT. NVIDIA DLI Fundamentals course (intensive, paid, worth it). Pair with PMPP textbook for memory-hierarchy depth. Always pair theory with profiling: never write a kernel without measuring it.
 **Project:** Implement a matrix-multiplication kernel in CUDA C++. Benchmark against `cuBLAS`. Profile with Nsight Compute. Reach >50% of `cuBLAS` performance for at least one tile size. Public on GitHub with profile traces.
-
-### Lakehouse & warehouse `critical`
-**Prerequisites:** Data pipelines & SQL
-**Unlocks:** Feature store & training data
-**Resources:**
-- **Best match:** Apache Iceberg docs (free)
-- Delta Lake docs (free)
-- Book: *The Data Warehouse Toolkit*, Kimball (paid): dimensional modelling still underpins every analytical layer
-**Study approach:** Iceberg docs first for the table-format concepts (snapshots, partition evolution, time travel), then Delta for comparison; the ideas transfer. Read the opening chapters of Kimball for dimensional modelling. Run everything locally (Spark or DuckDB against object storage) before touching a managed service.
-**Project:** Turn the Phase 1 pipeline's output into an Iceberg (or Delta) lakehouse on local object storage (MinIO). Demonstrate schema evolution, time travel to reproduce an old training set, and a partitioning change measured by query time. Document when a plain warehouse would have been the simpler answer.
 
 ---
 
@@ -264,16 +243,6 @@ The LLM-application courses (RAG and vector databases, multi-agent systems, gene
 - *Attention is All You Need*, original transformer paper (free, arxiv)
 **Study approach:** Karpathy's video first (intuition). Then DeepLearning.AI LLM course for application-level fluency. Read the transformer paper alongside Karpathy: match the math to the code.
 **Project:** Implement a small GPT (10-50M params) from scratch in PyTorch (no `transformers` library). Train on TinyShakespeare. Document the math line-by-line in a notebook. Compare your loss curve to nanoGPT.
-
-### Real-time streaming `critical`
-**Prerequisites:** Data pipelines & SQL, Docker & CI/CD
-**Unlocks:** IoT & time-series data, Capstone: Data platform
-**Resources:**
-- **Best match:** Apache Flink docs (free)
-- Confluent Kafka tutorials (free)
-- Book: *Designing Data-Intensive Applications*, Kleppmann (paid, ~$60): the clearest treatment of streams versus tables
-**Study approach:** Kafka tutorials first for logs, partitions and consumer groups; then Flink for stateful processing, windows and watermarks. Read the DDIA stream-processing chapter before designing anything. Learn delivery semantics by breaking them: kill consumers mid-run and check what was lost or duplicated.
-**Project:** A sensor-to-model stream: simulated device events into Kafka, a Flink job computing windowed features, and a model scoring them, with end-to-end latency measured under load. Include a failure test (broker restart, consumer crash) and document the delivery guarantee you actually achieved.
 
 ---
 
@@ -367,26 +336,6 @@ The LLM-application courses (RAG and vector databases, multi-agent systems, gene
 - ISO 26262 standard (automotive), IEC 62443 (industrial security)
 **Study approach:** IEC 61508 white papers first for vocabulary (SIL levels, fault trees, safety integrity). Then Hobbs's book for embedded application. The intersection of ML and functional safety is mostly papers, not yet a textbook field; the ML-specific methods come in Perception verification and ML safety assurance, so this node is about the classical frame they plug into.
 **Project:** Write a safety case for a hypothetical industrial ML deployment (e.g., conveyor-belt defect detection at SIL-2). Map model components to IEC 61508 requirements. Identify gaps between current ML practice and standards. Publish as a public document: there are very few examples online, so this alone signals expertise.
-
-### Feature store & training data `desirable`
-**Prerequisites:** Lakehouse & warehouse, MLOps fundamentals
-**Unlocks:** Capstone: Data platform
-**Resources:**
-- **Best match:** Feast docs (free)
-- Book: *Designing Machine Learning Systems*, Chip Huyen (paid, ~$50): the feature chapter frames the skew problem best
-- Databricks feature engineering docs (free): where Tecton's managed feature platform ended up in 2025
-**Study approach:** Read the features chapter of *Designing ML Systems* first, so the problem (training/serving skew, point-in-time leakage) is clear before the tool. Then the Feast quickstart against your own lakehouse. Build a leaky training set once, on purpose, and catch it.
-**Project:** Feast on top of the Phase 2 lakehouse: offline and online stores, a point-in-time-correct training set, and an online lookup used by a served model. Include a test proving no future data leaks into training, and a backfill after a feature definition changes.
-
-### IoT & time-series data `desirable`
-**Prerequisites:** Real-time streaming
-**Unlocks:** none in this graph
-**Resources:**
-- **Best match:** TimescaleDB and InfluxDB docs (free)
-- Eclipse Mosquitto MQTT tutorials (free)
-- OPC UA specification overview (free): the protocol most plant equipment actually speaks
-**Study approach:** MQTT with Mosquitto first (publish/subscribe, QoS levels, retained messages), then OPC UA for the information model plant equipment exposes. Store in TimescaleDB or InfluxDB and learn retention, downsampling and continuous aggregates. Test with the network pulled: edge buffering is where industrial deployments fail.
-**Project:** An edge gateway that reads simulated OPC UA tags and MQTT sensors, buffers locally through a network outage, and syncs to a time-series database with downsampled rollups. Show the outage and the recovery on a dashboard.
 
 ---
 
@@ -546,16 +495,6 @@ The LLM-application courses (RAG and vector databases, multi-agent systems, gene
 **Study approach:** Read EU AI Act Articles 9-15 directly: these define the technical obligations (risk management, data governance, technical documentation, record-keeping, transparency, human oversight, accuracy/robustness). Map each to an engineering control (model registry, audit log, eval harness, drift monitor). NIST AI RMF Playbook for the operational side. Treat ISO 42001 as the management-system overlay on top.
 **Project:** Build a reference governance stack for a single ML model: a model registry with provenance metadata, an audit log of deployment decisions, an eval harness mapped to specific Annex IV requirements, and a written conformity-assessment document. Public repo + a writeup explaining how each component maps to a specific clause of the EU AI Act or ISO 42001. Examples in this space are scarce, so a working reference is high-signal.
 
-### Kubernetes for ML `critical`
-**Prerequisites:** Docker & CI/CD, MLOps fundamentals
-**Unlocks:** none in this graph
-**Resources:**
-- **Best match:** Coursera: **Architecting with Google Kubernetes Engine Specialization** (Coursera Plus)
-- KubeFlow docs: kubeflow.org (free)
-- Book: *Kubernetes in Action*, Marko Lukša (paid, ~$55)
-**Study approach:** Minikube for local practice before any cloud cluster. Then GKE/EKS free-tier for real distributed work. KubeFlow for ML-specific patterns (KFServing, training operators).
-**Project:** Deploy ML serving on Kubernetes with autoscaling (HPA), model rollout (Argo Rollouts), and observability (Prometheus + Grafana). Run on a free-tier GKE/EKS cluster. Document the cost vs latency tradeoffs.
-
 ### AI safety research `desirable`
 **Prerequisites:** LLM fundamentals
 **Unlocks:** none in this graph; beyond it, frontier-lab research engineering and model evaluations roles
@@ -628,24 +567,6 @@ The LLM-application courses (RAG and vector databases, multi-agent systems, gene
 **Study approach:** Build on the Phase 6 safety case rather than starting over; the capstone adds the target hardware, the security design and the runtime behaviour. Ask someone who works in functional safety to review it: outside review is the test a safety case exists to pass.
 **Project:** One assured perception function on an industrial edge target (OpenVINO or LiteRT on an industrial PC): a hazard analysis, an ML safety case built with AMLAS, verification evidence from your own test suite, an IEC 62443 zone and conduit design for the device, and a runtime monitor with a defined safe state. Published as a document plus repo. The proof for an industrial safety and ML assurance profile.
 
-### Cloud ML platforms `critical`
-**Prerequisites:** MLOps fundamentals, Deep learning & PyTorch
-**Unlocks:** none in this graph
-**Resources:**
-- **Best match:** Coursera: **Google Cloud Machine Learning Engineer Certificate** (Coursera Plus)
-- AWS ML Specialty prep (paid, ~$300 for exam; study materials free)
-- Azure ML docs (free)
-**Study approach:** Pick the certification path of one cloud (the one closest to your job). Spend at least 20 hours hands-on per cloud: passive course-watching does not generate operational knowledge.
-**Project:** Deploy a complete training + serving pipeline on AWS, GCP, or Azure. Document costs, gotchas, and vendor lock-in points. Bonus: build the same pipeline on a second cloud and write a comparison.
-
-### Capstone: Data platform `critical`
-**Prerequisites:** Feature store & training data, Real-time streaming
-**Unlocks:** none in this graph
-**Resources:**
-- **Best match:** No course. Ship it as infrastructure-as-code with the data-quality tests running in CI.
-**Study approach:** Assemble the platform projects into one slice rather than building new parts: the work is in the seams (data contracts, orchestration, monitoring).
-**Project:** One end-to-end platform slice: ingestion to lakehouse to features to a served model, orchestrated, tested and monitored, with documented data contracts. Infrastructure-as-code, CI running the data tests, and a runbook for one failure. The proof for a Data and AI platform profile.
-
 ### Neuromorphic computing `frontier`
 **Prerequisites:** C++, Jetson & edge deploy
 **Unlocks:** none in this graph
@@ -691,7 +612,7 @@ The LLM-application courses (RAG and vector databases, multi-agent systems, gene
 
 ### Tier 2, Good signal, included in Coursera Plus:
 4. **Duke MLOps Specialization**: Finish first.
-5. **Google Cloud Machine Learning Engineer**: After MLOps; platform track first.
+5. **Google Cloud Machine Learning Engineer**: After MLOps, and only if your edge work also trains or serves models in the cloud.
 
 The IBM RAG and Agentic AI Professional Certificate moved with the RAG and agent courses to the Applied AI roadmap.
 
@@ -796,7 +717,7 @@ Assuming 10-15 hours/week outside work, which is what makes each phase about a q
 | italki English | 1 |
 | Total | ~11 |
 
-The other tracks swap the track-specific rows for their own Phase 5-6 courses at the same hours: data engine and Isaac Sim for robotics, perception verification and ML safety assurance for safety, LLM serving and Kubernetes for platform.
+The other tracks swap the track-specific rows for their own Phase 5-6 courses at the same hours: data engine and Isaac Sim for robotics, perception verification and ML safety assurance for safety.
 
 ---
 

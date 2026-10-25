@@ -2,7 +2,7 @@
 
 Reference file for the `career-roadmaps` skill. Use these sources when justifying why a roadmap, specialization, or course is valuable in the medium term (2–5 years) and long term (5–10 years).
 
-**Last reviewed:** 2026-09-26 (BLS finance occupations and the fintech gaps added 2026-10-25)
+**Last reviewed:** 2026-09-26 (BLS finance and database occupations, the CCM-Eleva Big Data figures and the fintech gaps added 2026-10-25)
 
 ## How to use this file
 
@@ -83,6 +83,7 @@ Reference file for the `career-roadmaps` skill. Use these sources when justifyin
   - Information security analysts: about 21%; BLS cites more frequent cyberattacks and the increased use of AI.
   - Software developers: about 10.2%, roughly three times the all-occupation average. Computer programmers: about -7%; BLS notes that AI is being used to automate repetitive programming tasks.
   - Finance (read 2026-10-25): financial analysts about 7% (443.1k to 475.1k, about 29,500 openings a year) and financial risk specialists about 7% (66.0k to 70.8k), both on the financial analysts OOH page: https://www.bls.gov/ooh/business-and-financial/financial-analysts.htm
+  - Data (read 2026-10-25): database architects about 9% and database administrators 0% (combined about 4%, about 7,300 openings a year); BLS ties architects to AI adoption and says cloud operation lets fewer administrators serve more companies: https://www.bls.gov/ooh/computer-and-information-technology/database-administrators.htm
   - Engineering: computer hardware engineers about 9%, electrical engineers about 10%, electronics engineers (except computer) about 4%, industrial engineers about 12% (automation expertise is cited).
   - Energy: solar photovoltaic installers (about 36.5%) and wind turbine service technicians (about 29.5%) are among the five fastest-growing occupations; utilities is the fastest-growing major sector (about 9.8%), with nearly all of that growth expected from electric power generation.
   - Fast percentage growth does not always mean many jobs: some of the fastest-growing occupations are very small in absolute numbers.
@@ -210,7 +211,7 @@ Reference file for the `career-roadmaps` skill. Use these sources when justifyin
 - Demand is concentrated in Antofagasta (50.1%), Macrozona Centro (20.7%) and Atacama (16.0%).
 - By profile: 13,073 maintenance technicians (mechanical 9,257, electromechanical 1,779, electrical 1,680, instrumentation 357), 9,458 operators, 5,255 professionals and 2,399 supervisors.
 - Automation: 178 autonomous haul trucks today, projected to reach 550 by 2034; autonomous or teleoperated drills from 52 to 122; teleoperated loaders from 35 to 61. About 1,000 people work in Integrated Operations Centres (CIO) at 15 sites in five regions.
-- Digital adoption (sites implementing or piloting): AI at 44% in extraction and processing, 48% in maintenance and 54% in CIOs; cybersecurity at 100% of CIOs and 68% to 84% of other processes; Big Data at 52% to 77%.
+- Digital adoption (sites implementing or piloting): AI at 44% in extraction and processing, 48% in maintenance and 54% in CIOs; cybersecurity at 100% of CIOs and 68% to 84% of other processes; Big Data at 52% to 77% (read in the PDF on 2026-10-25: 60% extraction, 68% processing, 52% maintenance, 77% CIO).
 - The study concludes that autonomous and digital technologies open new opportunities in advanced maintenance, digital support and technology management.
 
 **Relevance for roadmaps:** The most concrete evidence for the Chilean mining moat: automation, remote operations centres, AI pilots and cybersecurity are real and growing. It also shows where the volume is: most demand is for maintenance technicians and operators, with professional roles a smaller share. Useful for the Edge AI / Physical AI and Control Systems paths (instrumentation, electromechanical maintenance, autonomous fleets, CIO operations) and for OT security.
