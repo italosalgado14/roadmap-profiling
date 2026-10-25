@@ -1,17 +1,18 @@
 # Career Strategy: Software Engineering in the Age of AI
 ### A 15-year plan for a trilingual engineer in Chile
 
-This is the strategy layer that sits above the six learning roadmaps on this site. The roadmaps answer *how to learn* a specialization; this document answers *which one to commit to, when, and why*, and how to operate as a professional so the plan survives contact with an uncertain future.
+This is the strategy layer that sits above the seven learning roadmaps on this site. The roadmaps answer *how to learn* a specialization; this document answers *which one to commit to, when, and why*, and how to operate as a professional so the plan survives contact with an uncertain future.
 
 It is deliberately honest about uncertainty. Where a claim rests on published data it is marked as such; where it is extrapolation or speculation, it says so. Probability estimates are rough and meant to force ranking, not to be taken literally.
 
-**How this maps to the six roadmaps:**
+**How this maps to the seven roadmaps:**
 - [**Edge AI / Physical AI**](#/roadmap): production ML + deployment in the physical world (mining, energy, robotics).
 - [**Applied AI / LLM engineering**](#/applied-roadmap): products built on foundation models; retrieval, agents, evaluation and serving.
 - [**FPGA & Digital Hardware**](#/fpga-malla): the silicon and firmware the physical paths run on.
 - [**Control Systems & Robotics**](#/control-roadmap): classical, model-based, safety-critical control.
 - [**AI Security & Trustworthy Systems**](#/security-roadmap): securing software and AI systems; durable across every scenario.
 - [**Quantum AI**](#/quantum-roadmap): a long-horizon (5-10+ year) frontier bet.
+- [**FinTech Engineering**](#/fintech-roadmap): the software that moves, records and polices money; a regulated anchor in finance, built on the same software foundation as Applied AI.
 
 ---
 
@@ -78,7 +79,7 @@ These are principles, not tactics: they should hold regardless of which scenario
 
 ## 3. STEM Learning Roadmap
 
-Section 3 of the original brief (the concrete, sequenced study plan across mathematics, statistics, AI/ML engineering, security, robotics/control, and systems) is published on this site as six career paths, each with an interactive curriculum graph and, for five of them, a long-form reference:
+Section 3 of the original brief (the concrete, sequenced study plan across mathematics, statistics, AI/ML engineering, security, robotics/control, and systems) is published on this site as seven career paths, each with an interactive curriculum graph and, for six of them, a long-form reference:
 
 - [**Edge AI / Physical AI**](#/roadmap) covers the ML-engineering, MLOps, deep-learning, and physical-deployment stack (inference optimization, Jetson-class hardware, robotics), plus its math and systems foundations.
 - [**Applied AI / LLM engineering**](#/applied-roadmap) covers building products on foundation models: retrieval, agents, fine-tuning, evaluation, serving, and the backend engineering underneath them.
@@ -86,6 +87,7 @@ Section 3 of the original brief (the concrete, sequenced study plan across mathe
 - [**Control Systems & Robotics**](#/control-roadmap) covers control theory, estimation/Kalman, MPC, embedded/real-time, and industrial automation: the physical-world, model-based, safety-critical track.
 - [**AI Security & Trustworthy Systems**](#/security-roadmap) covers DevSecOps, AppSec, cloud security, AI/LLM security and AI-generated-code auditing, cryptography, and governance.
 - [**Quantum AI**](#/quantum-roadmap) covers the long-horizon quantum-ML and quantum-hardware/control path.
+- [**FinTech Engineering**](#/fintech-roadmap) covers double-entry ledgers, payment rails, reconciliation, financial regulation, market systems, credit and fraud models, and digital-asset custody: the path for engineers whose code moves money.
 
 Every roadmap is laid out like a university programme: eight phases of about three months each, so a full specialization takes about two years; up to four specializations per roadmap; two to five courses per phase for whichever specialization you follow. Every course is rated critical, desirable or frontier, names its best-match resource, and carries a "build it, don't just study it" project. Use the decision framework below to choose *which* roadmap is your spine and which is your hedge; then follow that roadmap's own critical path.
 
@@ -105,7 +107,7 @@ Honest caveat: this is a close call with **AI Security** (see below), and the ri
 
 **Recommendation: AI Security & Trustworthy Systems.**
 
-Security is the best hedge because it *pays in every scenario* (more AI → more attack surface and more machine-written code to audit → more security demand) and it *pairs with everything*, securing the very AI systems your primary specialization builds. It's also the strongest fit for your fintech and DACH access. Layered onto an Edge AI primary, it makes you the rare engineer who can both build production AI systems *and* secure them: a combination almost nobody offers.
+Security is the best hedge because it *pays in every scenario* (more AI → more attack surface and more machine-written code to audit → more security demand) and it *pairs with everything*, securing the very AI systems your primary specialization builds. It's also the strongest fit for your fintech and DACH access (the [FinTech Engineering](#/fintech-roadmap) roadmap shares its cryptography and key-management courses with Security). Layered onto an Edge AI primary, it makes you the rare engineer who can both build production AI systems *and* secure them: a combination almost nobody offers.
 
 *Alternative hedge for a different temperament:* **Control Systems & Robotics**, if you want to go deeper into the physical/mathematical, safety-critical direction (strong Chile-industrial and DACH-automation fit, and the most AI-resistant of all the paths). Choose Control over Security as the hedge if deep model-based engineering excites you more than adversarial/trust work.
 
@@ -127,4 +129,4 @@ Security is the best hedge because it *pays in every scenario* (more AI → more
 
 ---
 
-*Compiled: 2026; market figures checked on 2026-09-26 against the sources in `market-sources.md`. This strategy is a companion to the six roadmaps on this site; reassess annually against the signals above, and whenever a monitored signal moves materially. The convergence to remember: across the likely scenarios, the resilient bet is specialization + a physical-world or regulated anchor + verification/trust + AI orchestration; you don't need to predict the future, only to pick a specialization that pays in the likely cases and survives the tail one.*
+*Compiled: 2026; market figures checked on 2026-09-26 against the sources in `market-sources.md`. This strategy is a companion to the seven roadmaps on this site; reassess annually against the signals above, and whenever a monitored signal moves materially. The convergence to remember: across the likely scenarios, the resilient bet is specialization + a physical-world or regulated anchor + verification/trust + AI orchestration; you don't need to predict the future, only to pick a specialization that pays in the likely cases and survives the tail one.*

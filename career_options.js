@@ -71,6 +71,20 @@ export const OPTIONS = [
     track: "platform",
   },
   {
+    id: "fintech",
+    name: "FinTech engineering",
+    job: "Build the systems that move, record and police money: ledgers, payment rails, lending and banking products, trading systems, fraud and compliance controls, and tokenized assets. Correctness is measured in other people's money and checked by a regulator.",
+    hiring: {
+      cl: "Banks and their technology arms, payment processors and acquirers, retail groups with their own financial businesses, and a startup layer regulated under the Fintech Law.",
+      de: "Neobanks and payment companies, the large banks and market infrastructure operators, and banking software vendors serving the savings-bank and cooperative sectors.",
+      ca: "The large banks' technology organisations, payment and commerce platforms, and trading and wealth-technology firms.",
+    },
+    entry: "A backend engineer who learns double-entry accounting and one payment rail properly. One working ledger with a reconciliation report says more than any certificate; the trading end asks for more mathematics and the digital-asset end for more security depth.",
+    fit: "Good fit if you like exactness, can treat compliance as a design input rather than an obstacle, and enjoy it when the books balance to the cent.",
+    depth: "roadmap",
+    route: "#/fintech-roadmap",
+  },
+  {
     id: "cloud-sre",
     name: "Cloud / platform / SRE",
     job: "Reliability, scaling and the delivery path: Kubernetes, infrastructure-as-code, observability, incident response, and the cost of running systems.",

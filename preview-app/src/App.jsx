@@ -14,8 +14,10 @@ import SecurityMallaPage from './pages/SecurityMallaPage.jsx'
 import SecurityRoadmapPage from './pages/SecurityRoadmapPage.jsx'
 import QuantumMallaPage from './pages/QuantumMallaPage.jsx'
 import QuantumRoadmapPage from './pages/QuantumRoadmapPage.jsx'
+import FintechMallaPage from './pages/FintechMallaPage.jsx'
+import FintechRoadmapPage from './pages/FintechRoadmapPage.jsx'
 
-// Routes with a real hierarchy: two catalog entries, six career paths with
+// Routes with a real hierarchy: two catalog entries, seven career paths with
 // one or two views each, and one personal page. As a flat row of buttons that
 // wrapped onto three lines and flattened the structure away. A sidebar shows
 // the grouping, keeps the current page visible while scrolling, collapses when
@@ -32,6 +34,7 @@ const PATHS = [
   { name: 'Control & Robotics', graph: '/control-malla', roadmap: '/control-roadmap' },
   { name: 'AI Security', graph: '/security-malla', roadmap: '/security-roadmap' },
   { name: 'Quantum AI', graph: '/quantum-malla', roadmap: '/quantum-roadmap' },
+  { name: 'FinTech Engineering', graph: '/fintech-malla', roadmap: '/fintech-roadmap' },
 ]
 
 const PERSONAL = [
@@ -155,6 +158,8 @@ function Shell() {
             <Route path="/security-roadmap" element={<SecurityRoadmapPage />} />
             <Route path="/quantum-malla" element={<QuantumMallaPage />} />
             <Route path="/quantum-roadmap" element={<QuantumRoadmapPage />} />
+            <Route path="/fintech-malla" element={<FintechMallaPage />} />
+            <Route path="/fintech-roadmap" element={<FintechRoadmapPage />} />
             <Route path="*" element={<Navigate to="/options" replace />} />
           </Routes>
         </main>

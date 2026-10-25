@@ -2,7 +2,7 @@
 
 Reference file for the `career-roadmaps` skill. Use these sources when justifying why a roadmap, specialization, or course is valuable in the medium term (2–5 years) and long term (5–10 years).
 
-**Last reviewed:** 2026-09-26
+**Last reviewed:** 2026-09-26 (BLS finance occupations and the fintech gaps added 2026-10-25)
 
 ## How to use this file
 
@@ -82,6 +82,7 @@ Reference file for the `career-roadmaps` skill. Use these sources when justifyin
   - Data scientists: about 34.6%, the third fastest-growing occupation. Computer and information research scientists: about 21.8%.
   - Information security analysts: about 21%; BLS cites more frequent cyberattacks and the increased use of AI.
   - Software developers: about 10.2%, roughly three times the all-occupation average. Computer programmers: about -7%; BLS notes that AI is being used to automate repetitive programming tasks.
+  - Finance (read 2026-10-25): financial analysts about 7% (443.1k to 475.1k, about 29,500 openings a year) and financial risk specialists about 7% (66.0k to 70.8k), both on the financial analysts OOH page: https://www.bls.gov/ooh/business-and-financial/financial-analysts.htm
   - Engineering: computer hardware engineers about 9%, electrical engineers about 10%, electronics engineers (except computer) about 4%, industrial engineers about 12% (automation expertise is cited).
   - Energy: solar photovoltaic installers (about 36.5%) and wind turbine service technicians (about 29.5%) are among the five fastest-growing occupations; utilities is the fastest-growing major sector (about 9.8%), with nearly all of that growth expected from electric power generation.
   - Fast percentage growth does not always mean many jobs: some of the fastest-growing occupations are very small in absolute numbers.
@@ -289,6 +290,8 @@ Verified on 2026-09-26 and cited in the roadmaps or the strategy essay alongside
 - **Latin America (partly covered since 2026-09-26):** Sections 8 to 11 now cover regional labour-market conditions (ILO Panorama Laboral), Chilean large-scale mining workforce demand and automation (CCM-Eleva), AI readiness and AI talent by country (ILIA, CENIA and ECLAC) and GenAI exposure (ILO and World Bank). The Stanford AI Index 2026 labour data also gives Chile's share of job postings mentioning AI skills (2.4% in 2025). Still missing:
   - Official projections of Chilean ICT and digital-talent demand. Figures such as a yearly shortage of IT professionals circulate only in opinion pieces and vendor blogs; none was found from a ministry, statistics office or public agency.
   - Occupation-level projections for Chile outside mining (energy, manufacturing, fintech).
+  - A regional fintech source read in the original. The IDB and Finnovista report *Fintech en América Latina y el Caribe* (4th edition 2024, 5th in preparation) is the obvious candidate, but its publisher page returned HTTP 403 on 2026-10-25, so the FinTech roadmap cites none of its figures. Chile's Fintech Law (21.521) and the CMF's open finance rules are regulation, not demand evidence.
+  - Digital-asset and blockchain hiring: no source here measures it.
   - An IDB source on AI and jobs in the region. Only press coverage of an October 2024 IDB estimate was found, not the IDB original, so it is not listed here.
 - **Canada:** The catalog's third market is covered only through the global sources (WEF economy profile, PwC). A national source such as Canada's own occupational projections has not been added.
 - **Beyond 2035:** No credible quantitative forecasts exist. Use scenario-based reasoning and state uncertainty explicitly.

@@ -4,15 +4,15 @@ A small static site that publishes a set of engineering learning roadmaps on
 GitHub Pages.
 
 It is built in two layers. The **catalog** is neutral and meant to be useful to
-anyone: a wide map of career options, six curricula, and the long-form
-roadmap behind five of them. The **personal layer** is one overlay file on top of it,
+anyone: a wide map of career options, seven curricula, and the long-form
+roadmap behind six of them. The **personal layer** is one overlay file on top of it,
 holding one person's verdicts, priority overrides and calendar. Keeping them
 apart is what lets the same curriculum carry a different opinion for every
 reader, and it is why a node is rated by the discipline rather than by whoever
 wrote the site.
 
 The site opens on the wide map. Behind it sit a **Career Strategy** overview and
-**six career paths**. Five have both an interactive curriculum graph and a
+**seven career paths**. Six have both an interactive curriculum graph and a
 long-form roadmap; FPGA & Digital Hardware currently ships the graph only:
 
 - **Career Strategy**: the meta layer. A 5/10/15-year outlook, durable career principles, and a decision framework (primary specialization, hedge, 90-day actions, annual signals) that ties the roadmaps together.
@@ -22,6 +22,7 @@ long-form roadmap; FPGA & Digital Hardware currently ships the graph only:
 - **Control Systems & Robotics**: the classical, model-based control career (signals and classical control, state-space, estimation/Kalman, MPC, GNC).
 - **AI Security & Trustworthy Systems**: the security career (AppSec, DevSecOps, cloud security, AI/LLM security and AI-code auditing, cryptography, governance). The scenario-robust hedge that pairs with every other path.
 - **Quantum AI**: the quantum machine-learning and quantum-systems career (QM and qubits, gates and SDKs, algorithms, error correction, QML, hardware and control). A long-horizon (5-10+ year) bet.
+- **FinTech Engineering**: software that moves, records and polices money (double-entry ledgers, payment rails, reconciliation, financial regulation, market systems, credit and fraud models, custody and tokenized assets). The software foundation is shared with Applied AI and the cryptography with AI Security; everything from the ledger onwards is its own.
 
 **Live site:** <https://italosalgado14.github.io/roadmap-profiling/>
 
@@ -41,6 +42,8 @@ long-form roadmap; FPGA & Digital Hardware currently ships the graph only:
 | AI Security, full roadmap | `#/security-roadmap` | [`ai_security_roadmap.md`](./ai_security_roadmap.md) |
 | Quantum AI, curriculum graph | `#/quantum-malla` | [`quantum_ai_malla.js`](./quantum_ai_malla.js) |
 | Quantum AI, full roadmap | `#/quantum-roadmap` | [`quantum_ai_roadmap.md`](./quantum_ai_roadmap.md) |
+| FinTech Engineering, curriculum graph | `#/fintech-malla` | [`fintech_malla.js`](./fintech_malla.js) |
+| FinTech Engineering, full roadmap | `#/fintech-roadmap` | [`fintech_roadmap.md`](./fintech_roadmap.md) |
 
 The files at the repo root are the **single source of truth**: one `*_malla.js`
 data module and one `*.md` roadmap per career, `career_options.js` for the wide
@@ -53,7 +56,7 @@ them as a web app, and it owns all the rendering.
 Content and presentation are kept apart on purpose:
 
 - **`*_malla.js` at the root** export data only: `PHASES`, `TRACKS` and `COURSES`. No JSX, no imports, no drawing logic. Adding a topic means adding one object to `COURSES`.
-- **`preview-app/src/components/CurriculumGraph.jsx`** is the single renderer for all six graphs. It owns the layout, the SVG dependency edges, the track filter, the legend, the detail panel, and the constants that are the same for every path (priority levels, node kinds).
+- **`preview-app/src/components/CurriculumGraph.jsx`** is the single renderer for all seven graphs. It owns the layout, the SVG dependency edges, the track filter, the legend, the detail panel, and the constants that are the same for every path (priority levels, node kinds).
 - **`preview-app/src/components/MallaPageShell.jsx`** titles each graph page with its path name and derives the counts shown under it (`8 phases of about three months each, 44 topics, 4 specializations`) from the data itself, so a page can never describe a graph that no longer exists.
 - **`preview-app/src/components/RoadmapView.jsx`** splits a roadmap `.md` into Overview / Phase / Reference tabs by reading its heading structure.
 - **`preview-app/src/lib/overlay.js`** handles overlay persistence (localStorage, per graph, every access guarded) and JSON export/import.
@@ -205,6 +208,15 @@ and evaluation. The underlying reason is that `priority` and `kind` are
 path-relative, and a track living inside another path's graph cannot express
 that.
 
+**FinTech is a path because its spine is the money, not the code.** Its
+software foundation is deliberately the same as Applied AI's (Python, SQL,
+backend services, testing and distributed systems carry the same ids), and its
+cryptography and key management are the AI Security courses. That is 12 of its
+61 ids shared with Applied AI (0.20 of the FinTech graph, 0.30 of Applied AI's)
+and 7 with AI Security, well under the half that would make it a specialization
+of either. From Phase 2 on the spine is ledgers, payment systems, transactions,
+regulation and operational resilience, which no other graph teaches.
+
 **Ids are shared across graphs when the topic is the same, and only then.**
 Python is Python whether it is reached through security or through robotics, so
 `PY` carries the same label everywhere and only the descriptions differ. What is
@@ -313,6 +325,8 @@ occurs here, which is bad data rather than bad types.
 ├── ai_security_roadmap.md          ← source of truth (AI Security roadmap)
 ├── quantum_ai_malla.js             ← curriculum data (Quantum AI graph)
 ├── quantum_ai_roadmap.md           ← source of truth (Quantum AI roadmap)
+├── fintech_malla.js                ← curriculum data (FinTech Engineering graph)
+├── fintech_roadmap.md              ← source of truth (FinTech Engineering roadmap)
 ├── tools/check_curriculum.py       ← structural checks, run in CI before the build
 ├── .claude/skills/                 ← roadmap standards (career-roadmaps) and UI standards (roadmap-ui)
 ├── .github/workflows/deploy.yml    ← validate, build & deploy to GitHub Pages
@@ -345,7 +359,9 @@ occurs here, which is bad data rather than bad types.
             ├── SecurityMallaPage.jsx
             ├── SecurityRoadmapPage.jsx
             ├── QuantumMallaPage.jsx
-            └── QuantumRoadmapPage.jsx
+            ├── QuantumRoadmapPage.jsx
+            ├── FintechMallaPage.jsx
+            └── FintechRoadmapPage.jsx
 ```
 
 ## Original brief

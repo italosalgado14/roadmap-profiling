@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Structural checks for the curriculum data modules at the repo root.
 
-The six *_malla.js files are data only, so a mistake in them is not a syntax
+The seven *_malla.js files are data only, so a mistake in them is not a syntax
 error the build would catch: it is a node pointing at a prerequisite that does
 not exist, two nodes stacked on the same row, or a track nobody uses. Those
 render as a silently wrong graph. This script catches them before deploy.
@@ -27,6 +27,7 @@ FILES = [
     "control_robotics_malla.js",
     "ai_security_malla.js",
     "quantum_ai_malla.js",
+    "fintech_malla.js",
 ]
 
 VALID_PRIORITIES = {"critical", "desirable", "frontier"}
