@@ -12,8 +12,8 @@ reader, and it is why a node is rated by the discipline rather than by whoever
 wrote the site.
 
 The site opens on the wide map. Behind it sit a **Career Strategy** overview and
-**eight career paths**. Seven have both an interactive curriculum graph and a
-long-form roadmap; FPGA & Digital Hardware currently ships the graph only:
+**eight career paths**, each with both an interactive curriculum graph and a
+long-form roadmap:
 
 - **Career Strategy**: the meta layer. A 5/10/15-year outlook, durable career principles, and a decision framework (primary specialization, hedge, 90-day actions, annual signals) that ties the roadmaps together.
 - **Edge AI / Physical AI**: the ML and deployment career (TensorRT, Jetson, robotics, MLOps).
@@ -39,6 +39,7 @@ long-form roadmap; FPGA & Digital Hardware currently ships the graph only:
 | Data Engineering & Platforms, curriculum graph | `#/data-malla` | [`data_platform_malla.js`](./data_platform_malla.js) |
 | Data Engineering & Platforms, full roadmap | `#/data-roadmap` | [`data_platform_roadmap.md`](./data_platform_roadmap.md) |
 | FPGA & Hardware, curriculum graph | `#/fpga-malla` | [`fpga_hardware_malla.js`](./fpga_hardware_malla.js) |
+| FPGA & Hardware, full roadmap | `#/fpga-roadmap` | [`fpga_hardware_roadmap.md`](./fpga_hardware_roadmap.md) |
 | Control & Robotics, curriculum graph | `#/control-malla` | [`control_robotics_malla.js`](./control_robotics_malla.js) |
 | Control & Robotics, full roadmap | `#/control-roadmap` | [`control_robotics_roadmap.md`](./control_robotics_roadmap.md) |
 | AI Security, curriculum graph | `#/security-malla` | [`ai_security_malla.js`](./ai_security_malla.js) |
@@ -315,7 +316,6 @@ occurs here, which is bad data rather than bad types.
 
 ## What is not done
 
-- **FPGA & Digital Hardware has no long-form roadmap yet.** It ships as a curriculum graph and a wide-map card, the same way Applied AI did before its document was written. Its demand evidence is already in `.claude/skills/career-roadmaps/references/market-claims-ledger.md` (rows L12, L25, L38, L39), waiting for the document to carry it.
 - **Overlay sharing is by file, not by URL.** Export and import round-trip a JSON overlay. Encoding one into a link fights `HashRouter` and URL length limits, so it was not built.
 - **Verdict and priority edits need a file edit.** The browser owns progress and track selection; changing verdicts or priority overrides means editing `my_path.js` (or an exported overlay) directly.
 - **Code-splitting.** Not needed now that `highlight.js` is out of the bundle.
@@ -336,6 +336,7 @@ occurs here, which is bad data rather than bad types.
 ├── data_platform_malla.js          ← curriculum data (Data Engineering & Platforms graph)
 ├── data_platform_roadmap.md        ← source of truth (Data Engineering & Platforms roadmap)
 ├── fpga_hardware_malla.js          ← curriculum data (FPGA & Hardware graph)
+├── fpga_hardware_roadmap.md        ← source of truth (FPGA & Hardware roadmap)
 ├── control_robotics_malla.js       ← curriculum data (Control & Robotics graph)
 ├── control_robotics_roadmap.md     ← source of truth (Control & Robotics roadmap)
 ├── ai_security_malla.js            ← curriculum data (AI Security graph)

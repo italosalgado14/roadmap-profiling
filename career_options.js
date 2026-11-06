@@ -150,8 +150,8 @@ export const OPTIONS = [
     },
     entry: "An electronics or computer-engineering background is the natural route in, and C plus an HDL are non-negotiable. The slowest path on this map to enter, because hardware iteration loops run in days rather than seconds.",
     fit: "Good fit if you like determinism, want the layer under everything else, and can tolerate a feedback loop measured in synthesis runs.",
-    depth: "graph",
-    route: "#/fpga-malla",
+    depth: "roadmap",
+    route: "#/fpga-roadmap",
   },
   {
     id: "domain-vertical",

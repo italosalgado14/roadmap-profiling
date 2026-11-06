@@ -7,6 +7,7 @@ import MallaPage from './pages/MallaPage.jsx'
 import AppliedMallaPage from './pages/AppliedMallaPage.jsx'
 import AppliedRoadmapPage from './pages/AppliedRoadmapPage.jsx'
 import FpgaMallaPage from './pages/FpgaMallaPage.jsx'
+import FpgaRoadmapPage from './pages/FpgaRoadmapPage.jsx'
 import RoadmapPage from './pages/RoadmapPage.jsx'
 import ControlMallaPage from './pages/ControlMallaPage.jsx'
 import ControlRoadmapPage from './pages/ControlRoadmapPage.jsx'
@@ -33,7 +34,7 @@ const PATHS = [
   { name: 'Edge AI / Physical AI', graph: '/malla', roadmap: '/roadmap' },
   { name: 'Applied AI / LLM', graph: '/applied-malla', roadmap: '/applied-roadmap' },
   { name: 'Data Engineering & Platforms', graph: '/data-malla', roadmap: '/data-roadmap' },
-  { name: 'FPGA & Digital Hardware', graph: '/fpga-malla' },
+  { name: 'FPGA & Digital Hardware', graph: '/fpga-malla', roadmap: '/fpga-roadmap' },
   { name: 'Control & Robotics', graph: '/control-malla', roadmap: '/control-roadmap' },
   { name: 'AI Security', graph: '/security-malla', roadmap: '/security-roadmap' },
   { name: 'Quantum AI', graph: '/quantum-malla', roadmap: '/quantum-roadmap' },
@@ -154,6 +155,7 @@ function Shell() {
             <Route path="/applied-malla" element={<AppliedMallaPage />} />
             <Route path="/applied-roadmap" element={<AppliedRoadmapPage />} />
             <Route path="/fpga-malla" element={<FpgaMallaPage />} />
+            <Route path="/fpga-roadmap" element={<FpgaRoadmapPage />} />
             <Route path="/roadmap" element={<RoadmapPage />} />
             <Route path="/control-malla" element={<ControlMallaPage />} />
             <Route path="/control-roadmap" element={<ControlRoadmapPage />} />

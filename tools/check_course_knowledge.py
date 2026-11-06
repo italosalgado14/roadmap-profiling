@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Check that every course names the knowledge rather than just the reading.
 
-Two rules from .claude/skills/career-roadmaps/SKILL.md, over all seven roadmap
+Two rules from .claude/skills/career-roadmaps/SKILL.md, over all eight roadmap
 documents and all eight curriculum graphs:
 
   * a resource that points at a body of material (documentation, a user guide,
@@ -23,17 +23,21 @@ import pathlib, re, sys, json
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
 MD = ["final_roadmap_reference.md","applied_ai_roadmap.md","control_robotics_roadmap.md",
-      "ai_security_roadmap.md","quantum_ai_roadmap.md","fintech_roadmap.md","data_platform_roadmap.md"]
+      "ai_security_roadmap.md","quantum_ai_roadmap.md","fintech_roadmap.md",
+      "data_platform_roadmap.md","fpga_hardware_roadmap.md"]
 JS = ["edge_ai_malla_v3.js","applied_ai_malla.js","fpga_hardware_malla.js","control_robotics_malla.js",
       "ai_security_malla.js","quantum_ai_malla.js","fintech_malla.js","data_platform_malla.js"]
 
 # A resource that is a pointer to a body of material rather than a finite,
 # self-describing unit. Reading one of these without being told which concepts
 # to extract is the problem the user reported.
-POINTER = re.compile(r"\b(docs?|documentation|user guide|getting started|tutorial"
-                     r"|playground|reference|handbook|wiki|cookbook|examples?|blog"
-                     r"|site|portal|archive|library|spec|specification|standard"
-                     r"|whitepapers?|website|web)\b", re.I)
+POINTER = re.compile(r"\b(docs?|documentation|user guides?|getting started|tutorials?"
+                     r"|playground|references?|handbooks?|wikis?|cookbooks?|examples?|blogs?"
+                     r"|sites?|portals?|archives?|librar(?:y|ies)|specs?|specifications?"
+                     r"|standards?|whitepapers?|websites?|web|guides?|guidance"
+                     r"|application notes?|notes?|cores?|kits?|material|papers?"
+                     r"|projects?|posts?|manuals?|lectures?|courses?|summaries|summary"
+                     r"|writeups?|advisories|captures?|labs?|series)\b", re.I)
 # A clause that says what to take from it: an explicit why/what marker, or a
 # colon followed by a real descriptive phrase rather than a bare label.
 HAS_WHY = re.compile(r",\s*(why|what|read|focus|take|use it for)\s*:", re.I)
