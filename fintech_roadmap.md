@@ -51,6 +51,8 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 
 **Per-node sections:** every node lists `Prerequisites`, `Unlocks`, `Tracks`, `Resources`, a `Study approach` and a `Project`. The project is the proof of competence. In this field a working ledger with a published reconciliation report, or a fraud model with an honest evaluation, outranks most certificates, because it shows you can make money add up under failure.
 
+**What `Study approach` and `why:` are for.** `Study approach` is the knowledge itself: the concepts a course rests on, why each one matters and what breaks without it, so you can say what the course is about before opening a single resource. It is not a reading order and not a checklist. Where a resource is a body of material rather than one finite unit, such as official documentation or a reference manual, a `why:` clause names the specific parts to take from it, and sometimes the parts to leave alone.
+
 **Regulatory facts are dated.** Where a node names a regulation, deadline or standard version, it was checked on 2026-10-25 and is listed under *Sources & Notes*. Regulation in this field moves every year; re-check before relying on one.
 
 ---
@@ -64,7 +66,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Resources:**
 - **Best match:** Coursera: Python for Everybody, UMich
 - Book: Python for Finance, Hilpisch, 2nd ed. (paid), why: Python taught through financial data rather than toy examples
-- pandas user guide (free)
+- pandas user guide (free), why: the time-series chapters above all, namely a DatetimeIndex, resampling, rolling windows and timezone handling, since every mistake in financial data analysis starts with a misaligned index
 **Study approach:** Python is the language finance uses to look at itself: risk models, reconciliations, data pipelines, test harnesses and the scripts operations teams run at the end of every month. Go past scripting into type hints, packaging, virtual environments and pandas, because most of the analysis work in this roadmap happens in a DataFrame. Learn early that `float` is not a money type: `0.1 + 0.2` is the first bug every fintech engineer meets, and `decimal.Decimal` or integer minor units are the habit to build from the first line.
 **Project:** Write a small typed package that loads a year of your own bank or card transactions from CSV, categorises them with explicit rules, and produces a monthly summary whose totals match the statements to the cent. Use integer cents or `Decimal` throughout and include a test that fails if anyone introduces a float.
 
@@ -73,9 +75,9 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Unlocks:** Ledgers & double-entry design, Transactions & data consistency, Financial data engineering
 **Tracks:** All specializations
 **Resources:**
-- **Best match:** ThoughtSpot SQL tutorial, formerly Mode (free)
+- **Best match:** ThoughtSpot SQL tutorial, formerly Mode (free), why: joins and their fan-out failure, aggregation, window functions and CTEs; a join that silently duplicates rows is how a reconciliation report lies
 - Use The Index, Luke (free), why: indexing is where reporting queries over transaction tables get slow
-- PostgreSQL docs (free)
+- PostgreSQL docs (free), why: indexing, query plans, and the numeric and decimal types, because money held as a floating-point number is a defect rather than a rounding issue
 **Study approach:** Every balance, statement, report and audit request in a financial company ends up as a SQL question, and the answer has to be exact. Learn joins, aggregation, window functions (running balances are the canonical example), transactions and how to read a query plan. Pay attention to indexing on large append-only tables, because transaction tables only ever grow and reporting queries over them are where systems get slow first.
 **Project:** Load a public transactions dataset of at least a million rows into PostgreSQL. Compute running balances per account with a window function, find accounts whose balance ever went negative, and make the slowest query ten times faster. Explain the plan before and after.
 
@@ -140,7 +142,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Tracks:** All specializations
 **Resources:**
 - **Best match:** Stripe API reference and engineering blog post on idempotency (free), why: the most copied financial API design in the industry
-- FastAPI docs (free)
+- FastAPI docs (free), why: Pydantic request and response models, dependency injection, and background tasks, plus idempotency handling in middleware, which a payments API cannot do without
 - Book: Architecture Patterns with Python (free online)
 **Study approach:** A financial API is a backend service with unusually strict promises. Learn HTTP APIs, authentication, webhooks, background jobs, queues and timeouts, then the parts finance adds: idempotency keys so a retried request never moves money twice, signed webhooks so a partner can trust a callback, explicit API versioning, and error models that distinguish declined from failed from unknown. Stripe's public API and its idempotency write-up are the reference most of the industry copies.
 **Project:** Build a small payments-style API: create a payment, capture it, refund it. Every mutating call takes an idempotency key, webhooks are signed and retried with backoff, and a test proves that sending the same request ten times concurrently moves money exactly once.
@@ -150,7 +152,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Unlocks:** Smart contracts & on-chain security, Capstone: FinTech system
 **Tracks:** All specializations
 **Resources:**
-- **Best match:** pytest docs (free)
+- **Best match:** pytest docs (free), why: fixtures and their scopes, parametrization for the many-cases-one-rule shape that financial logic takes, and how a ledger invariant becomes a property test
 - Hypothesis property-based testing docs (free), why: invariants such as every transaction balancing to zero are exactly what it checks
 - Book: Architecture Patterns with Python, testing chapters (free online)
 **Study approach:** The bugs that cost money are rarely the ones example-based tests catch: rounding that drifts by a cent per thousand transactions, two events processed in an unexpected order, a retry that double-posts. Learn unit and integration testing, fixtures and mocks, and then property-based testing, which lets you state invariants (every transaction balances to zero, a refund never exceeds its capture, balances never depend on processing order) and have the tool search for counterexamples.
@@ -161,8 +163,8 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Unlocks:** Distributed systems
 **Tracks:** All specializations
 **Resources:**
-- **Best match:** Docker getting started (free)
-- GitHub Actions docs (free)
+- **Best match:** Docker getting started (free), why: layers and caching, Compose, volumes and networking; ignore Swarm
+- GitHub Actions docs (free), why: triggers, jobs, caching and secrets, and the approval gates a regulated deployment pipeline is built from
 **Study approach:** Containers, Compose, pipelines and reproducible builds. Regulated delivery adds two things to the usual practice: segregation of duties (the person who writes a change is not the only one who can approve and deploy it) and an evidence trail of tests, approvals and artifacts. Learn to build that into the pipeline rather than into a spreadsheet, because the pipeline then becomes the control an auditor tests.
 **Project:** Containerize the payments API from the backend course with its database, run its tests in CI on every pull request, and require an approval before a tagged release deploys. Export the pipeline's record of one release (commit, tests, approver, artifact digest) as the evidence pack an auditor would ask for.
 
@@ -172,7 +174,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Resources:**
 - **Best match:** Dev.java learning path, Oracle (free)
 - Book: Effective Java, Bloch, 3rd ed. (paid), why: still the best guide to Java that other people maintain
-- Kotlin docs (free)
+- Kotlin docs (free), why: null safety, data classes and coroutines, which is what modern JVM banking code is written with and why it reads differently from legacy Java
 **Study approach:** Most bank cores, card processors, payment hubs and many trading systems run on the JVM, so for the payments track Java or Kotlin is the practical second language. Learn the type system, collections, concurrency and the memory model, garbage collection at a working level, and enough Spring Boot to read the service you will inherit. Effective Java is still the best guide to writing Java other people can maintain, which in a bank is most of the job.
 **Project:** Re-implement the payments API from the backend course in Java or Kotlin with Spring Boot, including idempotency and signed webhooks, and load-test both versions. Write a short comparison of what was easier, what was harder, and how each behaved under load.
 
@@ -208,7 +210,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Tracks:** All specializations
 **Resources:**
 - **Best match:** Modern Treasury, Accounting for Developers series (free), why: written for engineers building exactly this
-- TigerBeetle docs on debits, credits and two-phase transfers (free)
+- TigerBeetle docs on debits, credits and two-phase transfers (free), why: double-entry stated as a data model with enforced invariants, and two-phase transfers as the way a pending authorization is represented without breaking the balance
 - Book: Analysis Patterns, Fowler, accounting chapters (paid)
 **Study approach:** The single most important course in this roadmap. Learn to design a ledger that is append-only, where every transaction is a set of entries that sums to zero, accounts have a normal balance, and pending and posted balances are distinct. Represent money exactly, as integer minor units or decimals with an explicit currency, never as floats, and decide early how multiple currencies and FX are recorded. Modern Treasury's series and TigerBeetle's documentation show how engineers who built production ledgers think about it; Fowler's accounting patterns show the same ideas from the modelling side.
 **Project:** Build a double-entry ledger service with accounts, balanced transactions, pending holds that later post or void, and multi-currency accounts. Prove with tests that no API sequence can create or destroy money, that balances can be recomputed from entries at any point in time, and that the ledger rejects any unbalanced transaction.
@@ -218,7 +220,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Unlocks:** Distributed systems
 **Tracks:** All specializations
 **Resources:**
-- **Best match:** PostgreSQL docs, Transaction Isolation chapter (free)
+- **Best match:** PostgreSQL docs, Transaction Isolation chapter (free), why: what each isolation level actually permits, and the concrete anomalies, lost update, write skew and phantom reads, that let two concurrent transfers overdraw the same account
 - Book: Designing Data-Intensive Applications, Kleppmann & Riccomini, 2nd ed., transactions chapter (paid), why: the clearest treatment of isolation anomalies in print
 - Jepsen analyses (free)
 **Study approach:** A double spend is usually a transaction-isolation bug before it is anything else. Learn ACID properly, then the isolation levels your database actually offers and the anomalies each permits (lost update, write skew, phantom reads), row locking versus optimistic concurrency, and how to make a write idempotent. Read a few Jepsen analyses to see how often real databases fail to provide what their documentation promises under failure.
@@ -267,7 +269,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Tracks:** All specializations
 **Resources:**
 - **Best match:** Book: Designing Data-Intensive Applications, Kleppmann & Riccomini, 2nd ed. (paid), why: still the single best systems book
-- AWS Builders' Library (free)
+- AWS Builders' Library (free), why: the articles on timeouts, retries with backoff and jitter, and idempotency, which is the operational core of moving money over unreliable networks
 - microservices.io patterns: saga and transactional outbox (free)
 **Study approach:** A payment request that times out is not a payment that failed: the bank may have executed it, rejected it, or never received it, and your system has to cope with all three. Learn partial failure, retries with backoff and idempotency, at-least-once delivery and why exactly-once is something you build rather than receive, sagas for multi-step flows, and the transactional outbox for publishing events without losing or duplicating them. Kleppmann and Riccomini's second edition is the best book on the subject; the AWS Builders' Library shows the same ideas at production scale.
 **Project:** Extend your ledger and payments API into a transfer flow across two services and a simulated bank that randomly times out, fails or succeeds late. Use an outbox and a saga with compensations, then run a chaos test of ten thousand transfers and show the ledger still balances and every transfer ends in a known state.
@@ -301,8 +303,8 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Resources:**
 - **Best match:** Book: The Anatomy of the Swipe, Siddiqui (paid), why: the clearest end-to-end account of a card transaction
 - EMVCo specifications and 3-D Secure overview (free)
-- Stripe and Adyen docs on authorization and tokenization (free)
-**Study approach:** The card rail has the most moving parts and the most products built on it. Learn the four-party model (cardholder, issuer, merchant, acquirer) plus processors and schemes; the lifecycle of authorization, clearing and settlement; ISO 8583 messages; EMV chip and contactless; 3-D Secure for online payments; network tokens; chargebacks and disputes; and how interchange and scheme fees shape the economics. The Anatomy of the Swipe walks one transaction end to end; the EMVCo and processor documentation give the detail.
+- Stripe and Adyen docs on authorization and tokenization (free), why: the authorization, capture, refund and chargeback lifecycle, and tokenization as the mechanism that keeps card data out of your systems
+**Study approach:** The card rail has the most moving parts of any payment system and the most products built on top of it, and the knowledge that organises all of it is the four-party model: a cardholder's issuer, a merchant's acquirer, and the scheme between them, with processors doing the technical work for each side. Understand who bears which risk in that arrangement, because it explains the fee structure, the dispute rules and why nothing here can be redesigned unilaterally. Understand that authorization, clearing and settlement are three separate events separated by hours or days, so an approved transaction is a promise rather than a movement of money, which is why a pending authorization must be modeled distinctly from a posted one and why reconciliation exists as a discipline. Understand EMV and tokenization as answers to a single question, how to transact without the card number being the secret, and understand a network token as a card number that is useless outside one merchant. Understand 3-D Secure as a liability shift rather than a security feature, since passing authentication moves responsibility for fraud rather than preventing it. Understand chargebacks as an adversarial process with deadlines and evidence requirements, which is why the data captured at authorization determines whether a dispute can be won months later. Understand interchange and scheme fees as the economics that decide which products are viable at all.
 **Project:** Build a simplified acquirer that accepts authorization requests in a subset of ISO 8583, forwards them to a simulated issuer, holds funds in your ledger, and settles them in a daily clearing file. Then implement a chargeback and show every ledger entry it produces.
 
 ### ISO 20022 & bank messaging `critical`
@@ -323,7 +325,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Resources:**
 - **Best match:** Book: Trading and Exchanges, Larry Harris (paid), why: the standard practitioner text on how markets actually work
 - Book: Algorithmic Trading and DMA, Barry Johnson (paid)
-- Exchange order type and rulebook docs, e.g. Nasdaq and CME (free)
+- Exchange order type and rulebook docs, e.g. Nasdaq and CME (free), why: the order types and their time-in-force semantics, the auction and halt rules, and the priority model, which is what determines whether your order actually executes
 **Study approach:** The rules of the game every trading system encodes. Learn order types, the limit order book, matching rules, liquidity and spreads, market makers and their incentives, fragmentation across venues, dark pools, and how exchanges and brokers earn. Harris remains the standard text on how markets work; Johnson adds the electronic-trading view. Read at least one real exchange's order type documentation, because the edge cases there become bugs in your code.
 **Project:** Using public order book data (crypto venues publish free depth feeds), reconstruct the book, measure spread and depth through a day, and estimate the cost of buying a fixed size with a market order at different times. Explain what you see in terms of the course.
 
@@ -334,8 +336,8 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Resources:**
 - **Best match:** Book: Analysis of Financial Time Series, Tsay (paid), why: the standard text
 - Forecasting: Principles and Practice, Hyndman & Athanasopoulos (free online)
-- statsmodels and arch library docs (free)
-**Study approach:** The statistics under every backtest and market risk number. Learn returns and log returns, stationarity and why prices are not stationary, autocorrelation, volatility clustering and GARCH models, regime change, and the classic traps: look-ahead bias, survivorship bias and data snooping. Tsay is the reference; Hyndman's free book teaches forecasting discipline that transfers.
+- statsmodels and arch library docs (free), why: ARIMA and the stationarity tests in statsmodels, and GARCH in arch, with the diagnostics that tell you a fit is spurious
+**Study approach:** This is the statistics under every backtest and every market-risk number, and it begins with one fact: prices are not stationary, so their statistical properties change over time and nothing you learned about independent samples applies to them. Understand why returns, and log returns in particular, are the quantity actually modeled, since they are closer to stationary and they add over time. Understand volatility clustering, that large moves follow large moves, which is why volatility is itself modeled as a process and why GARCH exists; the practical consequence is that a risk estimate computed from a calm period understates the next crisis. Understand autocorrelation and the stationarity tests, and treat a significant result as a warning about your data rather than a discovery. Understand fat tails and why a normal distribution underprices extreme moves, which is the assumption behind most spectacular risk-model failures. Then understand the three traps that invalidate most backtests, because they matter more than any model: look-ahead bias, where information reaches your model before it existed; survivorship bias, where the failed companies are missing from your history; and data snooping, where enough variants tested on one dataset will produce a winner by chance. Understand regime change as the limit of the whole enterprise: a relationship fitted on one regime is not evidence about the next.
 **Project:** Fit a GARCH model to an index's daily returns, use it to forecast volatility, and evaluate the forecasts out of sample against realized volatility. Then deliberately introduce look-ahead bias and show how much better (and how wrong) the results look.
 
 ### Financial data engineering `critical`
@@ -344,7 +346,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Tracks:** Risk, fraud & compliance
 **Resources:**
 - **Best match:** Book: Financial Data Engineering, Tamer Khraisha (paid), why: the one book written for exactly this intersection
-- dbt docs and dbt Learn (free)
+- dbt docs and dbt Learn (free), why: models and refs as a dependency graph, tests, and snapshots for slowly changing dimensions, which is how a reporting layer becomes auditable
 - Book: Fundamentals of Data Engineering, Reis & Housley (paid)
 **Study approach:** Risk, compliance and reporting all stand on financial data, and regulators ask where each number came from. Learn to model transactions, positions and reference data, run tested transformations in a warehouse, write data quality checks, and handle bitemporal data: what was true on a date, and what we knew about it on another date, which is how restatements and late-arriving corrections are kept honest. Khraisha's book is the one written for this intersection; dbt is the common tool for the transformation layer.
 **Project:** Build a small warehouse from your ledger: a dbt project with sources, tests and documented models for balances, daily movements and customer risk attributes. Add a bitemporal table and show a report as it was originally published and as corrected after a late transaction arrived.
@@ -359,7 +361,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Tracks:** All specializations
 **Resources:**
 - **Best match:** Book: Designing Event-Driven Systems, Ben Stopford (free from Confluent), why: built around a financial example
-- Apache Kafka docs (free)
+- Apache Kafka docs (free), why: the log as the primitive, partitions and ordering guarantees, consumer groups and offsets, and exactly-once semantics with their real caveats
 - Martin Fowler, Event Sourcing (free)
 **Study approach:** A ledger is naturally an event log, and payment, loan and trade lifecycles are state machines driven by events from partners you do not control. Learn log-based messaging with Kafka, partitioning and ordering guarantees, consumer groups and replay, event sourcing and CQRS, schema evolution, and how to handle duplicates and out-of-order events. Stopford's book is built around a financial example and is free from Confluent.
 **Project:** Rebuild your ledger's write path as event-sourced: commands produce events, projections build balances and statements, and a full replay from the log reproduces every balance exactly. Add a projection that did not exist before and backfill it from history.
@@ -381,7 +383,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Tracks:** Payments & banking platforms
 **Resources:**
 - **Best match:** OpenID Foundation, FAPI 2.0 Security Profile (free), why: the security profile open banking regimes converge on
-- Open Finance Brasil developer docs (free)
+- Open Finance Brasil developer docs (free), why: the consent lifecycle and the certificate-based client authentication, read as a working example of how open banking authorises third-party access
 - UK Open Banking standards (free)
 **Study approach:** Open banking and open finance let customers share their financial data and initiate payments through regulated APIs instead of screen-scraping. Learn OAuth 2.0 and OpenID Connect, then the FAPI 2.0 security profile (final since February 2025) that open banking regimes converge on; the consent lifecycle and its revocation; and the main regimes: PSD2 in the EU (its successors PSD3 and the Payment Services Regulation were provisionally agreed in November 2025, with formal adoption pending), the UK standards, Open Finance Brasil, and Chile's open finance system, whose start the CMF moved to July 2027 with NCG 569.
 **Project:** Build a third-party app against a public open banking sandbox: consent, token exchange with a FAPI-style profile, account and transaction retrieval, consent revocation, and a payment initiation. Write up every security control the provider required and why it exists.
@@ -392,7 +394,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Tracks:** Payments & banking platforms, Digital assets & tokenization
 **Resources:**
 - **Best match:** NIST SP 800-57 Part 1, key management recommendations (free), why: the reference for the key lifecycle
-- AWS Payment Cryptography and AWS KMS docs (free)
+- AWS Payment Cryptography and AWS KMS docs (free), why: key hierarchies and envelope encryption, and why a hardware security module exists, namely that a key which can be exported is not a key under control
 - PCI PIN Security Requirements (free)
 **Study approach:** Cryptography is only as good as the custody of its keys. Learn the key lifecycle (generation, distribution, rotation, revocation, destruction), HSMs and cloud KMS, envelope encryption, dual control and split knowledge, and key ceremonies. In payments add PIN blocks, key hierarchies and DUKPT for terminals; in digital assets, accept that the key is the asset. NIST SP 800-57 is the reference for the lifecycle; AWS Payment Cryptography is a readable modern window into payment HSM operations.
 **Project:** Design and implement envelope encryption for sensitive fields in your ledger using a cloud KMS, with key rotation that re-wraps data keys without downtime. Write a key ceremony procedure for the master key that a second person could follow.
@@ -414,8 +416,8 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Tracks:** Trading & market systems
 **Resources:**
 - **Best match:** FIX Trading Community, FIX specification and FIXimate (free), why: the spec is the documentation
-- QuickFIX/J docs (free)
-- Nasdaq TotalView-ITCH specification (free)
+- QuickFIX/J docs (free), why: the FIX session layer, sequence numbers, heartbeats and gap fill, which is where most integration failures live rather than in the message bodies
+- Nasdaq TotalView-ITCH specification (free), why: how a full order book is reconstructed from add, execute, cancel and delete messages, which is the data structure every market-microstructure question is asked of
 **Study approach:** FIX is the common protocol between trading systems and venues. Learn the session layer (logon, heartbeats, sequence numbers, resend requests and gap fills), the application messages for orders, cancels, replaces and execution reports, drop copies, and how market data arrives, from FIX snapshots to binary incremental feeds over multicast. The specification is the documentation; QuickFIX/J lets you run real sessions locally.
 **Project:** Connect a QuickFIX client to a simulated venue you write yourself. Send, amend and cancel orders, handle partial fills, then kill the connection mid-session and show that sequence-number recovery restores a consistent order state on both sides.
 
@@ -425,7 +427,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Tracks:** Trading & market systems
 **Resources:**
 - **Best match:** CppCon talk: When a Microsecond Is an Eternity, Carl Cook (free), why: a working HFT engineer on the real techniques
-- LMAX Disruptor paper and docs (free)
+- LMAX Disruptor paper and docs (free), why: mechanical sympathy, a lock-free ring buffer and cache-line padding, read for why avoiding allocation and contention beats adding threads
 - Book: Systems Performance, Gregg, 2nd ed. (paid)
 **Study approach:** At a high-frequency firm, a quote that arrives a few microseconds late is worth less. Learn where latency comes from: system calls, context switches, cache misses, allocation, locks and the network stack. Then the techniques: CPU pinning and isolation, kernel bypass networking, cache-friendly and allocation-free hot paths, lock-free single-producer queues, and measuring tail latency honestly rather than averages. Carl Cook's talk is the best single introduction from someone who did it for a living.
 **Project:** Build a market data to order pipeline with a lock-free queue between threads. Measure the 50th, 99th and 99.9th percentile latency, then apply pinning, pre-allocation and batching one at a time and chart what each change bought.
@@ -459,7 +461,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Resources:**
 - **Best match:** Book: Bitcoin and Cryptocurrency Technologies, Narayanan et al. (free PDF), why: rigorous and still the best foundation
 - Book: Mastering Ethereum, 2nd ed. (paid)
-- ethereum.org developer docs (free)
+- ethereum.org developer docs (free), why: accounts and the state model, gas as a bound on execution, and transaction finality, which is what makes on-chain settlement different from a ledger entry
 **Study approach:** Learn how a blockchain actually works before building on one: hash-linked blocks, Merkle trees, consensus from proof of work to proof of stake and BFT protocols, the UTXO and account models, finality and reorganisations, Ethereum's execution model and gas, and permissioned ledgers used between institutions. Narayanan and colleagues' book is rigorous and free; Mastering Ethereum's second edition covers the current Ethereum stack. Finish able to say when a shared ledger solves a real coordination problem and when a database would do.
 **Project:** Run a node on a public testnet, send transactions programmatically, and track one from submission to finality. Then write a two-page assessment of one real proposed use of a blockchain in finance, arguing whether a shared ledger is necessary there.
 
@@ -495,7 +497,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Tracks:** Payments & banking platforms
 **Resources:**
 - **Best match:** Apache Fineract docs (free), why: an open-source core you can run and read
-- Thought Machine Vault and Mambu developer docs (free)
+- Thought Machine Vault and Mambu developer docs (free), why: how a product is defined as configuration and a smart contract rather than as code, which is the modern answer to the core-banking rewrite problem
 - Book: Analysis Patterns, Fowler (paid)
 **Study approach:** A core banking system turns a ledger into products: deposit accounts that accrue interest, loans with amortization schedules, fees, limits and the end-of-day batch that capitalizes interest and rolls dates. Modern cores (Thought Machine, Mambu and others) are configurable product engines over a ledger, and integrating with one is a common fintech job. Apache Fineract is open source, so you can run one and read how it handles the details.
 **Project:** Implement a savings product with daily interest accrual and monthly capitalization and a consumer loan with an amortization schedule, early repayment and late fees, on top of your ledger. Run a simulated year and show the interest calculations tie out to an independent spreadsheet to the cent.
@@ -517,7 +519,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Resources:**
 - **Best match:** Book: Advances in Financial Machine Learning, López de Prado (paid), why: the clearest account of why backtests overfit
 - Book: Quantitative Trading, Ernest Chan, 2nd ed. (paid)
-- QuantConnect LEAN engine docs (free)
+- QuantConnect LEAN engine docs (free), why: the event-driven backtest loop, the data and slippage models, and portfolio construction, read for where a backtest quietly cheats
 **Study approach:** A backtest answers how a strategy would have performed, and it is very easy to make it lie. Learn event-driven backtesting, point-in-time data (no future information, no survivors only), realistic transaction costs and slippage, walk-forward validation, and the multiple-testing problem: try enough strategies and one will look brilliant by chance. López de Prado's book is the clearest account of how backtests overfit; Chan's is the practical starting point.
 **Project:** Build an event-driven backtester over recorded market data with a cost model. Test a simple strategy honestly, then run a parameter sweep of a hundred variants and show how the best one degrades out of sample. Report a deflated performance figure.
 
@@ -526,7 +528,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Tracks:** Trading & market systems
 **Resources:**
 - **Best match:** Martin Fowler, The LMAX Architecture (free), why: a real exchange design written up in detail
-- Exchange matching rule documentation (free)
+- Exchange matching rule documentation (free), why: price-time against pro-rata priority and the auction mechanics, since the matching rule decides what a strategy can actually assume
 - Exchange-systems talks from CppCon and trading firms (free)
 **Study approach:** Building a matching engine is the fastest way to understand a venue from the inside. Learn price-time priority and its alternatives, order book data structures that make inserts, cancels and matches fast, sequencers and deterministic replay (so a crash can be rebuilt exactly), pre-trade risk checks, and how market data is published from the book. Fowler's write-up of the LMAX architecture describes a real exchange built on a single-threaded, in-memory design.
 **Project:** Build a single-instrument matching engine with limit and market orders, cancels and replaces, an input journal and deterministic replay. Prove with a replay test that the same input always produces the same trades, and measure throughput and latency.
@@ -549,7 +551,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Resources:**
 - **Best match:** Federal Reserve SR 26-2, Revised Guidance on Model Risk Management (free), why: the current US supervisory baseline
 - Book: Interpretable Machine Learning, Molnar (free online)
-- SHAP docs (free)
+- SHAP docs (free), why: how a prediction is attributed across features and what the additivity assumption buys you, which is what an adverse-action notice has to be built on
 **Study approach:** Banks are expected to know every model they use, validate it independently, monitor it, and be able to explain its decisions. Learn model inventories and tiering, validation (conceptual soundness, outcome analysis, benchmarking), ongoing monitoring for drift and performance, documentation, challenger models, and explainability methods such as SHAP and their limits. In the US the interagency SR 26-2 replaced the long-standing SR 11-7 in April 2026 with a more principles-based approach scaled to the institution; read it as the current baseline and expect other supervisors to keep moving too.
 **Project:** Write a validation report for the credit model from the previous phase as an independent validator would: conceptual review, out-of-time performance, stability, explainability for individual decisions, limitations and a monitoring plan with thresholds. Then implement the monitoring and trigger one alert with drifted data.
 
@@ -584,7 +586,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Resources:**
 - **Best match:** FSB, G20 Roadmap for Enhancing Cross-border Payments progress reports (free), why: the official map of what is being fixed and why
 - BIS CPMI cross-border payments reports (free)
-- Wise engineering blog (free)
+- Wise engineering blog (free), why: published accounts of multi-currency ledgering, treasury and reconciliation at scale, which is material no textbook covers
 **Study approach:** Cross-border payments still carry most of the friction left in payments: several intermediaries, pre-funded accounts, FX conversion, compliance checks at each hop and poor transparency on fees and timing. Learn correspondent banking with nostro and vostro accounts, FX execution and pre-funding, payment tracking, and the G20 programme coordinated by the FSB and the BIS CPMI to make cross-border payments faster, cheaper and more transparent. The FSB progress reports are the best overview of what is being fixed and why.
 **Project:** Model a cross-border payment through two correspondent banks with FX conversion in your ledger, including fees deducted along the way and a return. Then model the same payment through a pre-funded local-payout network and compare cost, speed, liquidity tied up and compliance checks.
 
@@ -593,7 +595,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Tracks:** Payments & banking platforms
 **Resources:**
 - **Best match:** Fintech Business Weekly, Jason Mikula, coverage of BaaS and the Synapse bankruptcy (free tier), why: the most detailed running account of how BaaS fails
-- Unit and Treasury Prime developer docs (free)
+- Unit and Treasury Prime developer docs (free), why: how an account, a card and a payment are exposed as APIs over a sponsor bank, and where the compliance responsibility actually sits
 - US banking agencies' 2024 statement on bank-fintech arrangements (free)
 **Study approach:** Banking as a service lets a non-bank offer accounts and cards through a sponsor bank. Learn the roles (sponsor bank, program manager, middleware platform, fintech brand), for-benefit-of accounts that pool many customers' money, the question of who keeps the ledger of record, and which compliance duties sit with whom. The 2024 Synapse bankruptcy is the case study in what happens when nobody can say whose money is whose; US banking agencies followed it with a 2024 statement on bank-fintech arrangements. Read it alongside the coverage of the collapse.
 **Project:** Design a BaaS program for a consumer wallet: draw the money flows and the ledgers each party keeps, define the daily reconciliation between the fintech's ledger and the FBO account at the bank, and write the incident runbook for a reconciliation break that cannot be explained within a day.
@@ -633,7 +635,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Tracks:** Risk, fraud & compliance
 **Resources:**
 - **Best match:** Stanford CS224W, Machine Learning with Graphs (free lectures), why: the theory behind graph features
-- Neo4j Graph Data Science docs, fraud use cases (free)
+- Neo4j Graph Data Science docs, fraud use cases (free), why: community detection and similarity on a transaction graph, which is how a fraud ring is found when no single account looks unusual
 - Fraud Analytics, Baesens et al., network chapters (paid)
 **Study approach:** Financial crime is a network problem: fraud rings share devices and addresses, mule accounts pass money along chains, and launderers split and recombine funds. Learn entity resolution (deciding that two records are the same person), building transaction graphs, community detection, centrality and path features, and graph machine learning at a working level. Stanford's CS224W gives the theory; graph database documentation gives the practical fraud patterns.
 **Project:** Build a graph from synthetic or public transaction data with entity resolution across shared attributes. Detect a planted mule network with community detection and graph features, and show how much adding graph features improves your earlier fraud model.
@@ -643,7 +645,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Tracks:** Risk, fraud & compliance
 **Resources:**
 - **Best match:** Basel Committee, BCBS 239 Principles for effective risk data aggregation and risk reporting (free), why: the principles supervisors audit against
-- OpenLineage docs (free)
+- OpenLineage docs (free), why: the event model for column-level lineage, which is what lets you answer which report a changed field affects before you change it
 - Book: Financial Data Engineering, Khraisha (paid)
 **Study approach:** Regulatory reports must be on time and provably right, and the second part is harder. Learn how reports are produced from ledger and risk data, data lineage from report cell back to source transaction, controls and sign-offs, reconciliation of reports to the general ledger, and the BCBS 239 principles for risk data aggregation and reporting that supervisors audit large banks against. OpenLineage gives a practical way to capture lineage automatically.
 **Project:** Produce a simplified regulatory return (for example a liquidity or large-exposures report) from your warehouse with automated lineage, a reconciliation to the ledger, and controls that block publication when a check fails. Show the lineage for one reported figure back to its source transactions.
@@ -664,7 +666,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Resources:**
 - **Best match:** BIS papers on stablecoins and tokenisation, including Project Agorá (free), why: the central-bank view of where this is heading
 - EU MiCA, Regulation (EU) 2023/1114, on EUR-Lex (free)
-- ERC-20 standard and issuer technical docs (free)
+- ERC-20 standard and issuer technical docs (free), why: the token interface and the approve and transferFrom pattern with its known hazards, plus how an issuer handles freezing and redemption
 **Study approach:** Stablecoins and tokenized assets are the part of digital assets closest to mainstream payments and banking. Learn fiat-backed stablecoin design (reserves, attestation, minting and redemption), tokenized deposits and tokenized funds, settlement on public versus permissioned chains, and the regimes that now govern them: MiCA in the EU and the US GENIUS Act, signed in July 2025, whose implementing rules were still being finalized in 2026. The BIS papers, including Project Agorá on tokenized correspondent banking, give the central-bank view.
 **Project:** Implement a permissioned stablecoin on a testnet with minting and burning tied to your ledger's reserve account, an allow-list for holders, and a freeze function. Produce a daily reserve reconciliation proving tokens in circulation never exceed reserves, and write up how the design maps to one regulatory regime.
 
@@ -673,7 +675,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Tracks:** Digital assets & tokenization
 **Resources:**
 - **Best match:** Book: DeFi and the Future of Finance, Harvey, Ramachandran & Santoro (paid), why: written by finance academics and sober about the risks
-- Uniswap whitepapers and docs (free)
+- Uniswap whitepapers and docs (free), why: the constant-product market maker, and where impermanent loss and slippage come from, which is the mechanism behind most on-chain pricing
 - Damn Vulnerable DeFi challenges (free)
 **Study approach:** A frontier topic. Decentralized finance rebuilds exchanges, lending and derivatives as public smart contracts: automated market makers, overcollateralized lending with liquidations, oracles, and the maximal extractable value that block producers capture. It is a live laboratory of market structure without intermediaries, and a long record of how such systems break through oracle attacks, governance capture and composability risk. Harvey, Ramachandran and Santoro give the sober finance view; the Uniswap papers explain the AMM design most others copy.
 **Project:** Fork a public network locally, interact with an AMM and a lending protocol, and reproduce one historical exploit in a test. Write the post-mortem: what invariant broke, why audits missed it, and what a regulated institution would need before touching the protocol.

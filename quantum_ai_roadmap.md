@@ -38,6 +38,8 @@
 
 **Per-node sections:** every node lists `Prerequisites`, `Tracks` (the specializations that take it), `Resources`, a `Study approach`, and a `Project`. The project is the proof of competence: a circuit you ran, a control loop you closed, or a decoder you benchmarked beats any certificate.
 
+**What `Study approach` and `why:` are for.** `Study approach` is the knowledge itself: the concepts a course rests on, why each one matters and what breaks without it, so you can say what the course is about before opening a single resource. It is not a reading order and not a checklist. Where a resource is a body of material rather than one finite unit, such as official documentation or a reference manual, a `why:` clause names the specific parts to take from it, and sometimes the parts to leave alone.
+
 ---
 
 ## PHASE 0: Foundations, Math, CS & programming
@@ -48,9 +50,9 @@
 **Prerequisites:** none (start here)
 **Tracks:** All specializations
 **Resources:**
-- **Best match:** Jake VanderPlas, *Python Data Science Handbook*, NumPy & Matplotlib chapters (free, online)
-- NumPy / SciPy: official documentation and tutorials (free)
-- Project Jupyter: JupyterLab documentation (free)
+- **Best match:** Jake VanderPlas, *Python Data Science Handbook*, NumPy and Matplotlib chapters (free, online), why: vectorized array thinking, broadcasting and fancy indexing, which is the mental model a state vector and a density matrix are manipulated with
+- NumPy / SciPy: official documentation and tutorials (free), why: complex dtypes, the Kronecker product, `scipy.linalg`'s eigenvalue and matrix-exponential routines, and sparse matrices, which together are the whole numerical toolkit of this path
+- Project Jupyter: JupyterLab documentation (free), why: enough to keep a notebook reproducible, namely kernel state, execution order and why a notebook that works top to bottom is the only one that counts
 - Nicolas Rougier, *From Python to NumPy*, vectorization patterns (free)
 - Robert Johansson, *Numerical Python*, Apress (author of QuTiP) (paid)
 **Study approach:** You already program, so treat this as fluency drilling, not a from-scratch course: skip syntax tutorials. Go straight to vectorized NumPy (broadcasting, einsum, complex dtypes) and scipy.linalg, because quantum state vectors and operators are literally complex arrays and Kronecker products. Live in Jupyter notebooks: every quantum SDK assumes that workflow and renders circuits and Bloch spheres inline. The one habit that matters is to vectorize and then verify each result against a known closed-form answer instead of trusting a loop.
@@ -91,7 +93,7 @@
 - Tim Roughgarden, *Algorithms Illuminated* / Stanford algorithms lectures (free lectures; paid book)
 - Scott Aaronson, *Quantum Computing Since Democritus* (paid) and lecture notes (free)
 - Ronald de Wolf, *Quantum Computing: Lecture Notes*, complexity sections (free, arXiv)
-- Complexity Zoo: online complexity-class reference (free)
+- Complexity Zoo: online complexity-class reference (free), why: a lookup for BQP, BPP, NP and QMA and their known relationships, which is how you judge whether a claimed quantum speedup is plausible
 **Study approach:** Your goal is to judge quantum-speedup claims honestly, so center complexity theory, not coding-interview drills. Get fluent with big-O, the main classical algorithm families, and the complexity landscape around quantum: P, NP, BQP, and why BQP is not known to contain NP. Understand what polynomial-versus-exponential speedup actually means, and why most advertised speedups are merely quadratic (Grover) and easily erased by classical hardware advantages. The habit that matters: for every quantum algorithm, write the best known classical runtime next to it before you believe the advantage.
 **Project:** Produce a short, well-sourced write-up comparing three problems, unstructured search, integer factoring, and one BQP-flavored problem of your choice (acceptable concrete targets: Simon's problem, Forrelation, or HHL-style quantum linear systems with the usual caveats about state-preparation and readout), listing the best known classical complexity, the quantum complexity, and the resource cost. For the resource column, cite published resource estimates with their source rather than deriving them yourself (for factoring, anchor on the Gidney-Ekerå 2021 estimate, '~20 million noisy qubits to factor RSA-2048 in ~8 hours'). Close with an honest verdict, resting on those sourced figures, on which problems (if any) offer practical near-term advantage rather than asymptotic-only wins.
 
@@ -112,7 +114,7 @@
 **Tracks:** Elective for Quantum hardware & control stack
 **Resources:**
 - **Best match:** Bjarne Stroustrup, *A Tour of C++* (paid)
-- learncpp.com: modern C++ tutorial (free)
+- learncpp.com: modern C++ tutorial (free), why: ownership, RAII and references, enough to read and extend a simulator's performance-critical core
 - Krantz et al., *A Quantum Engineer's Guide to Superconducting Qubits*, arXiv:1904.06560 (free)
 - QICK: Quantum Instrumentation Control Kit, open-source RFSoC/FPGA control stack + paper (free)
 - Qiskit Aer: C++ high-performance simulator source and docs (free)
@@ -183,10 +185,10 @@
 **Prerequisites:** Quantum gates & the circuit model, Python
 **Tracks:** All specializations
 **Resources:**
-- **Best match:** IBM, *Quantum Learning* & Qiskit docs, the default SDK reference and tutorials (free)
+- **Best match:** IBM, *Quantum Learning* and Qiskit docs (free), why: circuit construction, the gate set, measurement and the primitives, plus how a job is submitted and its counts interpreted; this is the SDK reference you will return to constantly
 - Xanadu, *PennyLane Codebook* & demos, best once you reach variational/QML (free)
 - IBM, *Qiskit Global Summer School*, recorded lectures + labs (free)
-- Google, *Cirq* docs, for Google-style hardware idioms (free)
+- Google, *Cirq* docs (free), why: how a circuit is written against a specific device's qubit grid and native gates, which makes hardware constraints visible in a way a device-agnostic SDK hides
 - Nielsen & Chuang, *Quantum Computation and Quantum Information*, theory grounding (paid)
 **Study approach:** Pick one SDK and get fluent before sampling the others: Qiskit is the safe default. This is the keyboard-time node, so build circuits, run them on both Aer statevector and sampling backends, and read counts and Bloch/histogram plots every day rather than reading theory. The one habit that matters: reproduce every textbook circuit you learn as runnable code immediately. Add PennyLane the moment you hit variational/QML work, and Cirq only when you need Google-device idioms. Skip multi-SDK comparisons until you can write a clean circuit from memory in at least one.
 **Project:** A repo of 8-10 canonical circuits (Bell/GHZ, teleportation, Deutsch-Jozsa, 3-qubit Grover) in Qiskit, each with a statevector check, a sampled-counts histogram, and an assertion that simulated output matches the analytic expectation. Port two of them to PennyLane to demonstrate cross-SDK fluency. Ship with a README that shows the histograms and explains how each circuit was validated.
@@ -196,9 +198,9 @@
 **Tracks:** All specializations
 **Resources:**
 - **Best match:** IBM Quantum Learning: quantum.cloud.ibm.com/learning, including the Qiskit Runtime *Sampler* and *Estimator* primitives (free)
-- Qiskit documentation: transpilation, backends and primitives (free)
-- AWS, *Amazon Braket* documentation and example notebooks on GitHub (paid, per shot)
-- Microsoft, *Azure Quantum* documentation and Q# tooling (free tooling; providers charge per job)
+- Qiskit documentation (free), why: the transpilation, backend and primitives pages, so you understand that the circuit you wrote is not the circuit that runs, and that a primitive hides a layer of batching and error handling
+- AWS, *Amazon Braket* documentation and example notebooks on GitHub (paid, per shot), why: one program expressed against several vendors' hardware, which is how you see what is genuinely portable and what is device-specific
+- Microsoft, *Azure Quantum* documentation and Q# tooling (free tooling; providers charge per job), why: Q# treats qubits as managed resources with explicit borrowing and release, which is a clearer model of quantum memory than a circuit diagram gives
 - Qiskit Global Summer School lectures, YouTube (free)
 **Study approach:** Get one real job running on free IBM hardware in your first session: that single queue-and-results loop teaches more about shots, sampling noise and readout error than weeks of theory. Learn the primitives, not just gates: Sampler returns measurement samples/quasi-probabilities of bitstrings and Estimator returns expectation values of observables. In Qiskit Runtime, the Estimator exposes the resilience/error-mitigation options, while SamplerV2 returns raw shot data (a BitArray of counts) and does not apply mitigation by default. Internalize the real constraints: limited qubit connectivity forces SWAP overhead during transpilation, and gate plus readout error and decoherence cap usable circuit depth. The habit: run noiseless simulator, then a noisy fake backend, then real hardware, and explain every discrepancy. Stay honest that today's devices are NISQ: small, noisy, and not yet error-corrected.
 **Project:** A reproducible notebook that takes one circuit (e.g. a GHZ state now, and a small VQE once you reach that node) and runs it across a local simulator, a noisy fake backend, and real IBM hardware, comparing results and applying Estimator-level error mitigation. Tabulate how transpilation to the device coupling map changes depth and gate count, and quantify the simulator-versus-hardware gap.
@@ -243,7 +245,7 @@
 **Resources:**
 - **Best match:** PennyLane / Xanadu: variational-circuit and QML training tutorials, pennylane.ai (free)
 - Cerezo et al., *Variational Quantum Algorithms*, Nature Reviews Physics / arXiv:2012.09265 (free)
-- IBM Quantum Learning & Qiskit docs: variational workflow modules (free)
+- IBM Quantum Learning and Qiskit docs (free), why: the variational-workflow modules, where an ansatz, a cost estimator and a classical optimizer are wired into one loop; that loop's structure is the subject
 - Schuld & Petruccione, *Machine Learning with Quantum Computers*, Springer (paid)
 **Study approach:** PennyLane is the cleanest on-ramp: define a parameterized circuit, attach a cost function, and train it with an optimizer in a dozen lines. The habit that matters is treating the circuit as a single differentiable function of its parameters, and being crystal clear about the hybrid loop: the quantum device only evaluates a cost, the classical optimizer does all the updating. Read the Cerezo VQA review once for the whole landscape (VQE, QAOA, QNNs are all the same template). Resist scaling qubits before the training loop is solid. Every specialization takes this node, not just QML: it is the hybrid loop that Hybrid quantum-classical architecture builds on, and it is the near-term workload that hardware and QEC engineers will most often see running on the devices they build and protect.
 **Project:** Implement and train a small variational classifier from scratch in PennyLane on a two-feature toy dataset, showing the loss curve and the learned decision boundary. Then run a single trained circuit on a real device and document the gap between simulator and hardware results: use IBM Quantum's free Open plan as the default path, scoping one small circuit since the free tier caps QPU time (~10 min/month) and queues can be long. AWS Braket is paid (per-task plus per-shot charges) and only an optional alternative if you choose to incur the cost.
@@ -309,9 +311,9 @@
 **Prerequisites:** Quantum SDKs & simulators
 **Tracks:** Quantum hardware & control stack
 **Resources:**
-- **Best match:** IBM, *Qiskit transpiler* docs and pass-manager guide, the core reference (free)
+- **Best match:** IBM, *Qiskit transpiler* docs and pass-manager guide (free), why: the pass-manager stages, initial layout and qubit routing, gate translation to the native basis, and optimization levels, which is where circuit depth is won or lost
 - IBM, *Quantum Learning*, transpilation and ISA-targeting modules (free)
-- Google, *Cirq* docs, device and routing model for comparison (free)
+- Google, *Cirq* docs (free), why: the device and routing model, for comparison, since a different connectivity graph changes which layouts are cheap
 **Study approach:** Start by transpiling circuits you already wrote against a real backend's basis set and coupling map, then read the output and watch SWAP count and depth explode. Learn the pass-manager stages (decompose, route, optimize, schedule) by toggling optimization_level and diffing the results. Internalize that qubit routing on a sparse coupling map is the expensive, hardware-specific part, not gate decomposition. The habit that matters: judge a circuit by its transpiled two-qubit-gate count and depth, never the abstract version.
 **Project:** Take a fixed algorithm (a 5-7 qubit QFT or a single Trotter step) and transpile it across optimization levels 0-3 against a real IBM backend coupling map. Produce a short report with plots of two-qubit-gate count and circuit depth versus optimization level, and annotate where and why SWAPs were inserted. Conclude with the lowest-depth result you achieved and the routing choice that drove it.
 
@@ -383,7 +385,7 @@
 **Resources:**
 - **Best match:** Andrew Childs, *Lecture Notes on Quantum Algorithms*, rigorous Trotter error analysis (free)
 - Nielsen & Chuang, *Quantum Computation and Quantum Information*, simulation chapter (paid)
-- Xanadu, *PennyLane* Hamiltonian-simulation demos, runnable spin-chain examples (free)
+- Xanadu, *PennyLane* Hamiltonian-simulation demos (free), why: runnable spin-chain examples, where you can watch Trotter step size trade circuit depth against simulation error
 - Childs & Wiebe: Hamiltonian-simulation papers (product formulas, post-Trotter) on arXiv (free)
 **Study approach:** Anchor on the first-order Trotter formula and derive its error bound by hand, then see how the second-order/Suzuki construction improves the scaling. Implement a small spin chain (transverse-field Ising or Heisenberg) and watch Trotter error shrink as you add steps. Use Childs' notes for the rigorous error analysis, then only skim post-Trotter methods (LCU, qubitization, QSVT) as forward pointers; don't rabbit-hole there yet. This is the algorithm with the strongest evidence for quantum advantage (no efficient classical algorithm is known, and one would imply BPP=BQP), so spend the time understanding why product-formula error scales the way it does.
 **Project:** Simulate time evolution of a 4-6 site transverse-field Ising or Heisenberg chain with first- and second-order Trotter on a simulator, benchmarking the Trotterized state against the exact matrix exponential e^{-iHt}. Plot fidelity (or observable error) versus Trotter step count and confirm the expected error-scaling slope for each order. The write-up should state the measured scaling and contrast first- versus second-order cost at fixed accuracy.
@@ -415,7 +417,7 @@
 **Prerequisites:** Density matrices & open systems
 **Tracks:** Quantum error correction
 **Resources:**
-- **Best match:** John Watrous, *The Theory of Quantum Information*, free PDF, the definitive reference on distance measures and entropy (free)
+- **Best match:** John Watrous, *The Theory of Quantum Information*, free PDF (free), why: the chapters on distance measures and entropy, for fidelity and trace distance as the two ways of asking how different two states are, and what each one guarantees
 - Nielsen & Chuang, *Quantum Computation and Quantum Information*, ch.9 (distance measures), ch.11 (entropy), ch.12 (capacities) (paid)
 - Ronald de Wolf, *Quantum Computing: Lecture Notes*, arXiv, compact treatment of information measures (free)
 - John Preskill, *Caltech Ph219/CS219 Lecture Notes*, ch.10 on quantum Shannon theory (free)
@@ -463,7 +465,7 @@
 **Resources:**
 - **Best match:** PennyLane: qchem VQE demos, pennylane.ai (free)
 - Peruzzo et al., *A variational eigensolver on a photonic quantum processor*, Nature Communications 2014 / arXiv:1304.3061 (free)
-- Qiskit Nature: documentation and VQE tutorials (free)
+- Qiskit Nature: documentation and VQE tutorials (free), why: how a molecular Hamiltonian is mapped onto qubits and how an active space is chosen, which is the step that decides whether the problem fits on hardware
 - McArdle et al., *Quantum computational chemistry*, Rev. Mod. Phys. 2020 / arXiv:1808.10402 (free)
 **Study approach:** Learn the three moving parts separately: the ansatz (hardware-efficient vs chemistry-inspired UCCSD), mapping a molecular Hamiltonian to qubits (Jordan-Wigner or Bravyi-Kitaev), and estimating expectation values by grouping commuting Pauli terms. Use PennyLane qchem or Qiskit Nature on H2 first: small enough to check against exact diagonalization. The habit that matters is tracking where shot noise and the number of measurements dominate the real cost. Stay honest: VQE is the NISQ chemistry flagship but has not yet beaten classical methods at useful scale.
 **Project:** Compute the H2 dissociation curve with VQE in PennyLane qchem or Qiskit Nature, comparing your energies against exact diagonalization across bond lengths. Analyze how ansatz choice and measurement count drive accuracy and cost, and as a stretch repeat for LiH to feel the qubit and shot-budget growth.
@@ -497,7 +499,7 @@
 - **Best match:** Martyn, Rossi, Tan & Chuang, *Grand Unification of Quantum Algorithms*, arXiv, the map (free)
 - Gilyén, Su, Low & Wiebe, *Quantum singular value transformation* paper, arXiv (free)
 - Low & Chuang, *Hamiltonian simulation by qubitization*, arXiv (free)
-- Xanadu, *PennyLane* QSP/QSVT demos, runnable block-encoding examples (free)
+- Xanadu, *PennyLane* QSP and QSVT demos (free), why: runnable block-encoding examples, which make concrete the idea that a matrix can be embedded in a unitary and then have a polynomial applied to it
 **Study approach:** This is the hardest theory node on the roadmap, so budget for it. Start with single-qubit quantum signal processing and convince yourself that a product of parametrized rotations realizes a polynomial in cos θ, then lift that to QSVT via block-encodings. Use Martyn et al.'s Grand Unification paper as the map and Gilyén et al. for rigor. Implement a small QSVT polynomial with existing PennyLane/Qiskit tooling, and skip the phase-angle-finding internals: use a solver. The payoff is seeing search, phase estimation, HHL and Hamiltonian simulation as one construction.
 **Project:** A notebook that block-encodes a small Hermitian matrix using qml.qsvt or Qiskit's block-encoding utilities (so block-encoding and phase-angle computation are delegated rather than hand-rolled) and applies a QSVT polynomial to implement Hamiltonian simulation (or a simple projector/sign polynomial) on a well-conditioned matrix, validated against the exact linear-algebra result. As an optional stretch, attempt matrix inversion on a matrix with a fixed small condition number. Include a half-page written derivation showing how the same QSVT/qubitization framework reduces to Grover search and to phase estimation. Report the polynomial degree needed for a target accuracy.
 
@@ -516,7 +518,7 @@
 **Prerequisites:** Noise, decoherence & NISQ
 **Tracks:** Quantum ML researcher · Quantum hardware & control stack
 **Resources:**
-- **Best match:** Unitary Fund, *Mitiq* open-source library, docs & tutorials covering ZNE, PEC, and more (free)
+- **Best match:** Unitary Fund, *Mitiq* library, docs and tutorials (free), why: zero-noise extrapolation and probabilistic error cancellation, read for what each technique assumes about the noise and what it costs in extra shots
 - Temme, Bravyi & Gambetta, *Error Mitigation for Short-Depth Quantum Circuits*, PRL/arXiv, the foundational ZNE & PEC paper (free)
 - IBM Quantum Learning: error-suppression and error-mitigation course, plus Qiskit Runtime resilience-level docs (free)
 - Cai et al., *Quantum Error Mitigation*, Rev. Mod. Phys., the comprehensive review (free, arXiv)
@@ -531,7 +533,7 @@
 - **Best match:** Joschka Roffe, *Quantum Error Correction: An Introductory Guide*, arXiv, the best modern on-ramp (free)
 - Daniel Gottesman, *Stabilizer Codes and Quantum Error Correction* (thesis) and Caltech lecture notes (free)
 - Nielsen & Chuang, *Quantum Computation and Quantum Information*, ch.10 on quantum error correction (paid)
-- Lidar & Brun (eds.), *Quantum Error Correction*, Cambridge, the comprehensive reference (paid)
+- Lidar & Brun (eds.), *Quantum Error Correction*, Cambridge (paid), why: a reference to consult rather than read; the stabilizer-code and threshold chapters are the load-bearing ones
 - IBM Quantum Learning / Qiskit: surface-code and stabilizer tutorials, plus Google's surface-code experiment papers (free)
 **Study approach:** Build the ladder rung by rung: 3-qubit bit-flip code to grasp syndrome measurement without collapsing the logical state, then Shor/Steane for combined bit- and phase-flip protection, then the surface code as the one that actually matters for hardware. Invest hard in the stabilizer formalism early: once you think in stabilizer generators and the check matrix, codes stop being a zoo and become linear algebra over GF(2). Keep distance, threshold, and overhead in view: a distance-d code corrects floor((d-1)/2) errors, and the threshold theorem is why scaling is even possible. The habit that matters: for any code, write its stabilizer generators and trace one error through to its syndrome by hand. Skip fault-tolerant gate constructions on the first pass.
 **Project:** Implement the 3-qubit bit-flip code in Qiskit or Stim as the mandatory, hand-traced milestone: encode a logical qubit, inject Pauli errors, perform syndrome extraction with ancillas, decode, and confirm the logical state survives. The 7-qubit Steane code's full encode-and-decode-with-ancillas is a noticeably heavier lift, so treat it as an optional stretch goal. Then use Stim with a matching decoder (PyMatching, driven through Stim's Sinter for the sampling sweep) to simulate surface-code memories at distances d=3, 5 and 7 under a depolarizing noise model (note that Stim only samples syndromes and does not decode, so the decoder is the key dependency) and plot logical error rate versus physical error rate across distances so the threshold crossing is actually visible. Stim's *Getting Started* / Sinter surface-code example does exactly this. Include a short write-up of code distance and overhead.
@@ -542,7 +544,7 @@
 **Resources:**
 - **Best match:** Joschka Roffe, *Quantum Error Correction: An Introductory Guide*, arXiv (free)
 - Google, *Stim*, detector-error-model generation and syndrome sampling (free)
-- Oscar Higgott, *PyMatching*, MWPM decoder library (free)
+- Oscar Higgott, *PyMatching*, minimum-weight perfect-matching decoder (free), why: how syndrome measurements become a matching problem, which is the clearest concrete picture of what a decoder actually does
 - Daniel Gottesman: stabilizer-codes notes, CSS/surface-code grounding (free)
 - IBM, *Qiskit* QEC tutorials, repetition and surface-code walkthroughs (free)
 **Study approach:** Climb the ladder in order: repetition code first (bit-flip only), then Steane as a full CSS code, then the rotated surface code. For each, implement syndrome extraction explicitly and feed the syndromes to a decoder, but match the decoder to the code: MWPM via PyMatching fits the repetition and surface codes, whose errors form a matching graph (each error flips at most two detectors), while the Steane [[7,1,3]] code lacks that structure and wants a lookup-table / syndrome-table decoder instead. Reach for union-find only after MWPM. Use Stim to build detector-error models and sample syndromes at scale rather than hand-rolling noisy simulation. The habit that matters: always sweep the physical error rate and plot the logical error rate, because the threshold crossing is the whole point of QEC.
@@ -553,7 +555,7 @@
 **Tracks:** Quantum hardware & control stack
 **Resources:**
 - **Best match:** Krantz et al., *A Quantum Engineer's Guide to Superconducting Qubits*, arXiv:1904.06560, single-qubit drive & DRAG pulse sections (free)
-- Qiskit Dynamics documentation (free; Qiskit Pulse was removed in Qiskit 2.0, so pulse work is simulation-first now)
+- Qiskit Dynamics documentation (free; Qiskit Pulse was removed in Qiskit 2.0, so pulse work is simulation-first now), why: solving the time-dependent Schrodinger equation for a driven qubit, which is what connects a pulse shape to the gate it implements
 - Khaneja et al., *Optimal Control of Coupled Spin Dynamics (GRAPE)*, J. Magn. Reson. 2005 (free, the classic paper)
 - QuTiP: open-source quantum dynamics simulator with the optimal-control module, qutip.org (free)
 - Qiskit Global Summer School: pulse-level control lectures, YouTube (free)
@@ -577,7 +579,7 @@
 - **Best match:** IBM Quantum, *Qiskit Runtime: primitives, sessions & error mitigation* documentation (free)
 - PennyLane / Xanadu, *Hybrid computation* demos, pennylane.ai (free)
 - Cerezo et al., *Variational Quantum Algorithms*, Nature Reviews Physics / arXiv (free)
-- AWS, *Amazon Braket Hybrid Jobs* documentation (paid, per shot)
+- AWS, *Amazon Braket Hybrid Jobs* documentation (paid, per shot), why: how a classical optimization loop is co-located with the quantum device, since queue latency between iterations is what makes a naive hybrid loop unusable
 - IBM Quantum Learning: quantum.cloud.ibm.com/learning courses (free)
 **Study approach:** Start by treating the QPU as a slow, noisy, expensive accelerator sitting behind a classical control loop: that framing kills most magical thinking. Build one end-to-end hybrid job on a real cloud QPU and instrument everything: queue time, transpilation, shot count, classical-optimizer iterations. Read the Qiskit Runtime primitives docs to see how IBM actually productionizes this with sessions, batching, and error mitigation. Mind the free tier: IBM's Open Plan now caps real-QPU use at roughly 10 minutes of execution time per month, and error mitigation (resilience levels / ZNE) multiplies the number of circuit executions, so iterate on a simulator and spend hardware time only on a final, deliberately tiny run. The one habit that matters: always benchmark the same problem on a strong classical baseline first, so you can state precisely what (if anything) quantum buys you. Edge-AI orchestration instincts transfer directly here: this is MLOps with a weirder accelerator.
 **Project:** Build a reproducible hybrid-pipeline repo: a classical driver that formulates a small problem, calls a parameterized circuit via Qiskit Runtime primitives (sessions + error mitigation), post-processes the results, and logs latency, shots, and cost. Do all iteration and optimization on a simulator first, then demonstrate it on a real IBM QPU using a single, deliberately tiny circuit (few qubits, low depth, modest shots) with error mitigation enabled only for that final hardware run: keeping you inside IBM's ~10 min/month free-tier budget. Log cost as QPU execution-time in seconds for the IBM path, noting that a dollar figure only applies if you opt into the paid Braket Hybrid Jobs path. Ship a README that compares wall-clock time and solution quality against a pure-classical solver and states honestly when quantum was worth it.
@@ -586,9 +588,9 @@
 **Prerequisites:** Variational quantum eigensolver, Hamiltonian simulation & Trotterization
 **Tracks:** Quantum ML researcher · Quantum algorithms
 **Resources:**
-- **Best match:** IBM Quantum, *Qiskit Nature* tutorials & documentation (free)
+- **Best match:** IBM Quantum, *Qiskit Nature* tutorials and documentation (free), why: the second-quantized Hamiltonian, the fermion-to-qubit mappings and active-space reduction, which is where chemistry becomes a circuit
 - PennyLane / Xanadu, *Quantum chemistry* demos, pennylane.ai (free)
-- Google, *OpenFermion* library & tutorials (free)
+- Google, *OpenFermion* library and tutorials (free), why: fermionic operator algebra and the Jordan-Wigner and Bravyi-Kitaev transforms, and why the choice between them changes circuit depth
 - Cerezo et al., *Variational Quantum Algorithms*, Nature Reviews Physics / arXiv (free)
 - McClean et al.: barren-plateaus paper, on ansatz trainability limits (free)
 **Study approach:** Don't relearn chemistry: learn just enough second quantization to understand fermionic creation/annihilation operators, because the Jordan-Wigner and Bravyi-Kitaev mappings are the whole game. Run VQE on H2 first with Qiskit Nature or PennyLane qchem before touching anything larger; the toolchain hides a lot of detail until it breaks. Work the tutorials so you see the Hamiltonian, the mapping, the ansatz, and the classical optimizer as separate, swappable pieces. Stay honest: chemistry is the strongest quantum-advantage candidate, but current devices still cannot beat classical methods like CCSD(T) or DMRG on genuinely useful molecules.
@@ -599,8 +601,8 @@
 **Tracks:** Quantum ML researcher · Quantum algorithms
 **Resources:**
 - **Best match:** PennyLane / Xanadu, *QAOA & combinatorial optimization* demos (free)
-- IBM, *qiskit-addon-opt-mapper* documentation (free; IBM archived the old Qiskit Optimization module in July 2026, so do not build new work on it)
-- D-Wave, *Ocean SDK* docs & QUBO/Ising formulation guides (free)
+- IBM, *qiskit-addon-opt-mapper* documentation (free; IBM archived the old Qiskit Optimization module in July 2026, so do not build new work on it), why: how a constrained optimization problem becomes an unconstrained quadratic one, and what the penalty weights do to the solution landscape
+- D-Wave, *Ocean SDK* docs and QUBO/Ising formulation guides (free), why: expressing a problem as a quadratic binary model, and the embedding step where a logical variable becomes a chain of physical qubits, which is the real constraint on problem size
 - Cerezo et al., *Variational Quantum Algorithms*, Nature Reviews Physics / arXiv (free)
 - Andrew Childs, *Lecture Notes on Quantum Algorithms*, UMD (free)
 **Study approach:** The transferable skill is modeling: learn to rewrite scheduling, routing, and portfolio problems as QUBO/Ising, because that formulation is reusable whether you target QAOA, a D-Wave annealer, or a classical solver. Implement QAOA on a small Max-Cut by hand once so you understand the cost and mixer layers and the parameter landscape before leaning on libraries. The habit that matters: always run a strong classical baseline (simulated annealing (dimod/neal in the Ocean stack), Google OR-Tools CP-SAT, python-mip with CBC, or a specialized heuristic) on the exact same instance, because most published 'quantum optimization' wins evaporate under fair benchmarking. Gurobi or CPLEX are stronger still but commercial; reach for them only via a free academic license if you qualify. Read the QAOA and annealing literature critically; current evidence for practical advantage here is weak.
@@ -611,7 +613,7 @@
 **Tracks:** Quantum algorithms
 **Resources:**
 - **Best match:** NIST, *FIPS 203 (ML-KEM), 204 (ML-DSA), 205 (SLH-DSA)* post-quantum standards (free)
-- Open Quantum Safe, *liboqs* library & OQS OpenSSL provider (free)
+- Open Quantum Safe, *liboqs* library and OQS OpenSSL provider (free), why: the standardized key-encapsulation and signature schemes with their real key and signature sizes, which is what actually breaks protocols when you migrate
 - Andrew Childs, *Lecture Notes on Quantum Algorithms*, UMD (period finding / Shor) (free)
 - Nielsen & Chuang, *Quantum Computation and Quantum Information*, Shor's-algorithm chapter (paid, ~$75)
 - Ronald de Wolf, *Quantum Computing: Lecture Notes*, arXiv (free)
@@ -633,7 +635,7 @@
 **Prerequisites:** Noise, decoherence & NISQ, Cloud QPUs & real hardware
 **Tracks:** Quantum hardware & control stack · Quantum error correction
 **Resources:**
-- **Best match:** IBM Quantum, *Qiskit Experiments* library & docs: T1/T2, RB, tomography (free)
+- **Best match:** IBM Quantum, *Qiskit Experiments* library and docs (free), why: the T1 and T2 relaxation and dephasing measurements, randomized benchmarking and tomography, read for what each experiment can and cannot tell you about a device
 - Krantz et al., *A Quantum Engineer's Guide to Superconducting Qubits*, arXiv:1904.06560, characterization section (free)
 - Magesan, Gambetta & Emerson, *Scalable and Robust Randomized Benchmarking of Quantum Processes*, PRL / arXiv (free)
 - Sandia, *pyGSTi* gate-set tomography toolkit, pygsti.info (free)
@@ -729,9 +731,9 @@
 **Resources:**
 - **Best match:** Fermilab, *QICK*, open-source FPGA/RFSoC qubit-control framework (free)
 - Krantz et al., *A Quantum Engineer's Guide to Superconducting Qubits*, arXiv:1904.06560 (free)
-- Qiskit Dynamics docs, pulse-level simulation (free; Qiskit Pulse is retired)
+- Qiskit Dynamics docs (free; Qiskit Pulse is retired), why: pulse-level simulation, where a drive amplitude and duration become a rotation and calibration stops being abstract
 - QuTiP: open-systems and control simulation toolkit (free)
-- Zurich Instruments / Quantum Machines OPX: control-hardware documentation (free vendor docs)
+- Zurich Instruments / Quantum Machines OPX: control-hardware documentation (free vendor docs), why: the signal chain from arbitrary waveform generator through mixer to the fridge, and the real-time feedback latency budget, which is the physical reality a circuit abstracts away
 **Study approach:** This node converts an embedded/FPGA background directly into a quantum-hardware differentiator. Start with QICK to see real open-source FPGA qubit control (pulse generation, readout, fast feedback) on RFSoC, and read Krantz et al. to ground the control problem in superconducting-qubit physics. Frame the QEC feedback loop as a real-time-systems latency budget: measurement → decode → feedforward must close inside the coherence/round time, often sub-microsecond to a few microseconds. Treat decode latency as deterministic-gateware and pipelining engineering, which is ordinary embedded work in unfamiliar clothes. Skip cloud-only abstractions here.
 **Project:** An HLS/RTL decoder demo: a repetition-code syndrome-decode step (lookup-table or union-find-lite) implemented in gateware and driven by a synthetic-syndrome testbench, with no real measurement in the loop since there is no QPU. Time the decode path in clock cycles/nanoseconds against a stated QEC round-time budget; with no hardware, target a cycle-accurate RTL/HLS simulation. The deliverable is a latency study (the decoder plus a written analysis comparing achieved decode time to the coherence/round budget) not a closed physical feedback loop. Read QICK to see how a real measure-decode-correct loop is wired, but note QICK execution needs RFSoC hardware you will not be driving here.
 
