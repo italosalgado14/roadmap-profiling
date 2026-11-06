@@ -64,7 +64,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** Linux Journey: linuxjourney.com (free)
 - MIT, *The Missing Semester of Your CS Education* (free)
 - OverTheWire, *Bandit* wargame, a hands-on shell/security ladder (free)
+
 **Study approach:** You already use a shell; treat this as filling gaps, not a first course. Drill the security-relevant parts: file permissions and setuid, processes and `/proc`, systemd units, users/groups, and enough `tcpdump`/`ss`/`iptables` to reason about what a box is doing on the network. The Bandit wargame is the fastest way to make CLI fluency stick because every level is a small privilege/enumeration puzzle.
+
 **Project:** Harden a fresh Linux VM to a CIS-style baseline with an idempotent script (disable unused services, configure SSH keys and a firewall, enable auditd) and write a one-page note on what each control defends against.
 
 ### Python `critical`
@@ -74,7 +76,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** Al Sweigart, *Automate the Boring Stuff with Python* (free)
 - Justin Seitz & Tim Arnold, *Black Hat Python*, 2nd ed. (paid)
 - `requests` / `httpx` and `argparse` official docs (free), why: sessions and connection reuse, timeouts, TLS verification and how to turn it off deliberately rather than by accident, plus async requests in httpx for scanning many hosts
+
 **Study approach:** You program already, so the knowledge to acquire is the specific toolkit security work is built from, plus the reasons it behaves unexpectedly. Understand an HTTP client as a configurable object rather than a function call: a session reuses connections and carries cookies, a timeout is not set by default, redirects are followed silently, and certificate verification is something you may disable by accident, each of which changes what your scanner actually tested. Understand parsing as a trust boundary, since regular expressions are the wrong tool for nested formats, an HTML or XML parser has its own entity-expansion and external-entity behaviour, and deserializing a format that can carry code is the vulnerability rather than the tool for finding one. Understand subprocess invocation and why passing a command as a list rather than a string is the difference between running a program and handing a shell your input. Understand concurrency well enough to scan many hosts at once without becoming the outage. The habit that matters: when you do a security check by hand twice, script it, because a check that is not automated is a check that silently stops happening.
+
 **Project:** Write a small CLI security tool (e.g. a link/secret scanner or a header-audit tool for a list of URLs) with `argparse`, type hints, tests, and a `pyproject.toml`. Wire it into a GitHub Actions job so it runs on every push.
 
 ### Networking & protocols `critical`
@@ -84,7 +88,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** Kurose & Ross, *Computer Networking: A Top-Down Approach* (paid)
 - Wireshark: official docs and sample captures (free)
 - Cloudflare Learning Center: TLS, DNS, DDoS explainers (free)
+
 **Study approach:** Center everything on "what can go wrong on the wire." Get fluent in the TCP/IP stack, DNS, the TLS handshake, HTTP semantics, proxies and NAT. Use Wireshark to actually *watch* a TLS handshake and an HTTP request: reading packets removes the mystery from most network attacks. The habit that matters: for any protocol, ask where authentication, integrity and confidentiality live (or don't).
+
 **Project:** Capture and annotate a full TLS 1.3 handshake and a plaintext HTTP request in Wireshark, labelling each field and marking exactly what an on-path attacker can read or tamper with in each case.
 
 ### Web platform & HTTP `critical`
@@ -94,7 +100,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** MDN Web Docs: HTTP, cookies, CORS, security headers (free)
 - PortSwigger, *Web Security Academy* (free), why: the topic pages on the same-origin policy, cookies and CORS, read for the browser's trust model rather than for the labs at this stage
 - web.dev: security and privacy guides (free), why: the security headers and what each one actually stops, which is the defender's side of the same material
+
 **Study approach:** Most of a security career touches the web, so build a precise mental model: the request/response lifecycle, cookies and their attributes, the same-origin policy, CORS, and content security policy. PortSwigger's academy is the single best free resource in all of security: start it here and you'll return to it for years. The habit that matters: know, for any web feature, which origin boundary it crosses.
+
 **Project:** Stand up a deliberately small web app and demonstrate three security headers (CSP, `Set-Cookie` flags, HSTS) changing real browser behavior: show the attack working with the header off and blocked with it on.
 
 ### Security fundamentals & threat modeling `critical`
@@ -104,7 +112,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** Adam Shostack, *Threat Modeling: Designing for Security* (paid)
 - OWASP, *Threat Modeling Cheat Sheet* (free)
 - CompTIA Security+: exam objectives as a vocabulary map (free)
+
 **Study approach:** Before any tool, learn to think in trust boundaries. Internalize the CIA triad, attacker goals, and a structured method (STRIDE or attack trees) to enumerate what can go wrong in a design. Use the Security+ objectives purely as a checklist of terms you should recognize, not as a course to grind. The habit that matters: for every system you touch, be able to draw the data-flow diagram and name its trust boundaries.
+
 **Project:** Produce a STRIDE threat model for a small real system (your Python tool's deployment, or a toy web app): a data-flow diagram, the threats per element, and the top five mitigations ranked by risk.
 
 ### Go / systems programming `desirable`
@@ -114,7 +124,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** *A Tour of Go*, go.dev (free)
 - *Go by Example* (free), why: goroutines and channels, interfaces, and error handling as values, which is enough to read and modify the tooling this field is written in
 - Donovan & Kernighan, *The Go Programming Language* (paid)
+
 **Study approach:** Go is the lingua franca of cloud-native security tooling: Kubernetes, Terraform providers, Trivy, and most CNCF projects are written in it. You don't need mastery; you need to read the source of the tools you rely on and write small utilities and admission controllers. Concurrency (goroutines, channels) and the standard library's networking/crypto packages are the high-value parts.
+
 **Project:** Write a small Go CLI that queries a cloud or Kubernetes API and flags one misconfiguration (e.g. public buckets, or pods running as root), then read the source of one real tool (Trivy or a Terraform provider) to see how it does the same at scale.
 
 ---
@@ -130,7 +142,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** OWASP, *Top 10* project (free)
 - PortSwigger, *Web Security Academy* labs (free), why: the labs rather than the reading now; work injection, broken access control, SSRF and deserialization until the exploitation step is routine
 - PentesterLab: guided vulnerability exercises (paid, with a free tier)
+
 **Study approach:** This is the core vocabulary of the whole field. Work the PortSwigger labs hands-on (injection, broken access control, SSRF, XSS, insecure deserialization) until you can exploit each class *and* explain the fix. Don't memorize the list; understand the root cause behind each category (trusting untrusted input, missing authorization checks). The habit that matters: whenever you learn a vuln, immediately learn its canonical remediation.
+
 **Project:** Complete the PortSwigger access-control, SSRF, and SQL-injection topic tracks, then write a short internal-style report on one lab: reproduction steps, impact, CVSS-style rating, and remediation.
 
 ### Secure coding & code review `critical`
@@ -140,7 +154,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** OWASP, *Cheat Sheet Series* (free)
 - OWASP, *Application Security Verification Standard (ASVS)* (free), why: a requirement checklist written at three assurance levels, which turns a vague request to make it secure into specific, testable statements
 - Johnsson, Deogun & Sawano, *Secure by Design* (paid)
+
 **Study approach:** This is where a software background compounds hardest. Learn the defensive patterns (input validation, parameterized queries, output encoding, safe deserialization, secure defaults) and then practice the harder skill of *reviewing a diff* for the vulnerability automated tools miss. ASVS gives you a concrete, level-based checklist to review against. The habit that matters: review for what the code *allows*, not just what it does.
+
 **Project:** Do a written security review of a real open-source pull request or a deliberately-flawed app, using an ASVS checklist; file at least two findings with concrete fixes and reference the exact ASVS requirement each maps to.
 
 ### AuthN/AuthZ & session security `critical`
@@ -150,7 +166,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** OWASP, *Authentication* and *Session Management* cheat sheets (free)
 - PortSwigger: access-control and authentication labs (free)
 - NIST, *SP 800-63B* digital identity guidelines (free)
+
 **Study approach:** Broken access control tops the OWASP list for a reason: it's the most common serious bug and the hardest to catch with scanners. Master password storage (Argon2/bcrypt), session tokens, MFA, and the difference between authentication and authorization. Study RBAC vs ABAC and the object-level checks that prevent one user reading another's data. The habit that matters: for every endpoint, ask "who is allowed, and where is that enforced?"
+
 **Project:** Take a small app with an intentional broken-object-level-authorization bug, exploit it (access another user's record), then fix it with a proper server-side authorization check and prove the exploit no longer works.
 
 ### ML / LLM systems literacy `critical`
@@ -160,7 +178,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** DeepLearning.AI: short courses on LLMs, RAG and agents (free)
 - Alammar & Grootendorst, *Hands-On Large Language Models* (paid)
 - Anthropic and OpenAI: developer documentation (free), why: the tool-use and function-calling mechanics, the system prompt's actual authority, context limits and the stated safety behaviour, since those define the attack surface you will later probe
+
 **Study approach:** Every track takes this course, because every track on this path ends up securing AI-enabled systems. You can't secure what you don't understand, so build a working model of how modern AI systems are actually assembled: tokenization and inference, embeddings and vector stores, retrieval-augmented generation, fine-tuning, and tool-using agents. You're not training frontier models: you're mapping the components and data flows so you can threat-model them. The habit that matters: for any AI feature, draw where untrusted data enters the model's context.
+
 **Project:** Build a small RAG chatbot (retrieval + LLM) yourself, then draw its full data-flow and trust-boundary diagram: marking every point where user or third-party content reaches the model's prompt. This diagram is the input to every node that follows.
 
 ---
@@ -181,7 +201,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** OWASP GenAI Security Project, *LLM Top 10 2026* (free)
 - Lakera *Gandalf: Agent Breaker* and prompt-injection primers (free)
 - Simon Willison: ongoing writing on prompt injection (free)
+
 **Study approach:** This is the defining vulnerability class of the AI era, and it has no clean fix: treat the model as a confused, gullible interpreter that cannot reliably separate instructions from data. Master direct prompt injection, *indirect* injection (malicious instructions hidden in retrieved documents or web pages), insecure output handling, and sensitive-information disclosure. Understand why input filtering is a mitigation, not a solution. The habit that matters: never let model output take a privileged action without an independent authorization check.
+
 **Project:** Build a small LLM app with a tool or database lookup, then demonstrate both a direct and an indirect prompt injection that makes it misbehave (leak data or call a tool it shouldn't). Write up which OWASP-LLM mitigations reduce the risk and which don't.
 
 ### SAST / DAST & fuzzing `critical`
@@ -191,7 +213,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** Semgrep and GitHub CodeQL: docs and rule-writing guides (free), why: how a pattern is matched against code structure rather than text, and how taint tracking follows untrusted input from source to sink, which is the idea behind every useful rule
 - OWASP ZAP: dynamic scanner (free)
 - Google OSS-Fuzz and libFuzzer: docs (free), why: writing a fuzz target, coverage-guided mutation, and the sanitizers that turn a silent memory error into a reported crash
+
 **Study approach:** Learn to automate the search for bugs and, crucially, to tune out the noise: an AppSec engineer's value is often in *reducing* false positives, not generating alerts. Write your own Semgrep/CodeQL rules to catch a project-specific antipattern; that skill is rare and high-signal. Understand where each technique fits: SAST for source patterns, DAST for running behavior, fuzzing for input-handling robustness.
+
 **Project:** Write a custom Semgrep rule that catches a real insecure pattern in a codebase you know, tune it to near-zero false positives on that repo, and add it to a CI job that fails the build on a match.
 
 ### OS internals & memory model `desirable`
@@ -201,7 +225,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** Remzi & Andrea Arpaci-Dusseau, *Operating Systems: Three Easy Pieces* (free)
 - *Nand2Tetris*, from logic gates to an OS (free)
 - pwn.college: hands-on systems-security curriculum (free)
+
 **Study approach:** This is optional unless you go deep on exploitation, but it pays off in judgment everywhere. Understand processes, syscalls, virtual memory, and the stack/heap well enough to see *why* memory-safety bugs happen and why languages like Rust and Go remove whole vulnerability classes. Don't chase binary-exploitation mastery unless it excites you: literacy is enough for most AppSec work.
+
 **Project:** Work through a handful of pwn.college memory-corruption levels and write up one buffer-overflow end to end: the bug, why it's exploitable, and the two mitigations (stack canary, ASLR/NX) that would stop it.
 
 ### CI/CD security `critical`
@@ -211,7 +237,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** OWASP, *Top 10 CI/CD Security Risks* (free)
 - GitHub, *Security hardening for GitHub Actions* (free)
 - SLSA: supply-chain levels for software artifacts (free)
+
 **Study approach:** Your CI system has production credentials and runs arbitrary code on every push: treat it as a crown-jewel asset. Learn the real attack paths: poisoned pipeline execution, token exfiltration, malicious pull-request workflows, and over-privileged runners. Pin actions to SHAs, scope tokens minimally, and isolate untrusted PR builds. The habit that matters: every pipeline secret should be short-lived and least-privilege.
+
 **Project:** Harden a real GitHub Actions (or GitLab CI) pipeline: pin all actions to commit SHAs, replace long-lived secrets with OIDC-federated short-lived credentials, and document the attack each change prevents.
 
 ### Cloud security fundamentals `critical`
@@ -221,7 +249,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** AWS / Azure / GCP: well-architected security pillar docs (free), why: the shared-responsibility boundary, the account and subscription hierarchy, and the default network posture, which is where most cloud breaches actually originate
 - CIS Benchmarks: per-cloud hardening baselines (free)
 - flAWS and CloudGoat: intentionally vulnerable cloud labs (free)
+
 **Study approach:** Pick one cloud and go deep before going broad: the concepts transfer, the console details don't. Internalize the shared-responsibility model (what the provider secures vs. what you do), then the security primitives: identity, networking, storage, logging, and encryption. The flAWS and CloudGoat labs teach cloud attack paths by walking you through real misconfigurations. The habit that matters: assume every resource is public until you've proven otherwise.
+
 **Project:** Work through the CloudGoat or flAWS scenarios in one cloud, then write up the misconfigurations that enabled each step and the exact IAM/networking change that would have blocked it.
 
 ### Cloud IAM & least privilege `critical`
@@ -231,7 +261,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** AWS IAM and Microsoft Entra ID: docs (free), why: how a policy is evaluated, how a role is assumed and why that chain is the real attack path, plus conditional access and the difference between an identity and a workload identity
 - Rhino Security Labs: cloud privilege-escalation research (free)
 - Cloudsplaining and pathfinding.cloud: IAM path-analysis tooling (free; PMapper has gone unmaintained)
+
 **Study approach:** Cloud breaches are overwhelmingly IAM breaches: over-broad roles, forgotten access keys, and escalation paths through chained permissions. Master policy evaluation, roles vs. users, federation, and how attackers pivot from a low-privilege foothold to admin. Learn to right-size permissions with access analyzers rather than guessing. The habit that matters: grant the minimum permission that makes the task work, then verify with tooling that no escalation path remains.
+
 **Project:** Map the privilege-escalation paths in a test cloud account with an IAM analysis tool, find one chain from a low-privilege principal to admin, and remediate it by tightening a single over-broad policy.
 
 ---
@@ -252,7 +284,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** Jean-Philippe Aumasson, *Serious Cryptography*, 2nd ed. (paid)
 - *Cryptopals*, crypto challenges (free)
 - Dan Boneh, *Cryptography I*, Stanford on Coursera (free to audit; Coursera Plus)
+
 **Study approach:** You need to *use* cryptography correctly far more than you need to design it. Learn the primitives and, more importantly, when each applies: symmetric vs asymmetric, hashing vs MAC, AEAD, digital signatures, and key exchange. The single most valuable lesson is negative: never roll your own crypto, and recognize the misuse patterns (ECB mode, static IVs, unauthenticated encryption). The Cryptopals challenges teach this by making you *break* bad crypto. The habit that matters: reach for a vetted library and the highest-level API it offers.
+
 **Project:** Complete Cryptopals Set 1-2 (implement and then break ECB/CBC), and write a short "crypto misuse cheat sheet" for developers listing the five mistakes you saw and their correct alternatives.
 
 ### Pentesting & exploitation basics `desirable`
@@ -262,7 +296,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** TryHackMe and Hack The Box: guided and free-form labs (paid, with a free tier)
 - HackTricks: the field's shared attack reference (free)
 - OffSec, *PEN-200 / OSCP* (paid)
+
 **Study approach:** You don't need to become a full-time pentester, but offensive fluency makes you a far better defender: you can't threat-model an attack you've never run. Work TryHackMe/HTB paths for recon, exploitation, and privilege escalation. Treat OSCP as optional and expensive; pursue it only if you want to sell pentesting or your employer pays. The habit that matters: after every exploit, ask what single control would have stopped it.
+
 **Project:** Complete a beginner Hack The Box or TryHackMe path end to end and write a professional-format pentest report for one machine: scope, recon, exploitation, post-exploitation, and prioritized remediation.
 
 ### API & mobile security `desirable`
@@ -272,7 +308,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** OWASP, *API Security Top 10* (free)
 - OWASP, *MASVS / MASTG* mobile testing standard and guide (free), why: platform storage and keychain protections, certificate pinning and how it is bypassed, and why a secret shipped in an app is not a secret
 - PortSwigger: GraphQL and API testing labs (free)
+
 **Study approach:** APIs are where most modern breaches actually happen, and the failure modes differ from classic web apps: broken object/function-level authorization, excessive data exposure, and missing rate limits dominate. Learn REST and GraphQL abuse, then the mobile angle: insecure storage, certificate pinning, and the fact that a mobile client is fully attacker-controlled. The habit that matters: treat every client as hostile and every authorization check as belonging on the server.
+
 **Project:** Audit a small REST or GraphQL API for the API Top 10 (demonstrate one BOLA and one excessive-data-exposure issue) and add server-side authorization plus response filtering to close them.
 
 ### Agent & tool-use security `critical`
@@ -282,7 +320,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** OWASP Agentic Security Initiative, *Securing Agentic Applications* guide (free)
 - Anthropic: Model Context Protocol (MCP) and tool-use docs (free)
 - Google and Microsoft: agent security guidance (free)
+
 **Study approach:** The moment a model can take real actions (call tools, run code, spend money) prompt injection becomes remote code execution by proxy. It is one of the least-understood areas in security. Learn to scope tool permissions tightly, sandbox execution, require human-in-the-loop for high-impact actions, and treat the model as a confused deputy that an attacker can weaponize against your own privileges. The habit that matters: an agent should hold the least privilege that lets it do its job, enforced *outside* the model.
+
 **Project:** Take an agent with a couple of tools, exploit it via injection to misuse a tool, then re-architect it with per-tool authorization, a sandbox, and a human-confirmation gate on the dangerous action, and show the same attack now failing.
 
 ### Adversarial ML & model robustness `desirable`
@@ -292,7 +332,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** MITRE ATLAS: adversarial threat landscape for AI systems (free)
 - IBM, *Adversarial Robustness Toolbox (ART)* (free)
 - NIST, *AI 100-2: Adversarial Machine Learning* taxonomy (free)
+
 **Study approach:** Beyond prompt injection lies the classical adversarial-ML canon: evasion (adversarial examples), model extraction/stealing, membership inference (privacy leakage), and data-poisoning backdoors. You need literacy in all of them and hands-on depth in the ones relevant to systems you'll defend. MITRE ATLAS is the ATT&CK-equivalent map of these techniques. The habit that matters: enumerate the ML-specific threats with ATLAS, not just the classical AppSec ones.
+
 **Project:** Use ART to craft an adversarial example that fools a small image classifier, then apply one defense (adversarial training or input preprocessing) and quantify how much robustness it buys, and what it costs in clean accuracy.
 
 ### Software supply chain & SBOM `critical`
@@ -302,7 +344,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** SLSA and in-toto: provenance frameworks (free)
 - Sigstore / cosign: artifact signing (free)
 - CycloneDX and SPDX: SBOM specifications (free)
+
 **Study approach:** Supply-chain attacks (SolarWinds, xz-utils, malicious npm/PyPI packages) are now among the highest-impact threats, and defending them is a fast-growing niche. Learn artifact signing, build provenance, SBOM generation and consumption, and the SLSA levels that structure it all. Connect this directly to the model and data supply-chain course in Phase 4: the concepts transfer to ML artifacts. The habit that matters: never trust an artifact you can't verify the provenance of.
+
 **Project:** Build a pipeline that generates an SBOM (CycloneDX) for an app, signs the resulting image with cosign, and verifies the signature and provenance at deploy time: rejecting an unsigned or tampered artifact.
 
 ### Secrets management `critical`
@@ -312,7 +356,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** HashiCorp Vault: docs and tutorials (free), why: dynamic short-lived credentials, the seal and unseal model, and the authentication methods, since the point of this tool is that a secret stops being long-lived
 - gitleaks and trufflehog: secret scanners (free)
 - Cloud secrets-manager docs: AWS/Azure/GCP (free), why: rotation, versioning, and how a workload authenticates without already holding a credential, which is the bootstrap problem this subject turns on
+
 **Study approach:** Leaked credentials are one of the most common breach root causes, and the fix is systemic, not a wiki reminder. Learn centralized vaulting, dynamic/short-lived credentials, automated rotation, and secret scanning in both the repo and the CI logs. Prefer workload identity (OIDC) over stored secrets wherever possible. The habit that matters: a secret in source control is already compromised, rotate first, investigate second.
+
 **Project:** Add secret scanning (gitleaks) as a pre-commit hook and CI gate on a repo, then migrate one hardcoded credential to a vault or cloud secrets manager with short-lived, rotated access.
 
 ### IaC & policy as code `critical`
@@ -322,7 +368,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** Terraform / OpenTofu: official docs (free), why: state as the source of truth and what it means that state contains secrets, the plan and apply cycle, and modules; drift between declared and actual infrastructure is the security-relevant failure
 - Open Policy Agent (OPA) and Rego: docs and playground (free), why: policy expressed as code and evaluated at admission time, so a rule becomes something enforced automatically rather than something reviewed by a person
 - Checkov and Trivy: IaC scanners (free; tfsec is retired, its checks live in Trivy now)
+
 **Study approach:** Infrastructure is code now, which means misconfiguration is a code bug you can catch before it ships. Learn to scan IaC for insecure defaults and to *codify* your own guardrails with OPA/Rego so policy violations fail the plan, not the audit six months later. The habit that matters: express every "we should never do X" as an automated policy, not a wiki page.
+
 **Project:** Write an OPA/Rego policy that blocks a specific dangerous Terraform pattern (public S3 bucket, security group open to `0.0.0.0/0`), wire it into `terraform plan` via Conftest, and show it failing a bad plan and passing a fixed one.
 
 ### Network security & zero trust `critical`
@@ -332,7 +380,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** NIST, *SP 800-207: Zero Trust Architecture* (free)
 - Google, *BeyondCorp* papers (free)
 - Cloud networking security docs: VPC, security groups, service mesh (free)
+
 **Study approach:** The network perimeter is dead; identity is the new perimeter. Learn segmentation, VPC design, firewalls/security groups, and the zero-trust model where every request is authenticated and authorized regardless of network location. Understand service-mesh mTLS as the practical implementation of "never trust, always verify" between services. The habit that matters: design so that a compromised host inside the network still can't reach what it shouldn't.
+
 **Project:** Design and implement a segmented network for a small multi-service app (default-deny between tiers, explicit allow rules, and mTLS between two services) and document how it contains a hypothetical single-host compromise.
 
 ---
@@ -353,7 +403,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** Justin Richer & Antonio Sanso, *OAuth 2 in Action* (paid)
 - oauth.net and the OpenID Connect specs (free)
 - Keycloak: open-source identity provider docs (free), why: the OAuth 2.0 and OpenID Connect flows seen from the provider's side, token lifetimes and introspection, and federation, which is how identity actually crosses an organisation's boundary
+
 **Study approach:** Delegated authorization and SSO underpin every modern app, and the implementation traps are legendary (implicit flow misuse, missing state/PKCE, token validation shortcuts, redirect-URI abuse). Learn the OAuth 2.0/OIDC flows properly, what each token is and how to validate it, and how SAML fits in enterprise. Every track meets it: SSO in applications, OIDC federation from CI to cloud, and OAuth-based authorization for agents and MCP servers. The habit that matters: validate every token's signature, issuer, audience, and expiry, never trust a token because it arrived.
+
 **Project:** Implement the OAuth 2.0 authorization-code-with-PKCE flow against a Keycloak instance, then deliberately break token validation (skip the audience check) and show the resulting authorization bypass before fixing it.
 
 ### PKI, TLS & certificate management `critical`
@@ -363,7 +415,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** Ivan Ristić, *Bulletproof TLS and PKI* (paid)
 - Let's Encrypt and the ACME protocol: docs (free), why: how domain control is proved and a certificate issued automatically, and why automated renewal rather than a longer certificate is the correct answer to expiry outages
 - SSL Labs: server test and deployment guides (free)
+
 **Study approach:** TLS and certificates are everywhere and misconfigured everywhere. Learn certificate chains, trust stores, TLS configuration (protocol versions, cipher suites), mTLS, and the operational reality that most incidents are expired certs and bad rotation, not broken math. Automate issuance with ACME. The habit that matters: treat certificate lifecycle as an operational system with monitoring and rotation, not a one-time setup.
+
 **Project:** Stand up automated TLS with ACME for a service, configure it to an A+ on SSL Labs, add mTLS between two internal services, and set up expiry monitoring that alerts before a cert lapses.
 
 ### Key management & HSM/KMS `desirable`
@@ -373,7 +427,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** Cloud KMS docs: AWS KMS, Azure Key Vault, GCP KMS (free)
 - NIST, *SP 800-57: Recommendation for Key Management* (free)
 - PKCS#11 and HSM primers (free)
+
 **Study approach:** Cryptography is only as strong as its key management, which is mostly an operational and access-control problem. Learn the key lifecycle (generation, rotation, revocation, destruction), envelope encryption, cloud KMS, and when an HSM is warranted. Enforce separation of duties so no single person controls both key and ciphertext. The habit that matters: keys never leave the boundary that protects them; you send data to the key, not the key to the data.
+
 **Project:** Implement envelope encryption for application data using a cloud KMS: data keys encrypted by a KMS master key, with a documented rotation policy and IAM enforcing that the app can encrypt/decrypt but not export the master key.
 
 ### Dependency & vulnerability management `critical`
@@ -383,7 +439,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** OWASP Dependency-Check and GitHub Dependabot (free)
 - OSV (Open Source Vulnerabilities) and FIRST EPSS (free)
 - CISA, *Known Exploited Vulnerabilities (KEV)* catalog (free)
+
 **Study approach:** Most applications are mostly third-party code, so software composition analysis is unavoidable, but the real skill is prioritization, not scanning. A raw CVE list is noise; learn to rank by exploitability (EPSS), known-exploited status (KEV), and actual reachability in your code. The habit that matters: patch what's exploitable and reachable first, and be able to defend that ordering to an auditor.
+
 **Project:** Run SCA on a real project, then build a prioritized remediation plan for the findings using EPSS scores and the CISA KEV catalog, justifying why some low-CVSS items outrank some high-CVSS ones.
 
 ### Model & data supply-chain security `critical`
@@ -393,7 +451,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** safetensors and model-scanning tools (free)
 - Hugging Face: security documentation (free), why: why a pickled checkpoint executes code on load and what safetensors changes, plus model and dataset provenance, which is the supply-chain surface specific to machine learning
 - NIST and MITRE: data-poisoning and model-integrity literature (free)
+
 **Study approach:** Models and datasets are software artifacts with their own supply chain, and it's currently under-defended. Learn the concrete risks: unsafe serialization formats (pickle can execute arbitrary code on load), poisoned training data and weights, backdoored models on public hubs, and the absence of provenance. Reuse the Phase 3 supply-chain toolkit (signing, SBOMs, provenance) for ML artifacts. The habit that matters: scan and verify a model before loading it exactly as you would a dependency.
+
 **Project:** Demonstrate the pickle-deserialization risk on a crafted model file in a sandbox, then build a "safe model intake" check: format validation (prefer safetensors), scanning, and provenance/signature verification before a model is allowed into your pipeline.
 
 ### Data privacy & PETs `desirable`
@@ -403,7 +463,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** Dwork & Roth, *The Algorithmic Foundations of Differential Privacy* (free)
 - OpenMined and Opacus: federated learning and DP tutorials (free)
 - NIST: privacy framework (free)
+
 **Study approach:** Training and inference on personal data collide directly with privacy law (GDPR, Chile's Law 21.719) and with real leakage risks like model memorization and membership inference. Learn the privacy-enhancing toolkit (differential privacy, federated learning, anonymization and its limits) well enough to advise what's feasible. This is where AI security meets governance, the two halves of this track. The habit that matters: assume a model can leak its training data, and design privacy in rather than promising it in policy.
+
 **Project:** Train a small model with and without differential privacy (Opacus), then run a membership-inference attack against both and measure how much DP reduces the leakage, and what accuracy it costs.
 
 ### Container & Kubernetes security `critical`
@@ -413,7 +475,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** Kubernetes: security docs and the CIS Kubernetes Benchmark (free)
 - Falco (runtime detection) and Trivy (image/config scanning) (free)
 - Liz Rice, *Container Security* (paid)
+
 **Study approach:** Containers and Kubernetes are where most cloud-native workloads run and where a single misconfigured RBAC role or privileged pod becomes a cluster takeover. Learn image hardening and minimal base images, rootless/non-privileged containers, admission control, network policies, and runtime detection. The habit that matters: apply least privilege at every layer, image, pod securityContext, RBAC, and network policy.
+
 **Project:** Harden a Kubernetes deployment: build a minimal non-root image, add a restrictive `securityContext` and NetworkPolicy, enforce it with an admission policy (Kyverno/OPA Gatekeeper), and catch a runtime violation with Falco.
 
 ---
@@ -434,7 +498,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** NIST, *Cybersecurity Framework 2.0* (free)
 - ISO/IEC 27001: overview and control set (free)
 - CIS, *Critical Security Controls v8.1* (free)
+
 **Study approach:** Every track takes this course: even if you never want to be a governance specialist, you need literacy here because this is how security gets funded and prioritized. Learn risk assessment (likelihood × impact), the major control frameworks and how they map to each other, and (the real skill) translating technical risk into the business language executives act on. The habit that matters: frame every security ask as a risk decision with a cost, not a technical demand.
+
 **Project:** Produce a risk register for a small organization mapped to NIST CSF 2.0: top ten risks, current controls, residual risk, and a prioritized treatment plan with rough costs.
 
 ### AI-generated code auditing `critical`
@@ -444,7 +510,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** GitHub Copilot and Claude Code: security documentation (free), why: what an assistant is permitted to read and run, how permissions and hooks bound it, and the stated handling of your code, which is the governance question an employer will ask
 - Semgrep: rules for reviewing AI-generated code (free)
 - Research on "slopsquatting" / hallucinated dependencies (free)
+
 **Study approach:** AI now writes a large and growing share of production code, and it produces insecure patterns and *hallucinated dependencies* (non-existent packages an attacker can then register and poison) at scale. This is exactly the software-plus-security combination applied to a brand-new, high-demand problem. Learn to review AI output specifically: verify every imported dependency exists and is the intended one, check for insecure defaults, and scale review with automation because the volume defeats manual-only review. The habit that matters: never merge AI-written code you'd not accept from a junior, and verify its dependencies are real.
+
 **Project:** Generate a nontrivial feature with an AI coding tool, security-review the output, and document every issue (insecure defaults, missing validation, and any hallucinated or typosquat-prone dependency) then build a CI check that flags at least one of those classes automatically.
 
 ### AI red-teaming & security evals `desirable`
@@ -454,7 +522,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** Microsoft, *PyRIT* (Python Risk Identification Tool) (free)
 - NVIDIA, *garak* LLM vulnerability scanner (free)
 - Anthropic and OpenAI: red-teaming methodology writeups (free)
+
 **Study approach:** One-off manual testing doesn't scale to systems that change with every model update, so the goal is *repeatable* security evaluation wired into CI. Learn systematic jailbreak and harm probing, automated red-team tooling, and how to turn findings into a regression suite that runs on every deploy. This blends your pentesting instinct with an engineering pipeline. The habit that matters: every AI vulnerability you find becomes a permanent test case, not a fixed one-off.
+
 **Project:** Build an automated security eval suite for an LLM app using garak or PyRIT, covering prompt injection and data-leakage cases, and integrate it into CI so a regression (a newly succeeding jailbreak) fails the build.
 
 ### CSPM & cloud posture `desirable`
@@ -464,7 +534,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** Prowler and ScoutSuite: open-source posture scanners (free)
 - Steampipe / CloudQuery: query your cloud as SQL (free)
 - CIS cloud benchmarks (free)
+
 **Study approach:** At scale you can't manually check every account, so posture management continuously scans for misconfiguration and drift. Learn to run open-source CSPM tools, interpret findings against a benchmark, and (the higher-value skill) automate remediation rather than just reporting. Steampipe's SQL-over-cloud approach is a fast way to answer bespoke "who has X" questions. The habit that matters: measure posture continuously, because a secure configuration drifts the day after you set it.
+
 **Project:** Run Prowler or ScoutSuite against a cloud account, triage the findings against the CIS benchmark, and write one automated remediation (a Lambda/function or IaC change) that fixes a recurring misconfiguration.
 
 ### Logging, monitoring & SIEM `critical`
@@ -474,7 +546,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** Elastic Security and OpenSearch: docs (free), why: how events are normalized into a common schema, how a detection rule is written and tuned, and why the false-positive rate decides whether an alert is ever acted on
 - AWS CloudTrail and GCP Cloud Audit Logs: docs (free), why: which API calls are recorded by default and which are not, the event format, and how to make the trail itself tamper-resistant
 - Splunk: free training courses (free)
+
 **Study approach:** You can't detect or investigate what you don't log. Learn what to collect (audit logs, auth events, network flow), how to centralize it, and how to protect log integrity so an attacker can't cover their tracks. A SIEM is where telemetry becomes alerts: this node sets up the detection-engineering course next to it in this phase. The habit that matters: log for the investigation you'll wish you had, and make the logs tamper-evident.
+
 **Project:** Ship cloud audit logs to a SIEM (Elastic or OpenSearch), build a dashboard for authentication events, and write one alert rule that fires on a suspicious pattern (e.g. root login, or access from a new region).
 
 ### Detection engineering & threat hunting `critical`
@@ -484,7 +558,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** Sigma: generic detection-rule format (free)
 - MITRE ATT&CK: adversary technique knowledge base (free)
 - The DFIR Report and detection.fyi: real detections (free)
+
 **Study approach:** Prevention fails eventually, so detection is what bounds the damage. Learn to write detections as code (Sigma rules), map your coverage to ATT&CK techniques to find blind spots, and hunt proactively for activity your alerts miss. The skill that separates good from great is tuning: a detection that cries wolf gets ignored. The habit that matters: every detection ships with a documented ATT&CK mapping and a tested false-positive rate.
+
 **Project:** Write three Sigma detection rules for distinct ATT&CK techniques, test them against sample logs (benign and malicious), map your coverage on the ATT&CK Navigator, and document the gaps you'd prioritize next.
 
 ---
@@ -505,7 +581,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** OWASP, *SAMM* and *BSIMM* maturity models (free)
 - Microsoft, *Security Development Lifecycle (SDL)* (free)
 - Google / O'Reilly, *Building Secure and Reliable Systems* (free)
+
 **Study approach:** This node ties the whole roadmap together: embedding security across the entire lifecycle from design to deployment, not bolting it on at the end. Learn maturity models to assess where an organization stands, the security-champions model to scale beyond a central team, and how to add security gates that developers accept because they don't destroy velocity. The habit that matters: make the secure path the easy path, paved roads beat policies.
+
 **Project:** Assess a team's secure-SDLC maturity with OWASP SAMM, then propose a concrete 12-month improvement plan: which gates to add first, where to place security champions, and the two "paved road" defaults that would remove the most risk with the least friction.
 
 ### Vulnerability management program `desirable`
@@ -515,7 +593,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** CISA: vulnerability-management guidance (free)
 - FIRST: CVSS and EPSS (free)
 - Nuclei and OpenVAS: scanners (free)
+
 **Study approach:** This is the unglamorous program that prevents most real breaches: knowing what you have, scanning it continuously, and fixing what matters on a schedule you can defend. The engineering is easy; the hard part is prioritization, SLAs, and metrics that survive contact with reality. It bridges the technical and governance worlds. The habit that matters: measure mean-time-to-remediate for exploitable vulns and drive it down, rather than chasing the raw finding count to zero.
+
 **Project:** Design a lightweight vulnerability-management program for a small org: asset inventory, scanning cadence, risk-based SLA tiers (using EPSS/KEV), and a one-page metrics dashboard, then run one cycle end to end on a real environment.
 
 ### Compliance & audit `desirable`
@@ -525,7 +605,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** AICPA SOC 2 and PCI-DSS: quick references (free)
 - GDPR and Chile *Law 21.719* (data protection): primers (free)
 - NIST OSCAL and compliance-as-code approaches (free; OSCAL superseded OpenControl)
+
 **Study approach:** Compliance is the price of doing business in regulated sectors: fintech (PCI-DSS, SOC 2), anything with EU users (GDPR), and now Chile's new data-protection law. You don't need to become an auditor, but you should be able to map controls to requirements and, ideally, automate evidence collection so audits stop being fire drills. The habit that matters: collect compliance evidence continuously and automatically, so an audit is a query rather than a scramble.
+
 **Project:** Pick one framework (SOC 2 or PCI-DSS), map five of its controls to concrete technical implementations in a system you know, and automate evidence collection for at least one of them.
 
 ### AI governance & assurance `critical`
@@ -535,7 +617,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** NIST, *AI Risk Management Framework* and Generative AI profile (free)
 - EU, *AI Act* text, risk tiers and compliance timelines (free)
 - ISO/IEC 42001: AI management system standard (free), why: the clauses on roles, risk treatment, documented information and internal audit, which define what an auditable AI management system must contain
+
 **Study approach:** AI governance is going from "nice to have" to legally required, and almost nobody can operationalize it yet: that scarcity is your opportunity. Learn to turn high-level frameworks into concrete engineering artifacts: model cards, risk classifications, data-governance records, and the audit evidence a regulator will ask for under the EU AI Act. This is where the technical AI-security depth of the earlier phases becomes strategic value. The habit that matters: make governance produce evidence automatically as a byproduct of the pipeline, not as a separate paperwork exercise.
+
 **Project:** Take an AI feature and produce its governance package: an EU AI Act risk-tier assessment, a model card, a mapping to the NIST AI RMF functions, and the list of controls and evidence you'd need to pass an audit.
 
 ### Incident response & forensics `critical`
@@ -545,7 +629,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** NIST, *SP 800-61r3: Incident Response Recommendations and Considerations for Cybersecurity Risk Management* (free; Rev 3 replaced the old Incident Handling Guide in 2025)
 - Don Murdoch, *Blue Team Handbook* (paid), why: the incident-response phases and the artifacts worth collecting first, read as a field reference for what to do in the hour after an alert
 - TheHive and Velociraptor: IR platforms (free)
+
 **Study approach:** When (not if) something gets through, a calm, practiced process is the difference between a contained incident and a disaster. Learn the IR lifecycle (prepare, detect, contain, eradicate, recover, learn), evidence preservation and chain of custody, and cloud/host forensics basics. Emphasize the blameless post-incident review: the learning step is where security actually improves. The habit that matters: preserve evidence before you remediate, and write the timeline as you go.
+
 **Project:** Run a tabletop incident-response exercise for a realistic scenario (leaked credential → cloud data access), produce the incident timeline and containment steps, and write a blameless post-incident review with concrete follow-up actions.
 
 ### Threat intel & MITRE ATT&CK `desirable`
@@ -555,7 +641,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** MITRE ATT&CK and ATT&CK Navigator (free)
 - MISP: threat-intelligence sharing platform (free)
 - David Bianco, *The Pyramid of Pain* (free)
+
 **Study approach:** Threat intelligence turns "attackers exist" into "these techniques target systems like ours, so defend these first." Learn to consume and operationalize IOCs and adversary TTPs, and internalize the Pyramid of Pain: why detecting behaviors (TTPs) hurts attackers far more than blocking hashes. The habit that matters: prioritize detection and defense by the attacker's cost to adapt, not by the ease of collecting the indicator.
+
 **Project:** Pick a threat actor or campaign from public reporting, map its techniques onto the ATT&CK Navigator, and produce a prioritized defensive plan for your environment based on which of its TTPs you currently can't detect.
 
 ---
@@ -576,7 +664,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** Google / O'Reilly, *Building Secure and Reliable Systems* (free)
 - SABSA and published security reference architectures (free), why: how a control is traced back to a business risk, so an architecture can be defended as proportionate rather than merely thorough
 - AWS and Azure: security reference architectures (free), why: the account and network segmentation patterns and the centralized logging and identity designs, read as worked examples to adapt rather than adopt
+
 **Study approach:** This is the capstone the whole path builds toward: designing defense-in-depth across identity, network, data, and application layers so that no single failure is catastrophic. Learn to reason about a whole system's security posture, make and document trade-offs, and produce reference architectures others can build against. Pair it with the AI-security layer to become the rare architect who can secure both classical and AI systems. The habit that matters: design so that every control has a backup and no boundary is a single point of failure.
+
 **Project:** Produce a security architecture for a realistic AI-enabled application: a diagram with trust boundaries and controls at every layer (identity, network, data, app, and the AI/agent layer), the key trade-offs you made, and the top residual risks with owners.
 
 ### Technical leadership `desirable`
@@ -586,7 +676,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** Camille Fournier, *The Manager's Path* (paid)
 - Google, *Technical Writing* courses (free)
 - CISA and sector CISO playbooks (free)
+
 **Study approach:** Senior security work is mostly influence without authority: you rarely own the systems you're responsible for securing, so you win through trust, clear risk communication, and writing that executives and engineers both act on. Practice translating a technical finding into a business risk and a recommended decision. A second or third working language is a multiplier here: Spanish for Latin American roles, German for DACH ones. The habit that matters: lead with the risk and the decision, then the technical detail for those who want it.
+
 **Project:** Write a one-page security risk brief for a real finding aimed at a non-technical executive (the risk, the business impact, the options with costs, and your recommendation) and get feedback from someone outside security on whether the decision is clear.
 
 ### Formal methods & verification `frontier`
@@ -596,7 +688,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** Hillel Wayne, *Learn TLA+* (free)
 - Benjamin Pierce, *Software Foundations* (free)
 - seL4: verified microkernel papers (free)
+
 **Study approach:** A long-horizon bet: instead of testing for the absence of bugs, *prove* properties hold. Learn model checking with TLA+ to find design-level concurrency and protocol flaws before implementation, and get literacy in verification for the highest-assurance components. This overlaps directly with the Control roadmap's formal-methods and safety nodes: verification is a durable, AI-resistant skill. The habit that matters: specify the property precisely enough that a machine could check it.
+
 **Project:** Model a concurrent or distributed protocol you care about (a locking scheme, an auth handshake) in TLA+ and use the model checker to find a race or safety violation, then fix the spec and re-verify.
 
 ### AI security research frontier `frontier`
@@ -606,7 +700,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** arXiv: cs.CR and cs.AI (free)
 - Anthropic and Google DeepMind: safety and security research (free)
 - AI Village / DEF CON: AI red-team writeups (free)
+
 **Study approach:** The genuine research edge of the AI-security track: novel jailbreak classes, agentic-system exploits, interpretability turned to defense, and the security side of alignment. This field is young enough that a working engineer who reads papers and builds can contribute real findings. Stay skeptical of hype in both directions. The habit that matters: reproduce a paper's attack or defense before you believe its claims.
+
 **Project:** Reproduce a recent AI-security paper's core result (an attack or a defense) on your own small setup, write up where it held and where it didn't, and publish it: a reproduction with honest caveats is a genuine contribution.
 
 ### Confidential computing & TEEs `frontier`
@@ -616,7 +712,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** Confidential Computing Consortium: docs (free), why: the threat model that distinguishes data in use from data at rest and in transit, and attestation as the mechanism that makes a remote enclave's claim checkable
 - Intel SGX, AMD SEV, AWS Nitro Enclaves: docs (free), why: what each design actually removes from the trusted computing base, and the costs that follow, namely memory limits, performance overhead and side-channel history
 - Enarx and remote-attestation primers (free)
+
 **Study approach:** A frontier bet on protecting data *in use*, not just at rest and in transit: trusted execution environments and remote attestation let you run sensitive workloads even on infrastructure you don't fully trust. This matters increasingly for regulated data and for running AI on sensitive inputs. Understand the trust model, its limits (side channels), and the attestation flow. The habit that matters: be precise about exactly whom a TEE protects you from, and whom it doesn't.
+
 **Project:** Run a small workload inside a TEE (AWS Nitro Enclave or an SGX enclave), implement remote attestation so a client only sends data after verifying the enclave, and document the exact threat model: what this defends against and what it doesn't.
 
 ### Post-quantum cryptography `desirable`
@@ -626,7 +724,9 @@ This roadmap targets the **Application, Cloud & AI Security Engineer**: not a co
 - **Best match:** NIST, *FIPS 203/204/205* (ML-KEM, ML-DSA, SLH-DSA) (free)
 - Open Quantum Safe / liboqs (free)
 - Cloudflare: post-quantum blog series (free), why: measured deployment experience with hybrid key exchange, including the handshake-size and latency effects, which is the practical half of this subject
+
 **Study approach:** "Harvest now, decrypt later" makes this relevant today for long-lived secrets even though large quantum computers don't yet exist. You don't need the lattice math; you need to know the standardized algorithms, how hybrid (classical + PQC) deployment works, and (the real deliverable) how to inventory your cryptography so you *can* migrate when required. This connects to the Quantum roadmap's PQC node from the defensive side. The habit that matters: know where every long-lived secret lives and how you'd rotate its algorithm.
+
 **Project:** Build a crypto inventory for a small system (what algorithms, where, protecting what, for how long), flag the assets exposed to harvest-now-decrypt-later, and prototype a hybrid TLS handshake with liboqs.
 
 ---

@@ -105,13 +105,33 @@ def audit_js(path):
         if bad: out.append({"node":cid,"bad_res":bad})
     return out
 
+def audit_blocks(path):
+    """Study approach and Project must each start their own block.
+
+    The site renders these documents as CommonMark. A `**Study approach:**`
+    line sitting directly under the last Resources bullet is a lazy
+    continuation of that bullet, so it renders inside the list item instead of
+    as its own paragraph, which hides the part of the course that matters most.
+    """
+    lines = (ROOT/path).read_text().split("\n")
+    bad = []
+    for i, line in enumerate(lines):
+        m = re.match(r"\*\*(Study approach|Project|Certification)\b", line)
+        if m and i and lines[i-1].strip():
+            bad.append((i+1, m.group(1)))
+    return bad
+
+
 total = 0
 report = {}
 for f in MD:
     r = audit_md(f); report[f]=r
     n = sum(len(x["bad_res"]) for x in r)
-    print(f"{f:34s} nodes flagged {len(r):3d}  bad resources {n:3d}  recipe-style study {sum(1 for x in r if x['recipe']):3d}  missing study {sum(1 for x in r if x['no_study']):2d}")
-    total += len(r)
+    glued = audit_blocks(f)
+    print(f"{f:34s} nodes flagged {len(r):3d}  bad resources {n:3d}  recipe-style study {sum(1 for x in r if x['recipe']):3d}  glued blocks {len(glued):3d}")
+    for ln, label in glued[:5]:
+        print(f"{'':34s}   line {ln}: **{label}** has no blank line before it")
+    total += len(r) + len(glued)
 print()
 for f in JS:
     r = audit_js(f); report[f]=r

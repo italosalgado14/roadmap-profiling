@@ -69,7 +69,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Coursera: Python for Everybody, UMich
 - Automate the Boring Stuff (free)
 - Polars user guide (free), why: a modern DataFrame library that teaches lazy, columnar thinking
+
 **Study approach:** Python is the glue of data engineering: it calls APIs, reads files, drives orchestrators, defines tests and wraps the SQL that does the heavy lifting. Go past scripting into type hints, packaging, virtual environments and generators, so you can stream through a file larger than memory instead of loading it. Learn one DataFrame library well; Polars is a good choice because its lazy, columnar model is the same mental model as the warehouses and engines later in this path.
+
 **Project:** Write a typed command-line tool that downloads a public dataset in pages, streams it to Parquet in fixed-size chunks without ever holding it all in memory, and logs row counts per chunk. Package it so it installs with one command, and include tests.
 
 ### SQL & data access `critical`
@@ -80,7 +82,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** ThoughtSpot SQL tutorial, formerly Mode (free), why: joins and their fan-out failure, aggregation, window functions and CTEs, which is the daily working vocabulary of this path
 - Use The Index, Luke (free), why: indexes and plans are where SQL performance lives
 - PostgreSQL docs (free), why: the indexing, query-planning and transaction-isolation chapters, plus NULL semantics; the administration material is not the point
+
 **Study approach:** SQL is the working language of this path, not a prerequisite to get past. Learn joins and their failure modes (fan-out from a many-to-many join is the most common silent data bug there is), aggregation, window functions, CTEs, and how to read a query plan. Pay attention to NULL semantics and to grain: knowing exactly what one row means is the habit the rest of this roadmap depends on.
+
 **Project:** Load a public dataset of at least a million rows into PostgreSQL. Write ten analytical queries including running totals and deduplication with window functions, find one join that silently duplicates rows and fix it, and make the slowest query ten times faster. Explain the plan before and after.
 
 ### Git & version control `critical`
@@ -90,7 +94,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 **Resources:**
 - **Best match:** git-scm.com Pro Git book (free)
 - GitHub Skills (free)
+
 **Study approach:** Hold Git's data model and the rest follows: a commit is an immutable snapshot plus pointers to its parents, a branch is only a movable label, and the index is a deliberate staging area between your files and your history. Understand merge and rebase as two different outcomes rather than rival rituals, and understand that rewriting history others have pulled is the one genuinely destructive operation. The point specific to this path is what goes under version control: not just Python, but every SQL model, every orchestration definition and every piece of infrastructure, because a transformation that exists only as a query someone typed into a console cannot be reviewed, tested or reverted. Understand review as the place where a schema change is questioned before it reaches a downstream consumer, which is the habit the whole trust argument of this roadmap depends on.
+
 **Project:** Put a collection of SQL queries you use under version control, organise them into a reviewed repository with a README, and open a pull request against yourself that changes one query's logic. Review it as if a stranger wrote it and write down how you would test the change.
 
 ### Linux & CLI `critical`
@@ -100,7 +106,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 **Resources:**
 - **Best match:** MIT Missing Semester (free), why: the fastest route from tourist to fluent
 - Linux Journey (free)
+
 **Study approach:** Enough shell to run, inspect and debug data jobs: processes, cron, environment variables, disk and memory usage, networking basics and SSH. This is not systems administration. The goal is that a job killed for running out of memory, a full disk on a worker or a file that is not where it should be never blocks you.
+
 **Project:** Set up a cheap VPS that runs a nightly cron job downloading a public file, validating its row count against the previous day, and writing it to object storage. Make it alert you when it fails or when the count changes by more than a threshold.
 
 ### Probability & statistics `critical`
@@ -111,7 +119,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Book: Think Stats (free)
 - Coursera: Statistics with Python, UMich
 - StatQuest (free), why: short, visual, and enough for applied work
+
 **Study approach:** The statistics a data engineer needs are about judgement: whether a metric really moved, whether a data quality alert is noise, whether an average hides two populations, and why a sampled check can or cannot be trusted. Learn distributions, sampling, aggregation pitfalls such as Simpson's paradox, confidence intervals and significance. This is not a mathematics course; it is the literacy that keeps a pipeline's monitoring from crying wolf.
+
 **Project:** Take a daily metric from a public dataset, build a simple anomaly check (for example a rolling mean and standard deviation), and measure how often it alerts on normal days. Tune it to a stated false-alarm rate and write up the trade-off.
 
 ### English working fluency `desirable`
@@ -120,7 +130,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 **Resources:**
 - **Best match:** Any structured B2 to C1 program
 - Practice: write every design doc and README in English (free)
+
 **Study approach:** A continuous lane rather than a phase. Tool documentation, open-source issue trackers, conference talks and most of the practitioner writing on data engineering are in English, and the largest remote data job markets work in it. Reading is the low bar; the return comes from writing design docs, data contracts and incident reviews that other teams act on.
+
 **Project:** Publish three technical write-ups in English over twelve months, for example a modeling decision, a data incident post-mortem and a cost optimisation. The point is the output habit, not the audience.
 
 ---
@@ -134,7 +146,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 **Resources:**
 - **Best match:** Docker getting started (free), why: layers and caching, Compose, volumes and the networking model; ignore Swarm
 - GitHub Actions docs (free), why: triggers, jobs, matrix builds, caching and secrets, which is what a data-test job in CI is assembled from
+
 **Study approach:** A container is a process on the host kernel with its own view of the filesystem and network, not a small virtual machine, and that fact explains why it starts instantly, why anything it needs must be passed in explicitly, and why an image built for one architecture will not run on another. Understand an image as an ordered stack of immutable layers, since that is why instruction order decides build time and why a multi-stage build ships the artifact without the toolchain. Understand Compose as the way several dependent services are described together, which is what lets a database, an object store and an orchestrator come up as one reproducible local environment rather than being installed by hand. Understand continuous integration as the claim that your build and your tests are reproducible on a machine that is not yours, and understand why this node sits early: the same pipeline that runs unit tests will later run data tests, contract checks and schema-change validation, and it is far easier to build before there is anything to migrate.
+
 **Project:** Containerize the Python tool from Phase 0 together with PostgreSQL and MinIO in a Compose file, run its tests in GitHub Actions on every pull request, and publish the image on tagged releases.
 
 ### Testing & code quality `critical`
@@ -145,7 +159,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** pytest docs (free), why: fixtures and their scopes, parametrization, and how a transformation is tested against a small known input and expected output
 - Book: Architecture Patterns with Python, testing chapters (free online), why: it treats external systems as a design problem
 - Hypothesis property-based testing docs (free), why: generating inputs rather than enumerating them, and stating an invariant that must hold for all of them, which is the right shape for testing a transformation
+
 **Study approach:** Unit and integration tests, fixtures and fast suites, applied to transformations: given this small, known input table, the output must be exactly this. Learn to test SQL as well as Python, to build fixtures that cover the edge cases (nulls, duplicates, late records, time zones), and to keep the suite fast enough that people run it.
+
 **Project:** Write a test suite for three transformations from your SQL project using small fixture tables that include nulls, duplicates and a time-zone edge case. Run it in CI and show one test catching a bug you introduce on purpose.
 
 ### Data modeling `critical`
@@ -156,7 +172,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Book: The Data Warehouse Toolkit, Kimball & Ross, 3rd ed. (paid), why: dimensional modeling still underpins every analytical layer
 - Kimball Group design tips archive (free), why: short answers to the specific modeling questions that recur, grain, slowly changing dimensions, degenerate dimensions and late-arriving facts
 - dbt guide to modeling layers (free), why: the staging, intermediate and mart separation, which is how a warehouse stays changeable
+
 **Study approach:** Modeling is the decision that makes a dataset usable for years or a liability within months. Learn entities and relationships, normalization and when to denormalize, dimensional modeling with facts and dimensions, grain, surrogate keys, and slowly changing dimensions. Kimball remains the reference because dimensional modeling still underpins almost every analytical layer, whatever tool builds it.
+
 **Project:** Take an operational dataset (orders, trips or sensor events) and design a dimensional model for it: declare the grain of each fact table, design the dimensions including one slowly changing dimension, and document three business questions the model answers and one it deliberately does not.
 
 ### Data pipelines & ELT `critical`
@@ -167,7 +185,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Data Engineering Zoomcamp, DataTalksClub (free), why: an end-to-end project course that runs yearly and has a self-paced option
 - Book: Fundamentals of Data Engineering, Reis & Housley (paid)
 - dbt docs (free), why: models and refs as a dependency graph, materializations and incremental models, sources and seeds; read the pages on how a transformation is expressed, not the cloud product
+
 **Study approach:** Use the Data Engineering Zoomcamp as the hands-on backbone (ingestion, warehouse, batch) and read *Fundamentals of Data Engineering* alongside it for the lifecycle vocabulary. Then concentrate on what separates a pipeline from a script: incremental loads, idempotent reruns, backfills, and handling late or duplicated source data. Add dbt tests from the first transform rather than retrofitting them.
+
 **Project:** A scheduled pipeline that ingests a public, messy dataset (sensor logs or a transit feed), lands it raw, and transforms it with dbt into tested tables. Show that rerunning any day produces the same result, and that a backfill of a past month works without duplicating data.
 
 ### AI-assisted dev workflows `desirable`
@@ -177,7 +197,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Anthropic Claude Code docs (free), why: project memory files, custom commands, hooks and permission settings, the mechanisms that make an assistant aware of your repository's conventions
 - Anthropic prompt engineering guide (free)
 - MCP docs (free), why: the tool and resource primitives, so you see how an assistant is given scoped access to a warehouse or a catalog
+
 **Study approach:** An elective, and an increasingly practical one. Coding assistants and agents now write a large share of SQL, pipeline code and tests, so the skill is directing them well and reviewing what they produce: checking joins for fan-out, filters for off-by-one dates, and tests that actually test something. Treat machine-written data code as a colleague's pull request, never as finished work.
+
 **Project:** Have an assistant write a dbt model and its tests for a question on your dataset. Review it as a pull request, record every defect you found, and measure how many the generated tests would have caught.
 
 ---
@@ -192,7 +214,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** CMU 15-445 Database Systems, Andy Pavlo (free lectures), why: the clearest course on how databases store and find data
 - Book: Database Internals, Petrov (paid)
 - Apache Parquet and Arrow docs (free), why: the columnar layout, row groups, encoding and predicate pushdown in Parquet, and the in-memory format and zero-copy reads in Arrow, which is why data moves between tools without being reserialized
+
 **Study approach:** Learn how data is actually stored and found, because it explains almost every performance problem later. Row versus column storage, B-trees and LSM trees, compression and encoding, Parquet's row groups and statistics, Arrow's in-memory format, partitioning, and why many small files are slow. Pavlo's CMU lectures are the clearest course on the subject; *Database Internals* is the reference.
+
 **Project:** Write the same dataset as CSV, row-oriented Parquet with poor settings and well-tuned Parquet with sorting and sensible row groups. Benchmark three queries against each with DuckDB, explain the differences using file statistics, and include a small-files experiment.
 
 ### Lakehouse & warehouse `critical`
@@ -203,7 +227,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Apache Iceberg docs (free), why: the metadata and manifest layers, snapshot isolation and time travel, schema and partition evolution, which is what makes a pile of files behave like a table
 - Delta Lake docs (free), why: the transaction log as the mechanism, read alongside Iceberg so you can see the same problem solved twice
 - DuckDB docs (free), why: a local engine for learning lakehouse queries without a cloud bill
+
 **Study approach:** Read the Iceberg docs first for the table-format concepts (snapshots, partition evolution, time travel), then Delta for comparison; the ideas transfer. Learn what a lakehouse adds to object storage (transactions, schema evolution, time travel) and what a managed warehouse adds on top of that. Run everything locally (DuckDB or Spark against MinIO) before touching a managed service.
+
 **Project:** Turn the Phase 1 pipeline's output into an Iceberg (or Delta) lakehouse on local object storage. Demonstrate schema evolution, time travel to reproduce an old report exactly, and a partitioning change measured by query time. Document when a plain warehouse would have been the simpler answer.
 
 ### Distributed data processing `critical`
@@ -214,7 +240,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Book: Learning Spark, 2nd ed., Damji et al. (free from Databricks), why: written by Spark's maintainers
 - Apache Spark docs, tuning guide (free), why: partitions, shuffles and the cost of a wide transformation, broadcast joins, and why data skew makes one task run for an hour while the rest finish
 - DuckDB docs (free), why: vectorized single-node execution and reading Parquet directly, which is the reminder that most datasets called big are not
+
 **Study approach:** Learn Spark's execution model (jobs, stages, tasks), what causes a shuffle, how joins are executed at scale, how skew and memory pressure show up, and how to read the Spark UI. Then learn the opposite lesson: a single machine with DuckDB or Polars handles far more data than most teams assume, and choosing it when it fits is part of the skill. Most of this course is learning to move less data.
+
 **Project:** Process the same multi-gigabyte dataset with Spark and with DuckDB, run an aggregation and a large join with each, and compare runtime, cost and code. Then create a skewed key on purpose, show the problem in the Spark UI and fix it.
 
 ### Real-time streaming `critical`
@@ -225,7 +253,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Book: Kafka: The Definitive Guide, 2nd ed. (free from Confluent), why: the reference, free in electronic form
 - Confluent Kafka tutorials (free)
 - Book: Designing Data-Intensive Applications, Kleppmann & Riccomini, 2nd ed., stream chapters (paid)
+
 **Study approach:** Learn logs and topics, partitions and keys, consumer groups and offsets, delivery semantics (at-most-once, at-least-once, effectively-once), and the duality of streams and tables. The streaming specialization goes deep into stateful processing; every data engineer needs this much to move data in seconds and to understand the systems that feed their batch pipelines. Learn delivery semantics by breaking them: kill a consumer mid-run and count what was lost or duplicated.
+
 **Project:** Publish simulated device events to Kafka, consume them into your lakehouse in small batches, and measure end-to-end latency. Kill the consumer mid-run, restart it, and show exactly which events were duplicated or lost and how you made the sink idempotent.
 
 ### Machine learning `critical`
@@ -236,7 +266,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Coursera: Machine Learning Specialization, Andrew Ng
 - Book: Designing Machine Learning Systems, Chip Huyen (paid), why: written from the data side of ML
 - Book: Hands-On Machine Learning, Geron (paid)
+
 **Study approach:** A data platform engineer does not need to invent models, but does need to know what a model does with data: features and labels, train and test splits, leakage (the most common way a pipeline quietly ruins a model), evaluation metrics and drift. Huyen's book is written from the data side of machine learning, which is the side this specialization owns.
+
 **Project:** Train a simple model on a public dataset twice: once with a split that leaks future information and once with a correct time-based split. Show the difference in measured performance and write a one-page explanation of how a pipeline could cause the leak without anyone noticing.
 
 ---
@@ -251,7 +283,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Dagster University (free), why: teaches asset-based orchestration, the direction the field has moved
 - Apache Airflow docs (free), why: the DAG and task model, scheduling intervals and backfills, idempotent task design, retries and sensors; the operator catalogue is reference material
 - Astronomer Airflow guides (free)
+
 **Study approach:** Orchestration is the control plane of a batch platform. Learn dependencies, schedules and sensors, retries and timeouts, backfills, and why every task must be idempotent. Dagster University teaches asset-based orchestration (declaring the data you want rather than the steps to run), which is the direction the field has moved; learn Airflow too, because it runs a large share of existing platforms.
+
 **Project:** Move the Phase 1 pipeline under Dagster or Airflow with explicit dependencies, retries, a sensor that waits for a late source file, and a backfill command. Break a task on purpose and show that a rerun recovers without duplicating data.
 
 ### Data quality & testing `critical`
@@ -262,7 +296,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Book: Data Quality Fundamentals, Moses, Gavish & Vorwerck (paid), why: quality treated as an engineering practice
 - dbt data tests docs (free), why: generic and singular tests, and the difference between a test that warns and one that stops the pipeline
 - Great Expectations or Soda docs (free), why: expressing expectations about a dataset's shape and distribution, and how a failed expectation becomes a documented, actionable result
+
 **Study approach:** Bad data fails silently, which is why it is tested rather than trusted. Learn the families of checks (freshness, volume, schema, uniqueness, referential integrity, distribution), where each belongs (at ingestion, in the transformation layer, before publication), how to quarantine bad records instead of failing everything, and who should be alerted when a check fails. *Data Quality Fundamentals* treats this as an engineering practice; dbt tests and Great Expectations or Soda are the common tools.
+
 **Project:** Add a layered quality suite to your orchestrated pipeline: schema and volume checks at ingestion, uniqueness and relationship tests in dbt, and a distribution check before publication. Inject five realistic defects and show which layer catches each and what the alert says.
 
 ### Cloud data infrastructure `critical`
@@ -273,7 +309,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Cloud provider data engineering learning paths, such as AWS Skill Builder or Google Cloud Skills Boost (free tier), why: learn the cloud your target employers use
 - Book: Fundamentals of Data Engineering, cloud chapters (paid)
 - Provider architecture centers, analytics reference designs (free), why: worked designs showing where storage, compute, catalog and identity meet, read as examples to adapt rather than adopt
+
 **Study approach:** Most data platforms now run in a public cloud. Learn object storage and its consistency and pricing, a managed warehouse and a managed processing service, networking basics (VPCs, private endpoints, egress), identity and permissions, and how the pricing model of each service turns design choices into a bill. Pick the cloud your target employers use and go deep on one before comparing.
+
 **Project:** Deploy your lakehouse pipeline to one cloud using object storage, a managed warehouse or query engine, and least-privilege service identities. Set a budget alert, run the pipeline for a week, and write a one-page cost breakdown.
 
 ### Analytics engineering & dbt `critical`
@@ -284,7 +322,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** dbt Learn fundamentals course (free), why: short, official and hands-on
 - Book: Analytics Engineering with SQL and dbt, Machado & Russa (paid)
 - dbt best practice guides (free)
+
 **Study approach:** Analytics engineering treats transformations as software: version-controlled SQL models in layers (staging, intermediate, marts), tests, documentation, incremental models and reusable macros. The official dbt fundamentals course is short and hands-on; the O'Reilly book adds the modeling discipline. Learn to keep models small and named for what they mean, because the project will outlive its first author.
+
 **Project:** Build a dbt project on your warehouse with staging, intermediate and mart layers, an incremental fact model, tests on every model, and published documentation with lineage. Have someone unfamiliar with it answer a business question using only the docs.
 
 ### Change data capture `critical`
@@ -294,7 +334,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Debezium docs and tutorial (free), why: the open-source standard for log-based CDC
 - Book: Designing Data-Intensive Applications, 2nd ed., change data capture sections (paid)
 - microservices.io transactional outbox pattern (free)
+
 **Study approach:** The idea at the centre of this node is that a database's write-ahead log is already a complete, ordered record of every change, so reading it turns a table into a stream without querying the table at all. Understand why that beats polling a modified timestamp: polling misses deletes, misses intermediate states and loads the source database, while log-based capture sees every change exactly as it happened. Understand the snapshot problem, that a new consumer needs the current state before it can apply changes, and that the handover between the snapshot and the stream is where duplicates and gaps are introduced. Understand that ordering is only guaranteed per key, which is why the key choice determines whether a consumer can reconstruct the row's history correctly. Understand deletes and tombstones, since a downstream store that simply applies inserts and updates will quietly keep rows the source no longer has. Understand schema change as the operational hazard: a column added upstream must not stop the stream, and a column removed must not corrupt the consumer. Then understand the transactional outbox as the answer for a service that owns its own events: writing the event and the state change in one transaction is what makes publication atomic with the change it describes.
+
 **Project:** Capture changes from a PostgreSQL database with Debezium into Kafka and apply them to a lakehouse table, including updates and deletes. Change the source schema mid-stream and show what breaks and how you recover.
 
 ### Stateful stream processing `critical`
@@ -305,7 +347,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Book: Streaming Systems, Akidau, Chernyak & Lax (paid), why: the conceptual foundation, from the authors of the Dataflow model
 - Apache Flink docs and training (free), why: event time against processing time, watermarks, windowing, and keyed state with checkpointing, which is the whole of stateful stream processing
 - Spark Structured Streaming guide (free)
+
 **Study approach:** Stateful stream processing is where streaming becomes hard. Learn event time versus processing time, watermarks and late data, tumbling, sliding and session windows, stream-to-stream and stream-to-table joins, state backends and checkpoints, and what exactly-once actually guarantees. *Streaming Systems* gives the conceptual model from the authors of the Dataflow model; Flink's docs and training make it concrete.
+
 **Project:** Write a Flink job that computes windowed aggregates over an event stream with out-of-order and late events, joins it to a slowly changing reference table, and survives a crash with no double counting. Measure latency and state size under load.
 
 ### MLOps fundamentals `critical`
@@ -316,7 +360,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Coursera: Machine Learning in Production, DeepLearning.AI
 - MLflow docs (free), why: experiment tracking, the model registry and its stage transitions, which is how a model version becomes something you can audit and roll back
 - MLOps Zoomcamp, DataTalksClub (free)
+
 **Study approach:** MLOps is the discipline of treating a model as a system that keeps running after you stop watching it, and the knowledge is mostly about change. Understand that three things version independently, code, data and the trained model, so reproducing a result means pinning all three, which is why experiment tracking and dataset versioning exist and why a notebook is not a deliverable. Understand training and serving skew: the same feature computed two different ways in two places is the classic silent production failure, and it is a data-platform problem rather than a modeling one. Understand drift and the distinction that makes it actionable, data drift meaning the inputs moved and concept drift meaning the relationship moved, since they call for different responses. Understand that an offline metric is a proxy and an online metric is the truth, so a model that improves validation accuracy and degrades the product is a normal outcome. Understand deployment as risk management, which is what shadow runs, canaries and rollback are for. Learn all of this from the platform's side, because your job here is to decide what metadata must be captured, where models and datasets are versioned, and how a training run from eight months ago is reproduced on demand.
+
 **Project:** Build a reproducible training pipeline that reads a versioned dataset from your lakehouse, logs runs and artifacts to MLflow, registers a model, and can reproduce any past run exactly from its recorded inputs. Demonstrate it by reproducing a run from a month earlier.
 
 ### Data governance & catalogs `critical`
@@ -327,7 +373,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** DAMA-DMBOK, Data Management Body of Knowledge, 2nd ed. (paid), why: the reference framework governance teams use
 - DataHub or OpenMetadata docs (free), why: the metadata model, ingestion connectors and how ownership and lineage are attached, since a catalog nobody populates is worse than none
 - Book: Data Management at Scale, Strengholt, 2nd ed. (paid)
+
 **Study approach:** Governance that only exists in a policy document does not change anything; this course is about governance that lives in tools and pipelines. Learn ownership and stewardship, business glossaries, metadata management and data catalogs, classification of sensitive data, and access policies. DAMA-DMBOK is the framework governance teams use; DataHub and OpenMetadata are open-source catalogs you can run.
+
 **Project:** Deploy an open-source catalog over your warehouse, ingest metadata automatically from dbt and the orchestrator, assign owners, write glossary entries for ten key terms, and tag sensitive columns. Show a user finding and understanding a dataset without asking anyone.
 
 ---
@@ -342,7 +390,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Book: Designing Data-Intensive Applications, Kleppmann & Riccomini, 2nd ed. (paid), why: written for exactly this path
 - MIT 6.5840 Distributed Systems (free lectures)
 - AWS Builders' Library (free), why: the articles on timeouts, retries with backoff and jitter, and idempotency, which is the operational core of a pipeline that must survive partial failure
+
 **Study approach:** Every data platform is a distributed system, and most of its incidents are distributed-systems failures in disguise: a partition that went stale, a retry that duplicated work, a consumer that fell behind. Learn replication, partitioning, consistency models, consensus, partial failure and backpressure. Kleppmann and Riccomini's second edition is written for exactly this path; MIT's 6.5840 lectures give the theory.
+
 **Project:** Write a design review of your own platform as it stands: list every component that can fail independently, what happens to data correctness when each does, and which failures you have actually tested. Then test the two you had not.
 
 ### DataOps & data observability `critical`
@@ -353,7 +403,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Book: Fundamentals of Data Observability, Petrella (paid), why: observability treated as a design property rather than a product
 - OpenLineage docs (free), why: the run and dataset event model that produces column-level lineage, so you can answer which dashboard a schema change breaks before you make it
 - Google SRE book (free)
+
 **Study approach:** Running data as a production service. Learn to define SLAs and SLOs for datasets (freshness, completeness, correctness), lineage-aware alerting so one upstream failure does not page ten teams, incident response and post-mortems for data, CI/CD for pipelines, and safe rollout of schema changes. Petrella's book treats observability as a design property rather than a product to buy.
+
 **Project:** Define SLOs for three published datasets, instrument your pipelines to measure them, and route alerts by lineage to the owning team. Run a simulated incident from detection to post-mortem, and add a CI check that blocks a breaking schema change.
 
 ### Semantic layer & metrics `desirable`
@@ -364,7 +416,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** dbt Semantic Layer and MetricFlow docs (free), why: how a metric is defined once with its dimensions and time grain, and how a query is compiled against it, which is what stops two teams reporting different revenue
 - Cube docs (free), why: the same idea with pre-aggregation and caching, for when the semantic layer must also be fast
 - Book: The Data Warehouse Toolkit, conformed dimensions chapters (paid)
+
 **Study approach:** A semantic layer defines each metric once (what counts as revenue, an active user, a churned customer) and serves it consistently to dashboards, notebooks and AI assistants. Learn semantic models, metric definitions, dimensions and joins, caching and access control. It is the fix for three dashboards showing three different revenue numbers, and increasingly the grounding that makes AI query tools trustworthy.
+
 **Project:** Define five business metrics in the dbt Semantic Layer or Cube on top of your marts, query them from a notebook and a BI tool, and show that both return identical numbers. Change one definition and show it propagates everywhere.
 
 ### Query & Spark performance tuning `critical`
@@ -374,7 +428,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Apache Spark docs, performance tuning and Spark UI guides (free), why: reading a stage and task breakdown to find skew and spill, and knowing which configuration actually changes the plan
 - Warehouse query profile docs, e.g. Snowflake and BigQuery (free), why: how to read bytes scanned, spilling and partition pruning, since scanning less data is almost always the real optimization
 - Book: High Performance Spark, Karau et al. (paid)
+
 **Study approach:** Performance work in data is mostly about reading what the engine did. Learn to read warehouse query profiles and the Spark UI, partition pruning, clustering and sort keys, broadcast versus shuffle joins, skew, caching and materialization, and when to precompute. Measure cost alongside runtime: on a cloud warehouse, a faster query that scans more data can be the more expensive one.
+
 **Project:** Take the five slowest or most expensive queries in your project, profile each, apply one change at a time (pruning, clustering, join strategy, materialization) and report runtime and bytes scanned before and after.
 
 ### IoT & time-series data `desirable`
@@ -385,7 +441,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** TimescaleDB and InfluxDB docs (free), why: time partitioning, continuous aggregates and downsampling, and retention policies, because time-series data is defined by what you throw away
 - Eclipse Mosquitto MQTT tutorials (free)
 - OPC UA specification overview (free), why: the protocol most plant equipment actually speaks
+
 **Study approach:** Industrial data has properties that break the assumptions a warehouse pipeline is built on, and those properties are the subject. Understand that the network is unreliable by default, so a device must buffer locally and reconcile when the link returns, which is why MQTT's quality-of-service levels exist and why at-least-once delivery means your consumer will see duplicates and must tolerate them. Understand retained messages and last-will as the mechanisms that let a newly connected subscriber learn the current state and detect a device that vanished. Understand OPC UA as a different kind of protocol: not just a transport but an information model, where a machine publishes a typed, self-describing address space, so a client can discover what a device is instead of being told which register to poll. Understand that time is the hard part: a device's clock drifts, readings arrive out of order and late, and the timestamp that matters is when the measurement was taken rather than when it arrived. Understand that this data's value decays with age, which is why retention, downsampling and continuous aggregates are design decisions rather than housekeeping, and why keeping every raw reading forever is usually the wrong answer. Test with the network pulled, because edge buffering is where these pipelines actually fail.
+
 **Project:** An edge gateway that reads simulated OPC UA tags and MQTT sensors, buffers locally through a network outage, and syncs to a time-series database with downsampled rollups. Show the outage and the recovery on a dashboard.
 
 ### Real-time analytics stores `desirable`
@@ -395,7 +453,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** ClickHouse docs and tutorials (free), why: open source and easy to run locally
 - Apache Pinot docs (free), why: the segment and index model that answers aggregate queries on fresh data in milliseconds
 - Apache Druid docs (free), why: rollup at ingestion and time-partitioned segments, the same problem with a different trade
+
 **Study approach:** Real-time analytics stores answer aggregate queries over data that is seconds old. Learn how ClickHouse, Druid and Pinot ingest from streams, what they pre-aggregate, how they index, and where they beat or lose to a warehouse on latency and cost. ClickHouse is open source and easy to run locally, which makes it the best place to start.
+
 **Project:** Feed your event stream into ClickHouse, build a dashboard with sub-second aggregates over the last hour, and compare query latency and cost with the same queries on your warehouse. Write down which questions belong in each.
 
 ### Feature store & training data `desirable`
@@ -406,7 +466,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Feast docs (free), why: the online and offline store split and point-in-time correct joins, which is the mechanism that prevents training on information that did not exist yet
 - Book: Designing Machine Learning Systems, Chip Huyen, why: the feature chapter frames the skew problem best
 - Databricks feature engineering docs (free), why: where Tecton's managed feature platform ended up in 2025
+
 **Study approach:** A feature store exists to solve two specific problems, and if you do not understand them the tool looks like unnecessary infrastructure. The first is training and serving skew: a feature computed one way in a batch job for training and another way in application code for serving will differ, and the model degrades for reasons no metric explains, which is why a single definition used by both paths is the whole point. The second is point-in-time correctness, and it is subtler: building a training set means joining a label to the feature values as they were at that moment, so a naive join to the current value leaks information from the future and produces a model that tests brilliantly and fails in production. Understand the online and offline store split as the structural answer, the same definition materialized into a low-latency store for serving and a historical store for training. Understand feature freshness and the cost it implies, since a feature that must be seconds old needs a streaming path rather than a nightly job. Build a leaky training set once, deliberately, and catch it, because recognizing that failure is the skill this node is really teaching.
+
 **Project:** Feast on top of the Phase 2 lakehouse: offline and online stores, a point-in-time-correct training set, and an online lookup used by a served model. Include a test proving no future data leaks into training, and a backfill after a feature definition changes.
 
 ### IaC & policy as code `critical`
@@ -417,7 +479,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Book: Terraform: Up & Running, Brikman, 3rd ed. (paid), why: the practical standard text
 - OpenTofu and Terraform docs (free), why: state as the source of truth and the fact that it contains secrets, the plan and apply cycle, and modules; drift between declared and actual infrastructure is the failure that matters
 - Open Policy Agent docs (free), why: policy expressed as code and evaluated before a change is admitted, so a governance rule becomes enforced rather than reviewed
+
 **Study approach:** Every bucket, warehouse, cluster, role and permission in a data platform should exist because code says so. Learn Terraform or OpenTofu (state, modules, environments, drift), and policy as code with Open Policy Agent so that rules such as no public buckets or encryption required are checked in CI rather than in an audit. *Terraform: Up & Running* is the practical standard text.
+
 **Project:** Rebuild your cloud data platform entirely from Terraform or OpenTofu with separate development and production environments, add three OPA policies checked in CI, and prove the point by destroying and recreating the development environment from code.
 
 ### Kubernetes for ML `critical`
@@ -428,7 +492,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Kubernetes docs and tutorials (free), why: pods, deployments and services, requests and limits, config and secrets, and jobs; understand it as a reconciliation loop rather than a command runner
 - Book: Kubernetes in Action, 2nd ed., Lukša & Conner (paid), why: revised in 2026
 - Spark on Kubernetes and Strimzi operator docs (free), why: the operator pattern, where a controller encodes how to run a stateful system, and why a database or a broker is harder to schedule than a web service
+
 **Study approach:** Many data platforms run their own infrastructure on Kubernetes: Spark and Flink jobs, Kafka clusters, orchestrators and model servers. Learn the core objects, then operators (Spark on Kubernetes, Strimzi for Kafka, the Flink operator), batch jobs, resource requests and limits, autoscaling and GPU scheduling. Learn equally when a managed service is the better choice, because running stateful systems on Kubernetes has a real operational cost.
+
 **Project:** Deploy Kafka with Strimzi and run a Spark job with the Spark operator on a local or free-tier cluster, with resource limits and monitoring. Write a one-page comparison of the operational work against the managed equivalents in your cloud.
 
 ### Data contracts & lineage `critical`
@@ -439,7 +505,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** OpenLineage docs (free), why: the open standard most lineage tools emit
 - Book: Driving Data Quality with Data Contracts, Andrew Jones (paid)
 - Confluent Schema Registry docs (free), why: schema compatibility modes and what backward against forward compatibility permits, which is how a producer changes a message without breaking every consumer
+
 **Study approach:** A data contract is an explicit agreement between a dataset's producer and its consumers covering schema, meaning, quality guarantees and the process for changing any of them, and the knowledge here is why that needs to be a technical artifact rather than an understanding. Understand the underlying failure it prevents: a producer changes a column in good faith because nothing told them anyone depended on it, and a dashboard is silently wrong for a month. Understand compatibility as the formal version of that problem, where backward compatibility means new producers work with old consumers and forward compatibility the reverse, which is what determines whether a field may be added, renamed or removed at all. Understand that a contract must be enforced in two places to mean anything, in continuous integration so a breaking change fails the build, and at runtime so data violating it is quarantined rather than loaded. Understand lineage as the knowledge that makes the whole thing possible, since you cannot negotiate a contract with consumers you cannot enumerate, and column-level lineage is what turns which dashboards does this break into a query rather than a guess. Understand ownership as the non-technical half: a dataset with no named owner has no contract, whatever is written down.
+
 **Project:** Write contracts for two datasets your pipelines produce, enforce them in the producer's CI and with a schema registry at runtime, and capture lineage with OpenLineage. Propose a breaking change and show the contract check blocking it and the lineage graph naming every affected consumer.
 
 ### Data privacy & PETs `critical`
@@ -450,7 +518,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Book: Practical Data Privacy, Katharine Jarmul (paid), why: written for data engineers and scientists rather than lawyers
 - OpenDP docs (free), why: the privacy budget as the central idea, that each query spends from a finite allowance, and how noise is calibrated to a sensitivity
 - EDPB guidelines on pseudonymisation (free)
+
 **Study approach:** Privacy engineering is building pipelines that collect less, protect what they keep and can forget on request. Learn data minimization, pseudonymization and anonymization and why many anonymized datasets can be re-identified, differential privacy for aggregate releases, consent and purpose tracking, and deletion that reaches every copy including backups and derived tables. Jarmul's book is written for data people rather than lawyers.
+
 **Project:** Add a privacy layer to your platform: pseudonymize identifiers at ingestion, track purpose per dataset, release one aggregate table with differential privacy, and implement a deletion request that removes a person from every table and derived dataset, with a test proving it.
 
 ---
@@ -464,7 +534,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Book: Cloud FinOps, Storment & Fuller, 2nd ed. (paid), why: the FinOps Foundation's practice in book form
 - FinOps Foundation framework (free)
 - Warehouse cost and resource monitoring docs (free), why: which views report bytes scanned, credits consumed and per-query attribution, since a cost you cannot attribute to a team or a dashboard cannot be reduced
+
 **Study approach:** In the cloud every design decision is also a cost decision, and data platforms are where the surprises happen: a query that scans a whole table every few minutes, a cluster nobody turned off, egress between regions. Learn the cost models of storage tiers, compute and slot-based warehouses, egress, and streaming clusters; how to attribute cost to teams and pipelines with tags and query metadata; and how to design to a budget. *Cloud FinOps* describes the practice; your warehouse's cost monitoring docs show where the numbers come from.
+
 **Project:** Attribute a month of your platform's cloud cost to pipelines and datasets, find the three largest avoidable costs, fix them, and publish a before and after report with the monthly saving.
 
 ### Enterprise data modeling `desirable`
@@ -474,7 +546,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Book: Building a Scalable Data Warehouse with Data Vault 2.0, Linstedt & Olschimke (paid), why: the method's own reference
 - Kimball Group design tips archive (free), why: short answers on conformed dimensions, bridge tables and many-to-many relationships, which is where enterprise modeling gets hard
 - AutomateDV dbt package docs (free), why: hubs, links and satellites expressed as generated models, which is how Data Vault's auditable, insert-only structure is actually built
+
 **Study approach:** Enterprise modeling is what happens when a warehouse has dozens of sources and decades of history. Learn Data Vault (hubs, links and satellites), historized and bitemporal tables, conformed dimensions shared across domains, and how to keep a model coherent while the organisation renames, merges and splits the things it models. Linstedt's book is the method's own reference; AutomateDV implements it in dbt.
+
 **Project:** Integrate two sources that describe the same customers differently into a Data Vault layer with AutomateDV, build a dimensional mart on top, and show that a source change of key format is absorbed in the vault without touching the mart.
 
 ### Event tracking & product analytics `desirable`
@@ -484,7 +558,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Book: Trustworthy Online Controlled Experiments, Kohavi, Tang & Xu (paid), why: the reference on experiment data quality
 - Snowplow docs on tracking design (free), why: the event schema and the versioned contract between an application's instrumentation and the pipeline, which is what makes product analytics trustworthy
 - GrowthBook docs on experiment analysis (free), why: assignment and exposure, how a metric is attributed to a variant, and why peeking at a running experiment inflates false positives
+
 **Study approach:** Product analytics data starts with a tracking plan: which events exist, what properties they carry, and who owns them. Learn event schema design, sessionization and funnels, attribution, and the data behind A/B tests, including the checks (sample ratio mismatch, assignment leakage) that catch a broken experiment before anyone reads its result. Kohavi's book is the reference on experiment data quality.
+
 **Project:** Design a tracking plan for a small web app, generate events with Snowplow or a simulator, build sessions and a funnel in dbt, and analyse a simulated A/B test, including a deliberately broken assignment that your checks catch.
 
 ### Event-driven systems & event sourcing `desirable`
@@ -494,7 +570,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Book: Designing Event-Driven Systems, Ben Stopford (free from Confluent), why: bridges service events and data pipelines
 - Martin Fowler, Event Sourcing (free)
 - Apache Kafka docs (free), why: the log as the primitive, partitions and ordering guarantees, consumer groups and offsets, and retention, which is what an event store gives you
+
 **Study approach:** This node is event-driven architecture seen from the data side, and it turns on one inversion: instead of storing current state and losing how it was reached, you store the sequence of events and derive state from them. Understand what that buys, a complete audit trail by construction, the ability to rebuild a projection from scratch when you change your mind about how to compute it, and several differently shaped views of the same history; and understand what it costs, namely that the event log becomes the thing you can never casually change. Understand event design as the consequential decision: an event records a fact that happened in the business, named in the past tense and carrying what a consumer needs, and a badly scoped event cannot be fixed later because old events are immutable. Understand versioning for exactly that reason, since every schema change must leave years of existing events readable. Understand the separation of writing from reading, where commands change state and queries read a projection built for their shape, and understand that those projections are eventually consistent, so a user may not immediately see their own change. Understand ordering and replay as the operational core, because a projection is only correct if events are applied in order and replay is only safe if handlers are idempotent. Then understand the payoff for this path: operational events are already the analytical feed, so a nightly export stops being necessary.
+
 **Project:** Model one business process as events with versioned schemas, build two projections from the same stream (an operational view and an analytical table), then add a new event version and replay history to rebuild both.
 
 ### Streaming platform operations `desirable`
@@ -504,7 +582,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Book: Kafka: The Definitive Guide, 2nd ed., operations chapters (free from Confluent)
 - Strimzi docs (free), why: running brokers on Kubernetes, including storage, rolling upgrades and partition rebalancing, which is where operating a broker differs from using one
 - Confluent and Aiven engineering blogs (free)
+
 **Study approach:** This node is about the decisions you own whether you run the brokers or buy them, and almost all of them follow from one structural fact: a topic's partitions are its unit of both parallelism and ordering. Understand that ordering is guaranteed only within a partition, so the key you choose decides which events stay in sequence relative to each other, and that partition count sets a ceiling on consumer parallelism which is painful to raise later because raising it reshuffles the key-to-partition mapping. Understand retention and compaction as two different purposes, retention keeping a window of history for replay and compaction keeping only the latest value per key so a topic becomes a durable snapshot of current state. Understand consumer lag as the single most important health signal, because it tells you whether consumption is keeping up with production and nothing else does. Understand rebalancing and why it is disruptive, since every consumer stops while partitions are reassigned, which is why a slow consumer leaving and rejoining repeatedly is a classic self-inflicted outage. Understand replication and the acknowledgement settings as an explicit durability against latency trade, where accepting a write before replicas have it is how data is lost on a broker failure. Understand quotas as protection from one badly behaved client, and capacity planning as a question about throughput, retention and disk rather than about message count.
+
 **Project:** Run a three-broker Kafka cluster, load it with a realistic workload, and run a game day: lose a broker, add a partition, upgrade a broker, and let a consumer fall behind. Record the metrics, alerts and recovery steps for each as a runbook.
 
 ### Data pipelines for LLM applications `critical`
@@ -514,7 +594,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Book: AI Engineering, Chip Huyen, retrieval and data chapters (paid), why: frames retrieval as a data problem
 - pgvector docs (free), why: the HNSW and IVFFlat index types with their build and query parameters, and the recall against latency trade each one makes
 - Unstructured and LlamaIndex ingestion docs (free), why: document parsing and chunking strategies, and why chunk boundaries and retained metadata decide whether retrieval works at all
+
 **Study approach:** Applications built on language models are mostly a data problem: getting the right document, in the right version, to the right user. Learn document ingestion and parsing (PDFs, tables, scans), chunking strategies, embedding pipelines and re-embedding when models change, vector and hybrid indexes, freshness and deletion, and permission-aware retrieval so a user never sees a document they should not. Huyen's *AI Engineering* frames retrieval as a data problem; the Applied AI roadmap covers the application side.
+
 **Project:** Build an ingestion pipeline that turns a changing document collection into a hybrid search index with per-document permissions, incremental updates and deletions. Measure retrieval quality on a small labeled question set before and after a document update, and prove a deleted document can no longer be retrieved.
 
 ### Cloud ML platforms `critical`
@@ -524,7 +606,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Coursera: Google Cloud Machine Learning Engineer path
 - Amazon SageMaker docs (free), why: the training job, endpoint and pipeline abstractions, and how data access and identity are wired, which is what you are really buying
 - Azure Machine Learning docs (free), why: the same shapes under different names, read to tell a genuine capability from a brand
+
 **Study approach:** A managed ML platform bundles training jobs, pipelines, a model registry, endpoints and monitoring, and the knowledge worth having is where those abstractions leak, because that is what you will actually spend your time on. Understand the identity and permission model first, since a training job needs to read data it does not own and an endpoint needs to be reachable by exactly one service, and a platform's convenience ends the moment a permission has to be reasoned about. Understand the networking, because a model that must not touch the public internet needs private endpoints and a VPC configuration that the quickstart never mentions, and in a regulated setting that constraint decides the architecture. Understand the cost structure, that a provisioned endpoint bills for time rather than use, so an idle one is a recurring charge and scale-to-zero is a real decision with a cold-start cost attached. Understand GPU quota as a genuine scarcity rather than a formality, because capacity in a region at a size is an architectural input. Understand the lock-in gradient honestly: a container you built and a model artifact in open format move easily, while a managed pipeline, a feature store and a registry do not, so knowing which parts to keep portable is the senior judgement here. Pick the platform closest to your work and use it for real, since watching a course produces no operational knowledge at all.
+
 **Project:** Deploy a complete training and serving pipeline on AWS, GCP or Azure that reads from your lakehouse and writes predictions back to it. Document costs, gotchas and vendor lock-in points. Bonus: build the same pipeline on a second cloud and write a comparison.
 
 ### Data security & access control `critical`
@@ -534,7 +618,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Unity Catalog, Snowflake and BigQuery access control docs (free), why: where these controls are actually configured
 - Apache Ranger docs (free), why: centralized policies with row filters and column masking, and why access control enforced at the engine rather than in each query is the only version that holds
 - OWASP Cheat Sheet Series (free)
+
 **Study approach:** Data security is access control applied at the granularity data needs. Learn role- and attribute-based access control, row- and column-level security, dynamic masking, encryption at rest and in transit with managed keys, secrets in pipelines, and audit logs that answer who read what and when. Configure these in the platforms where they actually live (Unity Catalog, Snowflake, BigQuery, Apache Ranger), not in an abstraction.
+
 **Project:** Implement access control for a dataset with three audiences: analysts see aggregates, a support team sees masked personal data for their region only, and a privileged role sees everything. Prove each audience's view with tests and produce an audit report of a week of access.
 
 ### Master & reference data `desirable`
@@ -544,7 +630,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Splink entity resolution library docs (free), why: open-source probabilistic matching from the UK Ministry of Justice
 - Book: Data Management at Scale, Strengholt, 2nd ed. (paid)
 - DAMA-DMBOK, reference and master data chapter (paid), why: the vocabulary for golden records, survivorship rules and stewardship, which is how a master data programme is argued for and governed
+
 **Study approach:** Master and reference data is the unglamorous reason two reports count customers differently. Learn entity resolution (deterministic and probabilistic matching), golden records and survivorship rules, reference code lists and their versioning, and how to publish a mastered entity that other systems trust. Splink is an open-source probabilistic matching library from the UK Ministry of Justice and the best way to learn the technique.
+
 **Project:** Deduplicate a public dataset of people or organisations with Splink, tune the match thresholds against a labeled sample, build a golden record with explicit survivorship rules, and report precision and recall of the matching.
 
 ---
@@ -556,7 +644,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 **Tracks:** All specializations
 **Resources:**
 - **Best match:** No course. Sit with the people who produce and use the data, and read the domain's data standards, such as ISA-95 in industry or ISO 20022 in finance
+
 **Study approach:** Real depth in one industry's data: what its records mean, how and by whom they are produced, which are regulated, and which numbers its people actually use to decide. This is the part tools cannot supply and the part that makes data quality checks meaningful, because only someone who knows the domain knows what wrong looks like. In Chile that is often mining and energy, where sensor and operations data meet business reporting; elsewhere it might be finance, health or logistics.
+
 **Project:** Build one dataset for an industry problem alongside someone who works in that industry, write down every assumption of yours they corrected, and turn the corrections into quality checks.
 
 ### AI agents for data work `frontier`
@@ -566,7 +656,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Spider 2.0 and BIRD text-to-SQL benchmarks (free), why: published evaluations of how often these systems are right
 - dbt Semantic Layer docs (free), why: a metric defined once with its dimensions and grain, read here for how a platform exposes it to many consumers
 - See also the Applied AI roadmap
+
 **Study approach:** A frontier topic. Text-to-SQL tools, AI analysts and agents that write pipelines are improving quickly, and published benchmarks such as Spider 2.0 and BIRD show both how far they have come and how often they are still wrong on real schemas. Learn what makes them reliable: semantic layers and catalogs as grounding, evaluation sets built from real questions with known answers, and limits on what an agent may execute. The tools that automate part of this job are the ones it now has to make trustworthy.
+
 **Project:** Connect an AI query assistant to your semantic layer and catalog, build an evaluation set of thirty real questions with verified answers, and measure accuracy with and without the semantic layer as grounding. Write up the failure modes.
 
 ### Data products & data mesh `desirable`
@@ -576,7 +668,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Book: Data Mesh, Zhamak Dehghani (paid), why: the original argument in full
 - Book: Data Management at Scale, Strengholt, 2nd ed. (paid)
 - Published data mesh case studies (free)
+
 **Study approach:** Data mesh is an organisational pattern as much as a technical one: domains own their data as products, a central platform makes that self-service, and governance is federated rather than central. Learn the four principles, what a data product needs (an owner, a contract, documentation, quality guarantees, discoverability), and the conditions under which the pattern works or fails, which is mostly about organisational maturity. Read Dehghani for the argument and Strengholt for the implementation.
+
 **Project:** Turn one of your marts into a data product: a named owner, a contract, SLOs, catalog documentation and an access process. Then write a two-page assessment of whether a mesh would suit a specific organisation you know, and why or why not.
 
 ### Industrial data & OT integration `desirable`
@@ -586,7 +680,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** HiveMQ, MQTT Essentials (free), why: the clearest free introduction to MQTT-based plant data
 - OPC Foundation, OPC UA overview (free)
 - ISA-95 overview material (free)
+
 **Study approach:** Industrial data is where streaming meets operational technology. Learn the ISA-95 levels from sensors to enterprise systems, SCADA and historians, OPC UA and MQTT, the unified namespace pattern for publishing plant data, and the network segmentation that keeps operational technology safe when data flows out of it. This is the data side of the Edge AI and Control paths, and in Chile it is the bridge into mining and energy.
+
 **Project:** Build a small unified namespace: simulated OPC UA devices and MQTT sensors from two sites published under an ISA-95 topic hierarchy, consumed into your time-series store and lakehouse through a one-way, segmented path. Document what a plant engineer would need to approve before it ran on real equipment.
 
 ### Self-serve data platform engineering `desirable`
@@ -596,7 +692,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Book: Platform Engineering, Fournier & Nowland (paid), why: written by practitioners who built internal platforms
 - Backstage docs (free), why: the software catalog and templates, which is how self-serve becomes a paved path rather than a wiki page nobody follows
 - CNCF Platforms white paper (free)
+
 **Study approach:** A self-serve data platform lets product and analytics teams build pipelines without filing tickets. Learn platform engineering applied to data: templates and golden paths for new pipelines, environments on demand, guardrails such as policies, quotas and default tests instead of manual review, a developer portal, and measuring adoption and lead time. Fournier and Nowland's book is written by people who built internal platforms.
+
 **Project:** Create a template that scaffolds a new pipeline with orchestration, tests, a contract, monitoring and infrastructure as code from one command, and register it in Backstage. Time how long a colleague takes to ship a new tested pipeline with it, before and after.
 
 ### Data engine & synthetic data `desirable`
@@ -606,7 +704,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Book: Designing Machine Learning Systems, Huyen, training data chapters (paid)
 - Label Studio docs (free), why: labeling interfaces, review queues and annotator agreement, since label quality is a hard ceiling on model quality
 - lakeFS or DVC docs for dataset versioning (free), why: branching and committing over data rather than code, which is what makes an experiment reproducible when the dataset also moved
+
 **Study approach:** The data engine closes the loop between models in production and their training data: collecting the cases a model got wrong, routing them to labeling, versioning the resulting datasets, and generating synthetic data where real data is scarce or sensitive. At platform scale the hard parts are lineage from prediction back to training example, dataset versioning, and keeping labeling quality measurable.
+
 **Project:** Build a loop where low-confidence predictions from a served model are sampled, sent to a Label Studio project, merged into a versioned training set in lakeFS or DVC, and used to retrain. Show lineage from one prediction to the model version that learned from it.
 
 ### Data protection law & compliance `critical`
@@ -616,7 +716,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** GDPR text and EDPB guidelines (free), why: the regime most others are modeled on
 - BCN Chile, Ley 21.719 (free)
 - EU Data Act, Regulation (EU) 2023/2854, on EUR-Lex (free)
+
 **Study approach:** Data law becomes pipeline requirements: a lawful basis and purpose for each dataset, retention periods enforced in code, data subject rights (access, correction, deletion), cross-border transfer rules, and breach notification. Learn the GDPR as the regime most others are modeled on, the EU Data Act, which applies since September 2025, and Chile's Ley 21.719, which creates a data protection agency and is scheduled to take effect in December 2026. This is literacy, not legal advice: read a requirement and design for it.
+
 **Project:** Write a record of processing for your platform: every dataset with its purpose, legal basis, retention and transfers. Implement retention enforcement and a subject access request that produces everything held about one person, and map each control to the article it satisfies under one regime.
 
 ### Data governance for AI `desirable`
@@ -626,7 +728,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Datasheets for Datasets, Gebru et al. (free paper), why: the template most dataset documentation follows
 - EU AI Act, Article 10, data and data governance (free)
 - Data Provenance Initiative (free)
+
 **Study approach:** Data governance for AI covers the questions that arise when a dataset trains a model: where the data came from and under what licence and consent, whether it represents the population the model will serve, how it is documented, and what the EU AI Act's Article 10 requires of training, validation and test data for high-risk systems. Datasheets for Datasets is the template most dataset documentation follows.
+
 **Project:** Write a datasheet for a training dataset you built on this roadmap, including provenance, licences, known gaps and representativeness checks with numbers. Then audit one public dataset's licence and provenance and record what you could and could not establish.
 
 ---
@@ -641,7 +745,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 - **Best match:** Book: Designing Data-Intensive Applications, Kleppmann & Riccomini, 2nd ed. (paid)
 - Book: Fundamentals of Data Engineering, Reis & Housley (paid)
 - Architecture decision records (free), why: at this level the reasoning is the deliverable
+
 **Study approach:** Composing the platform: batch and streaming paths, where the source of truth for each entity lives, central versus domain-owned data, build versus buy, and how it is secured, governed and paid for. At this level the work is judgement, and the reasoning is the deliverable, so write decisions as architecture decision records others can challenge. *Designing Data-Intensive Applications* and *Fundamentals of Data Engineering* are the two books to reread here.
+
 **Project:** Write the target architecture for a real or realistic organisation's data platform: context diagram, data flows, sources of truth, build and buy choices, security and governance model, and a cost estimate. Include three architecture decision records with the alternatives you rejected, and have an engineer who disagrees review it.
 
 ### Capstone: Data platform `critical`
@@ -649,7 +755,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 **Tracks:** All specializations
 **Resources:**
 - **Best match:** No course. Ship it as infrastructure-as-code with the data-quality tests running in CI
+
 **Study approach:** The proof that this path is finished. Assemble the platform projects into one slice rather than building new parts: the work is in the seams (contracts, orchestration, monitoring, cost). Scope it small enough to finish and real enough that someone other than you consumes its output. Let the specialization set its centre: a modeled warehouse with a semantic layer, a streaming pipeline from devices to a real-time store, a feature or retrieval platform, or a governed data product with privacy controls.
+
 **Project:** One end-to-end platform slice: ingestion to lakehouse to a served data product, orchestrated, tested and monitored, with data contracts, cost attribution and infrastructure as code, CI running the data tests, and a runbook for one failure. Publish the repository, the contract and one month of SLO and cost reports.
 
 ### Technical leadership `desirable`
@@ -658,7 +766,9 @@ For a backend engineer moving laterally, **Batch engineering & analytics** is th
 **Resources:**
 - **Best match:** Book: Staff Engineer, Will Larson, free web edition at staffeng.com
 - Write and publish design docs, why: influence in this field is exercised in writing
+
 **Study approach:** Setting direction, writing design docs and data strategy, mentoring, and negotiating with the many teams that produce and consume data. In data the hardest leadership work is getting producers to own the quality of what they emit, which is a persuasion problem before it is a tooling problem. That work is done in writing, which is why the English lane compounds into this node.
+
 **Project:** Lead one cross-team data decision end to end, ideally a new contract between a producing and a consuming team: write the proposal, run the review, absorb the disagreement, ship it and publish a retrospective.
 
 ---
