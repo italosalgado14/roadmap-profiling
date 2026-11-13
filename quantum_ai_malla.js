@@ -193,11 +193,11 @@ export const COURSES = [
     desc: "Zero-noise extrapolation, probabilistic error cancellation and measurement-error mitigation: squeezing signal out of NISQ devices.",
     res:  "Mitiq docs (free), why: zero-noise extrapolation and probabilistic error cancellation, and what each assumes about the noise | Temme et al. ZNE/PEC paper (free) | IBM Quantum error-mitigation docs (free), why: the built-in mitigation levels and the shot cost each one adds" },
   { id: "QEC", phase: "P5", row: 6, label: "Quantum error correction",
-    priority: "desirable", kind: "branch", tracks: ["qec"], prereqs: ["QINFO", "STAB"],
+    priority: "critical", kind: "branch", tracks: ["qec"], prereqs: ["QINFO", "STAB"],
     desc: "Stabilizer formalism, 3-qubit/Steane/surface codes, syndrome extraction, code distance and thresholds: protecting logical qubits.",
     res:  "Roffe QEC introductory guide (free) | Gottesman stabilizer notes (free) | Nielsen & Chuang ch.10 (paid)" },
   { id: "QECIMPL", phase: "P5", row: 7, label: "Implementing QEC codes & decoders",
-    priority: "desirable", kind: "branch", tracks: ["qec"], prereqs: ["QEC"],
+    priority: "critical", kind: "branch", tracks: ["qec"], prereqs: ["QEC"],
     desc: "Build and simulate repetition, Steane and rotated surface codes, extract syndromes and run MWPM/union-find decoders against a noise model.",
     res:  "Roffe, QEC: An Introductory Guide, arXiv (free) | Google Stim (free) | PyMatching decoder (free)" },
   { id: "PULSE", phase: "P5", row: 8, label: "Pulse-level control",
@@ -256,7 +256,7 @@ export const COURSES = [
     res:  "Roffe QEC guide (free) | Stim, Gidney + PyMatching, Higgott (free) | qLDPC + surface-code papers, arXiv (free)" },
   { id: "FPGA", phase: "P7", row: 6, label: "Real-time control & FPGA feedback",
     priority: "critical", kind: "branch", tracks: ["hw"], prereqs: ["CTRL", "NOISE"],
-    desc: "FPGA gateware for syndrome extraction and sub-microsecond decode-and-correct feedback, plus classical control co-design: the hardware edge.",
+    desc: "FPGA gateware for syndrome extraction and sub-microsecond decode-and-correct feedback, plus classical control co-design: the hardware edge. Assumes digital design, an HDL and the FPGA toolchain, which this graph does not teach: take them from the FPGA & Digital Hardware path (digital logic through timing closure).",
     res:  "QICK FPGA control framework, Fermilab (free) | Krantz et al., Quantum Engineer's Guide to Superconducting Qubits, arXiv:1904.06560 (free) | Qiskit Dynamics & QuTiP (free)" },
 ];
 

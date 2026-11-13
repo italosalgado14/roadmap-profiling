@@ -11,7 +11,7 @@
 
 This roadmap is for engineers who want to be the person who closes the loop: the controls, GNC or robotics-control engineer behind a self-driving stack, a drone or spacecraft autopilot, a robot arm, or a process plant. The work spans four sectors: **aerospace & defense** (GNC engineers at Boeing, Lockheed, space and UAV firms), **automotive & autonomous vehicles** (vehicle dynamics, path tracking, ADAS/AD control), **industrial automation & process control** (PLC/SCADA, APC), and **robotics** (manipulators, mobile and legged platforms). These skills resist commoditization by code assistants because they demand genuine system modeling and stability reasoning, not boilerplate.
 
-**How the path is paced.** Each phase is a quarter: about 3 months of study. A full specialization runs through all 8 phases (P0 to P7), so about 2 years, and in every phase it takes 2 to 5 courses (the shared spine plus that specialization's branch courses; electives are optional extras on top). The phases build strictly: P0 refreshes the math and sets up the programming tools; P1 adds MATLAB & Simulink alongside the signals-and-classical-control core; P2 lifts you into state-space and physical modeling (plus process modeling and instrumentation on the industrial track); P3 adds estimation (Kalman, EKF/UKF, navigation, SLAM) while the industrial track starts process control and PLCs; P4 brings the optimization-based control that defines the modern field (LQR, MPC, trajectory optimization); P5 covers nonlinear, robust and adaptive control; P6 puts controllers on real hardware (embedded/RTOS, ROS 2, simulation) and holds the domain control courses (manipulator, flight and vehicle control, industrial networks and batch automation); and P7 integrates everything: GNC, safety-critical control, advanced process control, systems engineering and technical leadership, with learning-based and research-grade control as frontier electives. Each later phase consumes the ones before it: you cannot do MPC without optimization and state-space, or estimation without probability and linear systems.
+**How the path is paced.** Each phase is a quarter: about 3 months of study. A full specialization runs through all 8 phases (P0 to P7), so about 2 years, and in every phase it takes 2 to 5 courses (the shared spine plus that specialization's branch courses; electives are optional extras on top). The phases build strictly: P0 refreshes the math and sets up the programming tools; P1 adds MATLAB & Simulink alongside the signals-and-classical-control core; P2 lifts you into state-space and physical modeling (plus process modeling and instrumentation on the industrial track); P3 adds estimation (Kalman, EKF/UKF, navigation, SLAM) while the industrial track starts process control and PLCs; P4 brings the optimization-based control that defines the modern field (LQR, MPC, trajectory optimization) and puts controllers on a real-time target (embedded/RTOS), so every later design can be run on hardware; P5 covers nonlinear, robust and adaptive control, with ROS 2 for the robotics and vehicle tracks; P6 adds simulation and digital twins and holds the domain control courses (manipulator and force control, flight and vehicle control, industrial networks and batch automation); and P7 integrates everything: GNC, safety-critical control, advanced process control, systems engineering, a capstone that takes one loop from requirements to hardware, and technical leadership, with learning-based and research-grade control as frontier electives. Each later phase consumes the ones before it: you cannot do MPC without optimization and state-space, or estimation without probability and linear systems.
 
 Every node carries resources, a study approach and (most importantly) a **project**. The project is the proof of competence: a controller that runs in simulation or on hardware, not a certificate, is what demonstrates you can actually close the loop.
 
@@ -20,7 +20,7 @@ Every node carries resources, a study approach and (most importantly) a **projec
 *Medium term (2 to 5 years):*
 - **Classical control, State-space control, Model predictive control, Embedded & real-time control** (the spine): the [WEF Future of Jobs Report 2025](https://www.weforum.org/publications/the-future-of-jobs-report-2025/) (Jan 2025; employer survey, global, 2025 to 2030) finds 58% of employers expecting robotics and automation to transform their business by 2030, and lists robotics engineers and process automation specialists among growing roles. In the US, [BLS](https://www.bls.gov/ooh/architecture-and-engineering/industrial-engineers.htm) (2025 to 2035, released Aug 2026) projects industrial engineers to grow 12%, citing demand for "expertise on automation", and electrical engineers 10%, against 3.5% for all jobs.
 - **Process control & PID tuning, PLC & industrial automation, Industrial networks & OT security** (Industrial & process control, Chile): the [Consejo de Competencias Mineras and Fundación Chile workforce study 2025 to 2034](https://ccm-eleva.cl/wp-content/uploads/2025/12/Estudio-Fuerza-Laboral-de-la-Gran-Mineria-2025-2034.pdf) (Dec 2025, Chilean large-scale mining) projects 36,895 new workers by 2034, mostly replacing retirees, with maintenance technicians the largest group, and expects autonomy to spread: autonomous or teleoperated drills from 52 to 122, with about 1,000 people already working in integrated operations centres.
-- **Autonomous vehicle control, Flight & spacecraft control, Guidance, navigation & control** (Aerospace & automotive): the WEF report ranks autonomous and electric vehicle specialists seventh among the fastest-growing jobs to 2030, and its Germany profile finds 67% of German employers expecting robots and autonomous systems to transform their operations.
+- **Autonomous vehicle control, Flight & spacecraft control, Guidance, navigation & control** (Aerospace, automotive & navigation): the WEF report ranks autonomous and electric vehicle specialists seventh among the fastest-growing jobs to 2030, and its Germany profile finds 67% of German employers expecting robots and autonomous systems to transform their operations.
 - **Motion & manipulator control, Robot kinematics & dynamics** (Robotics & motion control): the [McKinsey Technology Trends Outlook 2026](https://www.mckinsey.com/~/media/mckinsey/business%20functions/mckinsey%20digital/our%20insights/the%20top%20trends%20in%20tech%202026/mckinsey%20technology%20trends%20outlook%202026.pdf) (Sep 2026; 2024 to 2025 job postings, mainly English-speaking countries) counts robotics postings up 12%, with automation engineers growing strongly on skills in "robot perception, model training, and control systems".
 
 *Counter-signals:* energy is where official projections and job postings disagree. [BLS](https://www.bls.gov/news.release/ecopro.nr0.htm) names utilities the fastest-growing US sector (+9.8% to 2035, nearly all of it from electric power generation) and [Cedefop](https://www.cedefop.europa.eu/en/news/cedefop-updates-skills-forecast-new-data-guide-europes-skills-and-labour-market-policy-2035) (Jul 2026, 2023 to 2035) puts EU electricity generation among the fastest-growing sectors at about 2% a year, yet McKinsey counts energy postings down 19% in 2024 to 2025 and electrical and energy engineer postings down about 40% since 2022. Process and energy control is a sound plan, but check local postings before betting on that sector alone.
@@ -32,11 +32,10 @@ Every node carries resources, a study approach and (most importantly) a **projec
 - `desirable`: Competitive edge. Strong ROI but not blocking.
 - `frontier`: Future bets, research-grade or emerging, such as learning-based and research-grade control.
 
-**Four specializations** (pick one in the graph; each is a complete 8-phase plan, and this document explains the study material for every node):
+**Three specializations** (pick one in the graph; each is a complete 8-phase plan, and this document explains the study material for every node):
 - **Industrial & process control**: process modeling and instrumentation, FOPDT modeling and PID/IMC tuning, cascade/feedforward/ratio control, PLC & IEC 61131-3, SCADA/HMI, industrial networks and IEC 62443, ISA-88 batch and IEC 61499, advanced process control, and safety-critical control (IEC 61508/61511, SIL)
 - **Robotics & motion control**: robot kinematics/dynamics, computed-torque & operational-space control, force/impedance control, ROS 2 & ros2_control, trajectory optimization, mobile/legged platforms, and SLAM
-- **Aerospace & automotive**: GNC for air, space and ground vehicles: flight & spacecraft dynamics with quaternion attitude control and control allocation, vehicle lateral/longitudinal dynamics and path tracking (pure pursuit/Stanley/MPC), INS/GNSS navigation, sensor fusion & SLAM, trajectory optimization, the integrated GNC stack, and DO-178C / ISO 26262 safety
-- **Estimation & navigation**: Kalman filtering, nonlinear estimation (EKF/UKF/particle filters), strapdown INS/GNSS fusion, SLAM, factor-graph smoothing (iSAM2/GTSAM), multi-target tracking, and the navigation layer of the GNC stack
+- **Aerospace, automotive & navigation**: GNC for air, space and ground vehicles: flight & spacecraft dynamics with quaternion attitude control and control allocation, vehicle lateral/longitudinal dynamics and path tracking (pure pursuit/Stanley/MPC), trajectory optimization, and the full estimation and navigation layer under them: strapdown INS/GNSS fusion, SLAM, factor-graph smoothing (iSAM2/GTSAM) and multi-target tracking. Estimation & navigation was a specialization of its own until November 2026; every one of its courses was also taken here, so it was folded in rather than kept as a subset
 
 **Resource tagging:**
 - **Best match**: the first resource of every node and the single best way to learn it; the curriculum graph shows the same one first
@@ -275,7 +274,7 @@ Every node carries resources, a study approach and (most importantly) a **projec
 
 ## PHASE 3: Estimation & domain foundations
 
-*The spine adds estimation (Kalman, EKF/UKF). The Estimation & navigation, Aerospace & automotive and Robotics tracks continue into navigation, SLAM and tracking; the industrial track starts its domain work here with process control and PLCs.*
+*The spine adds estimation (Kalman, EKF/UKF). The Aerospace, automotive & navigation and Robotics tracks continue into navigation, SLAM and tracking; the industrial track starts its domain work here with process control and PLCs.*
 
 ### Kalman filtering `critical`
 **Prerequisites:** State-space control, Engineering math refresher
@@ -294,7 +293,7 @@ Every node carries resources, a study approach and (most importantly) a **projec
 
 ### Nonlinear estimation (EKF/UKF) `critical`
 **Prerequisites:** Kalman filtering
-**Unlocks:** Navigation & sensor fusion, SLAM, Smoothing & tracking, Flight & spacecraft control
+**Unlocks:** Navigation & sensor fusion, SLAM, Smoothing & tracking, Flight & spacecraft control, Capstone: Control system
 **Tracks:** All specializations
 **Resources:**
 - **Best match:** Roger Labbe, *Kalman and Bayesian Filters in Python* (EKF/UKF/PF chapters with runnable notebooks), GitHub/online (free)
@@ -309,7 +308,7 @@ Every node carries resources, a study approach and (most importantly) a **projec
 ### Navigation & sensor fusion `critical`
 **Prerequisites:** Nonlinear estimation (EKF/UKF)
 **Unlocks:** Autonomous vehicle control, Guidance, navigation & control, Mobile & legged robots
-**Tracks:** Estimation & navigation · Aerospace & automotive · Robotics & motion control
+**Tracks:** Aerospace, automotive & navigation · Robotics & motion control
 **Resources:**
 - **Best match:** Paul D. Groves, *Principles of GNSS, Inertial, and Multisensor Integrated Navigation Systems*, 2nd ed., Artech House: the canonical reference; reference frames, INS mechanization, INS/GNSS coupling (~$170, paid)
 - Jay A. Farrell, *Aided Navigation: GPS with High Rate Sensors*, McGraw-Hill, design-oriented, MATLAB examples and aided-navigation case studies (~$135, paid)
@@ -323,7 +322,7 @@ Every node carries resources, a study approach and (most importantly) a **projec
 
 ### SLAM `desirable`
 **Prerequisites:** Nonlinear estimation (EKF/UKF)
-**Tracks:** Robotics & motion control · Estimation & navigation · Aerospace & automotive
+**Tracks:** Robotics & motion control · Aerospace, automotive & navigation
 **Resources:**
 - **Best match:** Cyrill Stachniss, *SLAM Course* (Freiburg WS2013/14), [YouTube playlist](https://www.youtube.com/playlist?list=PLgnQpQtFTOGQrZ4O5QzbIHgl3b1JHimN_): EKF-SLAM, FastSLAM, least-squares/graph SLAM (free)
 - Thrun, Burgard & Fox, *Probabilistic Robotics*, MIT Press 2005: the canonical reference for the estimation foundations of SLAM (~$125 new, list; used copies ~$55-60) (paid)
@@ -336,7 +335,7 @@ Every node carries resources, a study approach and (most importantly) a **projec
 
 ### Smoothing & tracking `desirable`
 **Prerequisites:** Nonlinear estimation (EKF/UKF)
-**Tracks:** Estimation & navigation · Aerospace & automotive
+**Tracks:** Aerospace, automotive & navigation
 **Resources:**
 - **Best match:** Frank Dellaert & Michael Kaess, *Factor Graphs for Robot Perception*, Foundations and Trends in Robotics (free PDF at cs.cmu.edu/~kaess/pub/Dellaert17fnt.pdf)
 - GTSAM: official tutorials and docs, gtsam.org/tutorials (free)
@@ -414,7 +413,7 @@ Every node carries resources, a study approach and (most importantly) a **projec
 
 ### Model predictive control `critical`
 **Prerequisites:** Optimal control (LQR/LQG), Optimization for control
-**Unlocks:** Autonomous vehicle control, Control systems engineering, Guidance, navigation & control, Advanced process control, Learning & data-driven control
+**Unlocks:** Autonomous vehicle control, Control systems engineering, Capstone: Control system, Guidance, navigation & control, Advanced process control, Learning & data-driven control
 **Tracks:** All specializations
 **Resources:**
 - **Best match:** Rawlings, Mayne & Diehl, *Model Predictive Control: Theory, Computation, and Design*, 2nd ed., official author PDF at UCSB (sites.engineering.ucsb.edu/~jbraw/mpc) (free)
@@ -423,14 +422,29 @@ Every node carries resources, a study approach and (most importantly) a **projec
 - do-mpc documentation: Python MPC/MHE toolbox built on CasADi, do-mpc.com (free)
 - MathWorks, *Understanding Model Predictive Control* Tech Talk series (Melda Ulusoy), YouTube/mathworks.com (free)
 
-**Study approach:** Treat this as the capstone of the optimal-control thread, not a fresh start: you already have LQR and QP/NLP, so MPC is "constrained, receding-horizon LQR." Begin with the MATLAB Understanding MPC Tech Talks for the intuition (prediction horizon, cost, constraints, the receding-horizon loop), then go deep with Rawlings, Mayne & Diehl for the theory that actually defines the field, terminal cost and terminal constraint set, recursive feasibility, nominal and inherent-robust stability. Use Borrelli/Bemporad/Morari for the linear/explicit-MPC and hybrid (MIQP) view. Crucially, do not stay in math: build the QP for a linear MPC by hand once (stack the prediction matrices, form P and q, the inequality constraints) so the solver is never a black box, then immediately move to tooling, do-mpc/CasADi for fast prototyping of nonlinear MPC, and acados + OSQP for code-generated, real-time-feasible controllers. Always benchmark worst-case solve time against your sample period; an MPC that misses its deadline is not a controller. Skip explicit MPC beyond a conceptual pass unless the Aerospace & automotive track or an embedded target needs it.
+**Study approach:** Treat this as the capstone of the optimal-control thread, not a fresh start: you already have LQR and QP/NLP, so MPC is "constrained, receding-horizon LQR." Begin with the MATLAB Understanding MPC Tech Talks for the intuition (prediction horizon, cost, constraints, the receding-horizon loop), then go deep with Rawlings, Mayne & Diehl for the theory that actually defines the field, terminal cost and terminal constraint set, recursive feasibility, nominal and inherent-robust stability. Use Borrelli/Bemporad/Morari for the linear/explicit-MPC and hybrid (MIQP) view. Crucially, do not stay in math: build the QP for a linear MPC by hand once (stack the prediction matrices, form P and q, the inequality constraints) so the solver is never a black box, then immediately move to tooling, do-mpc/CasADi for fast prototyping of nonlinear MPC, and acados + OSQP for code-generated, real-time-feasible controllers. Always benchmark worst-case solve time against your sample period; an MPC that misses its deadline is not a controller. Skip explicit MPC beyond a conceptual pass unless the Aerospace, automotive & navigation track or an embedded target needs it.
 
 **Project:** Build a constrained nonlinear MPC for a classic underactuated benchmark and ship it as a reproducible repo with closed-loop sim, deployable real-time code, and a tuning/benchmark report. Recommended plant: cart-pole swing-up-and-stabilize, or a 2D quadrotor trajectory-tracker. Formulate the OCP in CasADi (state/input constraints, terminal cost), solve it in closed loop with acados (code-generated SQP) and compare against an OSQP-based linear MPC on the linearized model. Deliverables: (1) animated closed-loop trajectories showing constraint satisfaction during aggressive maneuvers; (2) a measured solve-time histogram proving the controller meets its sample period (e.g., sub-millisecond per step); (3) an ablation showing what breaks without the terminal ingredients (loss of feasibility/stability); (4) a short README documenting horizon/weight tuning. Stretch goal: deploy the generated C controller on a microcontroller or run it hardware-in-the-loop.
+
+### Embedded & real-time control `critical`
+**Prerequisites:** C++, Digital control
+**Unlocks:** Control systems engineering, Capstone: Control system, Safety-critical control
+**Tracks:** All specializations
+**Resources:**
+- **Best match:** *Embedded Systems - Shape The World* (UT.6.10x Microcontroller I/O + UT.6.20x Multi-Threaded Interfacing), Valvano & Yerraballi, UT Austin on edX (free to audit; TI TM4C123 / Tiva LaunchPad lab kit needed for hardware labs)
+- FreeRTOS official documentation + *Mastering the FreeRTOS Real Time Kernel* (free PDF from the FreeRTOS project), why: the scheduler and priorities, queues and semaphores, interrupt-safe API variants, and priority inversion as the failure these mechanisms exist to prevent
+- STM32 Motor Control MOOC, STMicroelectronics - 5-part series on FOC theory and firmware implementation (free)
+- Philip Koopman - *Better Embedded System Software* (~$20 paperback; ~$10 e-book)
+- Jane W. S. Liu, *Real-Time Systems*, Prentice Hall, why: rate-monotonic and earliest-deadline-first scheduling and their schedulability tests, which is how you prove a control loop will meet its deadline rather than hope it does (pricey new, ~$60+; often used or in libraries)
+
+**Study approach:** Treat this node as the bridge between the discrete-time controller you designed in Digital control and code that meets hard deadlines. Start by getting a fixed-rate control loop running deterministically: use an RTOS (FreeRTOS) periodic task or a hardware-timer ISR to enforce an exact sample period, and measure jitter with a scope pin-toggle rather than trusting it. Work the FreeRTOS docs and Koopman in parallel - Koopman for the discipline (watchdogs, stack sizing, avoiding priority inversion, no malloc in the loop), FreeRTOS for the mechanics. Re-derive your difference equations in fixed-point or carefully-scaled floats and watch for saturation, integrator windup, and overflow; this is where textbook controllers fail on real silicon. Skip building a full RTOS from scratch and skip deep real-time-scheduling proofs unless a track demands it - Liu is a reference to dip into for rate-monotonic analysis, not a front-to-back read. The Valvano course is the fastest path to the peripheral layer (GPIO, ADC, PWM, interrupts); the ST MOOC is where timing, PWM and a real plant (a motor) come together. Validate against a simulated or bench plant before you trust the hardware loop.
+
+**Project:** Implement a digital PID (or LQR) motor-speed/position controller on a microcontroller (e.g. STM32 or TI TM4C) driving a real or simulated BLDC/DC motor. Run the control law as a fixed-rate FreeRTOS task or timer ISR at a chosen sample rate, read the encoder/ADC, generate PWM to the H-bridge or inverter, and implement anti-windup and saturation. Instrument the loop: toggle a GPIO each cycle and capture timing jitter on a scope/logic analyzer, and stream the reference, measurement and control effort over UART/USB for step-response plots. Ship it with a README documenting the sample period, fixed-point/float scaling choices, measured worst-case loop time, and the closed-loop step response versus your digital-control prediction. A HIL/sim variant (motor model on host, firmware on target over serial) is an acceptable shippable substitute if hardware is unavailable.
 
 ### Trajectory optimization & planning `desirable`
 **Prerequisites:** Optimization for control, Optimal control (LQR/LQG)
 **Unlocks:** Mobile & legged robots
-**Tracks:** Robotics & motion control · Aerospace & automotive
+**Tracks:** Robotics & motion control · Aerospace, automotive & navigation
 **Resources:**
 - **Best match:** Russ Tedrake, *Underactuated Robotics* (MIT 6.832), Ch. 10 Trajectory Optimization (direct transcription/shooting/collocation, iLQR/DDP) and Ch. 12 Sampling-based Motion Planning (RRT/PRM), underactuated.csail.mit.edu (free)
 - Matthew Kelly, *An Introduction to Trajectory Optimization: How to Do Your Own Direct Collocation* (SIAM Review 2017, Vol. 59 No. 4) + OptimTraj MATLAB code, matthewpeterkelly.com (free)
@@ -440,7 +454,7 @@ Every node carries resources, a study approach and (most importantly) a **projec
 
 **Study approach:** Start from optimal control: trajectory optimization is just discretizing an optimal-control problem into a nonlinear program, so first internalize the transcription idea (decision variables = states + controls at knot points, dynamics as equality constraints). Read Matthew Kelly's tutorial end-to-end first: it is the gentlest path and its cart-pole / block-move examples make direct shooting vs. multiple shooting vs. direct collocation concrete; run his OptimTraj code and perturb cost/constraints to build intuition. Then work Tedrake's Underactuated Ch. 10 for the rigorous treatment, including the link to iLQR/DDP (covered in the same chapter), and Ch. 12 for sampling-based planners; do the Drake notebook exercises. Implement at least one solver yourself in CasADi (it gives you the NLP + automatic differentiation + IPOPT for free) rather than only calling a library, so you understand why collocation defects and constraint Jacobians matter. Treat LaValle as a reference for the discrete/sampling-based planning side (RRT, PRM, kinodynamic planning): skim, don't read cover to cover. Skip pseudo-spectral methods and planning-through-contact (contact-implicit / complementarity) on a first pass; revisit contact only after you can reliably solve smooth problems. Focus effort on getting a real solver to converge: scaling, initial guesses, and warm-starting are where most practical time goes.
 
-**Project:** Build a trajectory-optimization pipeline that plans a dynamically-feasible, obstacle-free trajectory and then tracks it in closed loop. Pick one platform: (a) Robotics, a planar quadrotor or 2-link acrobot swing-up; (b) Aerospace & automotive, air side: a 2D powered-descent / soft-landing burn (minimize fuel, thrust and glide-slope constraints); or (c) Aerospace & automotive, ground side: a kinematic-bicycle car doing an obstacle-avoidance lane change. Formulate the problem with direct collocation in CasADi/IPOPT (states + controls as decision variables, dynamics as defect constraints, actuator limits and obstacle/path constraints, a fuel- or time- or effort-based cost). Compare against an iLQR/DDP solve of the same problem and report cost, solve time, and constraint satisfaction. Then close the loop: track the optimized trajectory with a time-varying LQR (or MPC re-solve) under added disturbances/model mismatch and show tracking error. Ship a repo with the solver, a config to switch platforms, plots of the optimized state/control trajectories and obstacle clearance, and an animation/GIF of the closed-loop run.
+**Project:** Build a trajectory-optimization pipeline that plans a dynamically-feasible, obstacle-free trajectory and then tracks it in closed loop. Pick one platform: (a) Robotics, a planar quadrotor or 2-link acrobot swing-up; (b) Aerospace, automotive & navigation, air side: a 2D powered-descent / soft-landing burn (minimize fuel, thrust and glide-slope constraints); or (c) Aerospace & automotive, ground side: a kinematic-bicycle car doing an obstacle-avoidance lane change. Formulate the problem with direct collocation in CasADi/IPOPT (states + controls as decision variables, dynamics as defect constraints, actuator limits and obstacle/path constraints, a fuel- or time- or effort-based cost). Compare against an iLQR/DDP solve of the same problem and report cost, solve time, and constraint satisfaction. Then close the loop: track the optimized trajectory with a time-varying LQR (or MPC re-solve) under added disturbances/model mismatch and show tracking error. Ship a repo with the solver, a config to switch platforms, plots of the optimized state/control trajectories and obstacle clearance, and an animation/GIF of the closed-loop run.
 
 ---
 
@@ -487,39 +501,25 @@ Every node carries resources, a study approach and (most importantly) a **projec
 
 **Project:** Build a self-tuning attitude/position controller for a plant with genuinely unknown, slowly-varying parameters and benchmark adaptation against a fixed-gain baseline. Concretely: simulate a single-axis system whose mass/inertia is unknown and changes mid-run (e.g. a quadrotor that picks up a payload, or a motor with a varying load). Implement (1) a fixed PID tuned for the nominal plant, (2) direct MRAC with a Lyapunov-derived adaptation law, and (3) the same MRAC with sigma-modification or projection for robustness. Inject sensor noise, an input disturbance, and unmodeled actuator dynamics, then show the fixed controller degrades or goes unstable after the parameter jump while the adaptive versions recover tracking. Quantify with tracking RMSE, control effort, and a parameter-estimate plot, and demonstrate parameter drift/bursting in plain MRAC versus the robust variant. Stretch goal: port the MRAC loop to a real low-cost platform (a DC motor with a swappable flywheel, or a small quadrotor in a sim-to-real setup) and reproduce the payload-change recovery on hardware.
 
-### Force & impedance control `desirable`
-**Prerequisites:** Robot kinematics & dynamics, Nonlinear control
-**Tracks:** Robotics & motion control
+### ROS2 & ros2_control `critical`
+**Prerequisites:** C++, Python, Linux & CLI
+**Tracks:** Robotics & motion control · Aerospace, automotive & navigation
 **Resources:**
-- **Best match:** Lynch & Park, *Modern Robotics*, Ch. 11 (Force Control 11.5, Hybrid Motion-Force 11.6); free preprint PDF (hades.mech.northwestern.edu/images/7/7f/MR.pdf) + Northwestern lecture videos on YouTube (free)
-- Siciliano, Sciavicco, Villani & Oriolo, *Robotics: Modelling, Planning and Control*, Ch. 9 "Force Control" (impedance, admittance, hybrid force/motion), Springer; softcover ~$90 (~$90 paid)
-- N. Hogan, *Impedance Control: An Approach to Manipulation, Part I: Theory*, ASME J. Dyn. Sys. Meas. Control 107(1):1-7, 1985; foundational paper, free PDF hosted at MIT (free)
-- O. Khatib, *A Unified Approach for Motion and Force Control of Robot Manipulators: The Operational Space Formulation*, IEEE J. Robotics & Automation 3(1):43-53, 1987; free PDF at khatib.stanford.edu (free)
+- **Best match:** *ROS 2 Documentation* (docs.ros.org), official tutorials: nodes, topics, services, actions, TF2, launch, lifecycle (free)
+- *ros2_control documentation* (control.ros.org): controller manager, hardware interface, ros2_controllers (free)
+- Josh Newans, *Articulated Robotics* “Making a Mobile Robot” series, YouTube + articulatedrobotics.xyz, incl. ros2_control in sim (Pt 12) and on real hardware (Pt 13) (free)
+- *MoveIt 2 docs* (moveit.picknik.ai) and *Nav2 docs* (docs.nav2.org): manipulation planning and autonomous navigation (free)
+- The Construct, *ROS2 Control Framework* course on Robot Ignite Academy, plus free weekly ROS Developers Open Classes (free tier covers 3 basics courses + first unit of others; full subscription ~€39.97/mo)
 
-**Study approach:** Build on your dynamics and nonlinear-control prerequisites: start with Modern Robotics Ch. 11.5-11.6 to get the operational picture of force control, hybrid motion-force control, and impedance control with worked task-space examples. Then read Siciliano Ch. 9 carefully for the rigorous treatment of compliance, impedance vs. admittance, and the duality between controlled directions (motion) and constrained directions (force). Read Hogan Part I to internalize why you regulate a dynamic relationship (impedance) rather than position or force alone, and Khatib for the unified operational-space derivation that ties end-effector dynamics to force commands. Skip the historical stiffness-control detours; focus on (1) when to choose impedance vs. admittance based on environment stiffness and your robot's backdrivability, (2) selection matrices for hybrid control, and (3) contact stability. Always implement what you read: the failure modes (contact instability, force overshoot) only become intuitive in simulation.
+**Study approach:** Treat this as integration, not theory: the control math comes from earlier nodes, so here you learn to deploy it inside a middleware. Start with the official ROS 2 tutorials only until you are fluent with nodes, topics, services, actions, parameters, launch files and TF2: skip the deep DDS/QoS internals on a first pass. Then go straight into ros2_control: understand the controller manager, the hardware interface abstraction (command/state interfaces) and write a custom controller and a hardware interface, since this is the part most people skip and the part that matters for real-time control. Follow the Articulated Robotics series end-to-end because it wires URDF, Gazebo, ros2_control and real hardware together in one coherent project. Add MoveIt 2 (manipulation) or Nav2 (navigation) depending on your track. Always develop in simulation (Gazebo) first, then port to hardware unchanged via the hardware interface.
 
-**Project:** Implement a Cartesian impedance controller and a hybrid motion-force controller for a torque-controlled manipulator (e.g., a 7-DOF Panda/Franka or KUKA iiwa model) in PyBullet, MuJoCo, or Gazebo. Task: have the end-effector slide along a rigid surface while maintaining a commanded normal contact force (e.g., a wiping/polishing or peg-on-surface task), controlling tangential motion and normal force simultaneously. Deliverable: a repo with the controller code, a tunable stiffness/damping interface, plots of commanded vs. measured contact force and motion-tracking error, and a demonstration of stable contact transition from free-space to constrained motion. Stretch goal: add admittance control for a position-controlled robot and compare contact stability against a stiff environment.
+**Project:** Build a differential-drive mobile robot in Gazebo with a full ros2_control stack: write a URDF, configure a diff_drive_controller and a joint_state_broadcaster through the controller manager, and implement a custom SystemInterface hardware interface (the Gazebo ros2_control plugin for sim, with a stub so the same config drives real motors). Layer Nav2 on top for autonomous point-to-point navigation with SLAM-built maps, or mount an arm and use MoveIt 2 for a pick-and-place. Ship it as a launchable colcon workspace on GitHub with a README, a recorded demo, and a documented path to swap the simulated hardware interface for a real microcontroller.
 
 ---
 
 ## PHASE 6: Real-time & domain control
 
-*Every track puts controllers on real hardware (embedded targets, simulation and digital twins). The domain control courses sit here: manipulator control for robotics, flight and vehicle control for aerospace & automotive, industrial networks and batch automation for industrial.*
-
-### Embedded & real-time control `critical`
-**Prerequisites:** C++, Digital control
-**Unlocks:** Control systems engineering, Safety-critical control
-**Tracks:** All specializations
-**Resources:**
-- **Best match:** *Embedded Systems - Shape The World* (UT.6.10x Microcontroller I/O + UT.6.20x Multi-Threaded Interfacing), Valvano & Yerraballi, UT Austin on edX (free to audit; TI TM4C123 / Tiva LaunchPad lab kit needed for hardware labs)
-- FreeRTOS official documentation + *Mastering the FreeRTOS Real Time Kernel* (free PDF from the FreeRTOS project), why: the scheduler and priorities, queues and semaphores, interrupt-safe API variants, and priority inversion as the failure these mechanisms exist to prevent
-- STM32 Motor Control MOOC, STMicroelectronics - 5-part series on FOC theory and firmware implementation (free)
-- Philip Koopman - *Better Embedded System Software* (~$20 paperback; ~$10 e-book)
-- Jane W. S. Liu, *Real-Time Systems*, Prentice Hall, why: rate-monotonic and earliest-deadline-first scheduling and their schedulability tests, which is how you prove a control loop will meet its deadline rather than hope it does (pricey new, ~$60+; often used or in libraries)
-
-**Study approach:** Treat this node as the bridge between the discrete-time controller you designed in Digital control and code that meets hard deadlines. Start by getting a fixed-rate control loop running deterministically: use an RTOS (FreeRTOS) periodic task or a hardware-timer ISR to enforce an exact sample period, and measure jitter with a scope pin-toggle rather than trusting it. Work the FreeRTOS docs and Koopman in parallel - Koopman for the discipline (watchdogs, stack sizing, avoiding priority inversion, no malloc in the loop), FreeRTOS for the mechanics. Re-derive your difference equations in fixed-point or carefully-scaled floats and watch for saturation, integrator windup, and overflow; this is where textbook controllers fail on real silicon. Skip building a full RTOS from scratch and skip deep real-time-scheduling proofs unless a track demands it - Liu is a reference to dip into for rate-monotonic analysis, not a front-to-back read. The Valvano course is the fastest path to the peripheral layer (GPIO, ADC, PWM, interrupts); the ST MOOC is where timing, PWM and a real plant (a motor) come together. Validate against a simulated or bench plant before you trust the hardware loop.
-
-**Project:** Implement a digital PID (or LQR) motor-speed/position controller on a microcontroller (e.g. STM32 or TI TM4C) driving a real or simulated BLDC/DC motor. Run the control law as a fixed-rate FreeRTOS task or timer ISR at a chosen sample rate, read the encoder/ADC, generate PWM to the H-bridge or inverter, and implement anti-windup and saturation. Instrument the loop: toggle a GPIO each cycle and capture timing jitter on a scope/logic analyzer, and stream the reference, measurement and control effort over UART/USB for step-response plots. Ship it with a README documenting the sample period, fixed-point/float scaling choices, measured worst-case loop time, and the closed-loop step response versus your digital-control prediction. A HIL/sim variant (motor model on host, firmware on target over serial) is an acceptable shippable substitute if hardware is unavailable.
+*Simulation and digital twins for every track, after the embedded and real-time course that now sits in Phase 4 so that every later controller can be run on a target. The domain control courses sit here: manipulator and force control for robotics, flight and vehicle control for aerospace, automotive & navigation, industrial networks and batch automation for industrial.*
 
 ### Simulation & digital twins `desirable`
 **Prerequisites:** Numerical methods & simulation, Dynamics & modeling
@@ -535,20 +535,6 @@ Every node carries resources, a study approach and (most importantly) a **projec
 
 **Project:** Build a digital twin of a real (or buildable) mechatronic plant (e.g. an inverted pendulum on a cart, a 2-DOF robot arm, or a quadrotor) in your chosen simulator. Identify and calibrate model parameters against the physical system (or a high-fidelity reference), then deploy the SAME controller code (e.g. an LQR or cascaded PID) against both the twin and the real/reference plant. Inject actuator saturation, sensor noise, latency, and a parameter drift, run a Monte Carlo robustness sweep, and ship a report quantifying the sim-to-real gap (tracking error, settling time, stability margin) with the controller code, the model files, and reproduction instructions in a public repo.
 
-### ROS2 & ros2_control `critical`
-**Prerequisites:** C++, Python, Linux & CLI
-**Tracks:** Robotics & motion control · Aerospace & automotive
-**Resources:**
-- **Best match:** *ROS 2 Documentation* (docs.ros.org), official tutorials: nodes, topics, services, actions, TF2, launch, lifecycle (free)
-- *ros2_control documentation* (control.ros.org): controller manager, hardware interface, ros2_controllers (free)
-- Josh Newans, *Articulated Robotics* “Making a Mobile Robot” series, YouTube + articulatedrobotics.xyz, incl. ros2_control in sim (Pt 12) and on real hardware (Pt 13) (free)
-- *MoveIt 2 docs* (moveit.picknik.ai) and *Nav2 docs* (docs.nav2.org): manipulation planning and autonomous navigation (free)
-- The Construct, *ROS2 Control Framework* course on Robot Ignite Academy, plus free weekly ROS Developers Open Classes (free tier covers 3 basics courses + first unit of others; full subscription ~€39.97/mo)
-
-**Study approach:** Treat this as integration, not theory: the control math comes from earlier nodes, so here you learn to deploy it inside a middleware. Start with the official ROS 2 tutorials only until you are fluent with nodes, topics, services, actions, parameters, launch files and TF2: skip the deep DDS/QoS internals on a first pass. Then go straight into ros2_control: understand the controller manager, the hardware interface abstraction (command/state interfaces) and write a custom controller and a hardware interface, since this is the part most people skip and the part that matters for real-time control. Follow the Articulated Robotics series end-to-end because it wires URDF, Gazebo, ros2_control and real hardware together in one coherent project. Add MoveIt 2 (manipulation) or Nav2 (navigation) depending on your track. Always develop in simulation (Gazebo) first, then port to hardware unchanged via the hardware interface.
-
-**Project:** Build a differential-drive mobile robot in Gazebo with a full ros2_control stack: write a URDF, configure a diff_drive_controller and a joint_state_broadcaster through the controller manager, and implement a custom SystemInterface hardware interface (the Gazebo ros2_control plugin for sim, with a stub so the same config drives real motors). Layer Nav2 on top for autonomous point-to-point navigation with SLAM-built maps, or mount an arm and use MoveIt 2 for a pick-and-place. Ship it as a launchable colcon workspace on GitHub with a README, a recorded demo, and a documented path to swap the simulated hardware interface for a real microcontroller.
-
 ### Motion & manipulator control `critical`
 **Prerequisites:** Robot kinematics & dynamics, State-space control, Nonlinear control
 **Tracks:** Robotics & motion control
@@ -563,9 +549,22 @@ Every node carries resources, a study approach and (most importantly) a **projec
 
 **Project:** Build a trajectory-tracking controller for a simulated robot arm and benchmark control laws head-to-head. In PyBullet (or MuJoCo/Drake) load a standard 6-7 DOF arm (e.g. Franka Panda or UR5), generate a smooth task-space trajectory (quintic/trapezoidal joint profiles plus a Cartesian circle/figure-eight), and implement three controllers from scratch on the same plant: (1) independent-joint PD with gravity compensation, (2) computed-torque/inverse-dynamics control, and (3) operational-space (task-space) control with a Jacobian-transpose end-effector force law. Use the simulator's true dynamics for feedforward but inject 20% mass/inertia mismatch to expose model error. Ship a repo with the controllers, plots of joint- and Cartesian-space tracking error and commanded torques for each method, and a short writeup explaining why computed torque decouples the axes and where operational-space control wins for end-effector tasks. Stretch: add hybrid motion/force control against a simulated contact surface.
 
+### Force & impedance control `desirable`
+**Prerequisites:** Robot kinematics & dynamics, Nonlinear control
+**Tracks:** Robotics & motion control
+**Resources:**
+- **Best match:** Lynch & Park, *Modern Robotics*, Ch. 11 (Force Control 11.5, Hybrid Motion-Force 11.6); free preprint PDF (hades.mech.northwestern.edu/images/7/7f/MR.pdf) + Northwestern lecture videos on YouTube (free)
+- Siciliano, Sciavicco, Villani & Oriolo, *Robotics: Modelling, Planning and Control*, Ch. 9 "Force Control" (impedance, admittance, hybrid force/motion), Springer; softcover ~$90 (~$90 paid)
+- N. Hogan, *Impedance Control: An Approach to Manipulation, Part I: Theory*, ASME J. Dyn. Sys. Meas. Control 107(1):1-7, 1985; foundational paper, free PDF hosted at MIT (free)
+- O. Khatib, *A Unified Approach for Motion and Force Control of Robot Manipulators: The Operational Space Formulation*, IEEE J. Robotics & Automation 3(1):43-53, 1987; free PDF at khatib.stanford.edu (free)
+
+**Study approach:** Build on your dynamics and nonlinear-control prerequisites: start with Modern Robotics Ch. 11.5-11.6 to get the operational picture of force control, hybrid motion-force control, and impedance control with worked task-space examples. Then read Siciliano Ch. 9 carefully for the rigorous treatment of compliance, impedance vs. admittance, and the duality between controlled directions (motion) and constrained directions (force). Read Hogan Part I to internalize why you regulate a dynamic relationship (impedance) rather than position or force alone, and Khatib for the unified operational-space derivation that ties end-effector dynamics to force commands. Skip the historical stiffness-control detours; focus on (1) when to choose impedance vs. admittance based on environment stiffness and your robot's backdrivability, (2) selection matrices for hybrid control, and (3) contact stability. Always implement what you read: the failure modes (contact instability, force overshoot) only become intuitive in simulation.
+
+**Project:** Implement a Cartesian impedance controller and a hybrid motion-force controller for a torque-controlled manipulator (e.g., a 7-DOF Panda/Franka or KUKA iiwa model) in PyBullet, MuJoCo, or Gazebo. Task: have the end-effector slide along a rigid surface while maintaining a commanded normal contact force (e.g., a wiping/polishing or peg-on-surface task), controlling tangential motion and normal force simultaneously. Deliverable: a repo with the controller code, a tunable stiffness/damping interface, plots of commanded vs. measured contact force and motion-tracking error, and a demonstration of stable contact transition from free-space to constrained motion. Stretch goal: add admittance control for a position-controlled robot and compare contact stability against a stiff environment.
+
 ### Flight & spacecraft control `critical`
 **Prerequisites:** State-space control, Nonlinear control, Nonlinear estimation (EKF/UKF)
-**Tracks:** Aerospace & automotive
+**Tracks:** Aerospace, automotive & navigation
 **Resources:**
 - **Best match:** Beard & McLain, *Small Unmanned Aircraft: Theory and Practice* (Princeton, 2012; published edition ~$99 paid); free MATLAB/Simulink + Python template code, supplements, lecture slides, and a work-in-progress second-edition draft PDF via the [byu-magicc/mavsim_public](https://github.com/byu-magicc/mavsim_public) repo (free)
 - Markley & Crassidis, *Fundamentals of Spacecraft Attitude Determination and Control*, Springer Space Technology Library 33, 2014 (~$90 paid, hardcover), why: attitude representations and why quaternions are used instead of Euler angles, attitude determination from vector measurements, and the multiplicative error formulation the attitude Kalman filter rests on; companion MATLAB code free for download
@@ -579,7 +578,7 @@ Every node carries resources, a study approach and (most importantly) a **projec
 
 ### Autonomous vehicle control `critical`
 **Prerequisites:** State-space control, Model predictive control, Navigation & sensor fusion
-**Tracks:** Aerospace & automotive
+**Tracks:** Aerospace, automotive & navigation
 **Resources:**
 - **Best match:** Coursera: **Self-Driving Cars Specialization**, University of Toronto (Waslander & Kelly). Course 1, *Introduction to Self-Driving Cars*, covers the kinematic bicycle model, longitudinal/lateral dynamics, PID, pure pursuit, Stanley and MPC with a CARLA final project (free to audit; paid for certificate)
 - Rajesh Rajamani, *Vehicle Dynamics and Control*, 2nd ed., Springer 2011. The canonical text for lateral/longitudinal vehicle dynamics and tracking control (~$280 new, ~$80 used; often free via university/institutional Springer access)
@@ -619,7 +618,7 @@ Every node carries resources, a study approach and (most importantly) a **projec
 
 ## PHASE 7: Integration, safety & leadership
 
-*The last quarter integrates what came before: GNC, mobile robots, safety-critical control or advanced process control by track, plus systems engineering and technical leadership for everyone. The two frontier nodes are optional electives.*
+*The last quarter integrates what came before: GNC, mobile robots, safety-critical control or advanced process control by track, plus systems engineering, the capstone and technical leadership for everyone. The two frontier nodes are optional electives.*
 
 ### Control systems engineering `desirable`
 **Prerequisites:** Embedded & real-time control, Model predictive control
@@ -635,6 +634,18 @@ Every node carries resources, a study approach and (most importantly) a **projec
 **Study approach:** Treat this as the integration layer that ties together everything you already know about embedded and real-time control and MPC, not as new control theory. Start by internalizing the V-model: trace one requirement down the left arm (system spec, architecture, detailed design, implementation) and back up the right arm (unit test, integration test, V&V) so you can articulate where every artifact belongs. Skip the heavy MBSE certification material and the full INCOSE handbook on a first pass; read the handbook only for the requirements-engineering and verification chapters, and use it as a reference. Spend most of your time hands-on in Simulink: build a plant model and controller, write requirements as Simulink Test cases, and run SIL/PIL/HIL conceptually so you understand traceability from requirement to test. Learn just enough SysML to draw a clear control architecture (block diagrams, requirement allocation); do not chase tool mastery. The goal is fluency in process and architecture, so you can defend why a controller is structured a certain way and prove it meets its requirements.
 
 **Project:** Pick one plant (e.g., a DC-motor position servo or an inverted pendulum) and ship a complete model-based design package that walks the full V-model. Deliver: (1) a short requirements document with measurable, testable requirements (settling time, overshoot, steady-state error, control-effort limits); (2) a Simulink plant + controller model with a clearly documented control architecture (inner current/velocity loop, outer position loop, supervisory mode logic); (3) a Simulink Test suite that links each requirement to an automated test and produces a pass/fail traceability report; (4) a verification step using Simulink Design Verifier or equivalent property checks (e.g., no integer overflow, saturation handling), plus model-coverage results; and (5) a one-page architecture diagram (SysML-style block/requirement allocation). Optionally close the loop on hardware (Arduino/STM32 motor) for a HIL/on-target demo. Publish the model, tests, and traceability report in a repo so a reviewer can run the V&V suite and see every requirement verified.
+
+### Capstone: Control system `critical`
+**Prerequisites:** Nonlinear estimation (EKF/UKF), Model predictive control, Embedded & real-time control
+**Tracks:** All specializations
+**Resources:**
+- **Best match:** No course. Use your specialization's own domain project as the plant
+- Book: *Feedback Systems*, Åström & Murray, free PDF, why: the chapters on performance specifications and fundamental limits, to state what the loop can and cannot achieve before tuning it
+- MathWorks video: Real-Time Simulation and Testing, Hardware-in-the-Loop (free), why: how a controller on its real target is tested against a plant simulated in real time, the stage between desktop simulation and the physical rig
+
+**Study approach:** The proof that the path is finished is one loop closed on a physical plant, with every earlier course visible in it. Nothing new is learned here by reading; what is learned is what happens at the seams between courses that were studied apart. A model identified from data is never the model the textbook controller assumed, so the first seam is deciding how much mismatch the design must tolerate, which is where the robustness margins from the frequency-domain and robust-control courses stop being exam answers. The estimator and the controller were each designed assuming the other was perfect, so the second seam is their interaction: sensor noise and delay that the estimator passes through, and actuator limits the controller did not model. The third seam is time: a control law that is correct in continuous time meets sampling, jitter, quantization and computation delay on the real-time target, and that is usually where the simulated performance is lost. The capstone is therefore organised as a V: requirements written as numbers first (settling time, overshoot, disturbance rejection, constraint limits, margins), then model, design, simulation, hardware-in-the-loop and finally the plant, with each stage tested against the same numbers. Scope it small enough to finish. A reaction wheel pendulum, a small quadrotor axis on a gimbal, a temperature or level rig with a PLC, or a differential-drive robot is enough; an ambitious plant that never leaves simulation proves less than a modest one that runs. Let the specialization choose the plant and the controller family, and resist adding a second loop before the first is characterised.
+
+**Project:** One closed loop taken from requirements to hardware: identify the plant from logged data, design an estimator and a controller (MPC or the method your specialization centres on) against written numeric requirements, verify in simulation and hardware-in-the-loop, then run on a real-time target against the physical plant. Publish the repository and a report that shows the same step and disturbance tests at every stage, quantifies the gap between simulation and hardware, and explains where it comes from.
 
 ### Technical leadership `desirable`
 **Prerequisites:** Control systems engineering
@@ -652,7 +663,7 @@ Every node carries resources, a study approach and (most importantly) a **projec
 
 ### Guidance, navigation & control `desirable`
 **Prerequisites:** Navigation & sensor fusion, Model predictive control
-**Tracks:** Aerospace & automotive · Robotics & motion control · Estimation & navigation
+**Tracks:** Aerospace, automotive & navigation · Robotics & motion control
 **Resources:**
 - **Best match:** Beard & McLain, *Small Unmanned Aircraft: Theory and Practice*; the work-in-progress draft PDF and the `byu-magicc/mavsim_public` simulation repo (MATLAB + Python) are free via uavbook.byu.edu (print book ~$100) (free)
 - University of Pennsylvania, *Robotics: Aerial Robotics* (Vijay Kumar), Coursera; quadrotor dynamics, PD/nonlinear control and trajectory planning (availability is shaky as of 2026; if Coursera no longer lists it, the MATLAB drone series below covers the same ground)
@@ -680,7 +691,7 @@ Every node carries resources, a study approach and (most importantly) a **projec
 
 ### Safety-critical control `critical`
 **Prerequisites:** Embedded & real-time control, Nonlinear control
-**Tracks:** Industrial & process control · Aerospace & automotive
+**Tracks:** Industrial & process control · Aerospace, automotive & navigation
 **Resources:**
 - **Best match:** Ames, Coogan, Egerstedt, Notomista, Sreenath, Tabuada, *Control Barrier Functions: Theory and Applications*, ECC 2019 (arXiv:1903.11199) (free)
 - Aaron Ames, *Control Barrier Functions for Safe Robot Autonomy*, ICRA 2022 Safe & Reliable Robot Autonomy workshop talk, YouTube (free)
@@ -706,7 +717,7 @@ Every node carries resources, a study approach and (most importantly) a **projec
 
 ### Learning & data-driven control `frontier`
 **Prerequisites:** Model predictive control, Nonlinear control
-**Tracks:** Elective, for Robotics & motion control · Aerospace & automotive
+**Tracks:** Elective, for Robotics & motion control · Aerospace, automotive & navigation
 **Resources:**
 - **Best match:** Russ Tedrake, *Underactuated Robotics* (MIT 6.832), free online text + lecture videos, underactuated.csail.mit.edu (free). Bridges trajectory optimization, RL, and model-based control.
 - Berkeley **CS285 Deep Reinforcement Learning**: Sergey Levine, lecture videos + notes, rail.eecs.berkeley.edu/deeprlcourse (free, YouTube). Covers model-based RL and imitation learning.
@@ -756,7 +767,7 @@ These are credential boosters, not substitutes for shipped projects. Pick the on
 
 ### Tier 3: Safety-critical control
 5. **FS Engineer (TÜV Rheinland)**: IEC 61508 / 61511 functional safety. Training + exam (paid, ~$2,000-3,000, varies by provider); requires ~3 years experience + engineering degree. For SIL/process-safety work.
-6. **TÜV SÜD Functional Safety Certification Program (FSCP): ISO 26262**, automotive functional safety, three levels (Engineer / Professional / Expert). For ADAS and autonomous-driving safety work on the Aerospace & automotive track.
+6. **TÜV SÜD Functional Safety Certification Program (FSCP): ISO 26262**, automotive functional safety, three levels (Engineer / Professional / Expert). For ADAS and autonomous-driving safety work on the Aerospace, automotive & navigation track.
 
 ### Tier 4: Formal engineering licensure (US, optional but high-trust)
 7. **NCEES FE (Fundamentals of Engineering)** then **PE: Control Systems Engineering (CSE)**, the US professional-engineer license; PE requires ~4 years post-degree experience. High signal for industrial, aerospace and consulting roles where a P.E. stamp matters (note: not offered in AK, HI, RI).
@@ -774,8 +785,8 @@ In priority order, the courses and projects that matter most (all `critical`):
 3. **Kalman filtering → nonlinear estimation** (P3): the predict/update recursion and Q/R tuning, then EKF/UKF. Estimation is half of any real autonomous system.
 4. **Optimal control (LQR/LQG)** (P4): the bridge from state-space to optimization-based control; the prerequisite mindset for MPC.
 5. **Model predictive control** (P4): the keystone node. Receding-horizon control under constraints with OSQP/acados/CasADi is the single most transferable modern control skill across every track.
-6. **Embedded & real-time control + ROS 2 / ros2_control** (P6), or **PLC & industrial automation** (P3) on the industrial track: putting a verified controller on real hardware with deterministic timing. The step that separates theory from a shippable system.
-7. **One domain capstone** (P6 to P7): Motion & manipulator control (P6) for robotics; Flight & spacecraft control or Autonomous vehicle control (P6) for aerospace & automotive; Process control & PID tuning (P3) grown into Advanced process control (P7) for industrial; or Guidance, navigation & control (P7) for estimation. Your specialization proof, shipped as a project.
+6. **Embedded & real-time control** (P4) **+ ROS 2 / ros2_control** (P5), or **PLC & industrial automation** (P3) on the industrial track: putting a verified controller on real hardware with deterministic timing. The step that separates theory from a shippable system.
+7. **One domain capstone** (P6 to P7): Motion & manipulator control (P6) for robotics; Flight & spacecraft control or Autonomous vehicle control (P6) or Guidance, navigation & control (P7) for aerospace, automotive & navigation; Process control & PID tuning (P3) grown into Advanced process control (P7) for industrial. It feeds the spine's Capstone: Control system (P7), where one loop is taken from requirements to hardware: your specialization proof, shipped as a project.
 8. **Technical English (parallel)**: the highest-ROI non-technical investment for reading research, writing up projects, and accessing international controls/GNC roles.
 
 Everything else is supporting material.
@@ -799,7 +810,7 @@ In priority order:
 | 9 | **Predictive Control for Linear and Hybrid Systems**, Borrelli, Bemporad & Morari | P4 | `critical` | free draft (Bemporad) / paid, ~$70 print | The MPC reference: constrained, explicit and hybrid MPC. Free author draft online. |
 | 10 | **Model Predictive Control: Theory, Computation, and Design**, Rawlings, Mayne & Diehl | P4 | `desirable` | free PDF (UCSB) / paid, ~$35 print | Stability, feasibility and MHE-side theory. Free 2nd-edition PDF. |
 | 11 | **Nonlinear Systems**, Hassan K. Khalil | P5 | `critical` | paid, ~$80 | The graduate standard for Lyapunov stability, feedback linearization, sliding mode. P5 spine. |
-| 12 | **Small Unmanned Aircraft: Theory and Practice**, Beard & McLain | P6 | `desirable` | paid, ~$100 (free sim code) | End-to-end UAV GNC with autopilots and estimation. Aerospace & automotive track reference for flight control and GNC. |
+| 12 | **Small Unmanned Aircraft: Theory and Practice**, Beard & McLain | P6 | `desirable` | paid, ~$100 (free sim code) | End-to-end UAV GNC with autopilots and estimation. Aerospace, automotive & navigation track reference for flight control and GNC. |
 | 13 | **Process Dynamics and Control**, Seborg, Edgar, Mellichamp & Doyle | P2 | `critical` | paid, ~$150 | The standard process-control text: first-principles modeling, PID, cascade/feedforward, MPC and real-time optimization. Industrial-track spine. |
 
 ---

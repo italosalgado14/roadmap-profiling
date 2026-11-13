@@ -9,7 +9,7 @@ It is deliberately honest about uncertainty. Where a claim rests on published da
 - [**Edge AI / Physical AI**](#/roadmap): production ML + deployment in the physical world (mining, energy, robotics).
 - [**Applied AI / LLM engineering**](#/applied-roadmap): products built on foundation models; retrieval, agents, evaluation and serving.
 - [**Data Engineering & Platforms**](#/data-roadmap): the pipelines, models, quality and platforms every analytics and AI system depends on.
-- [**FPGA & Digital Hardware**](#/fpga-malla): the silicon and firmware the physical paths run on.
+- [**FPGA & Digital Hardware**](#/fpga-roadmap): the silicon and firmware the physical paths run on.
 - [**Control Systems & Robotics**](#/control-roadmap): classical, model-based, safety-critical control.
 - [**AI Security & Trustworthy Systems**](#/security-roadmap): securing software and AI systems; durable across every scenario.
 - [**Quantum AI**](#/quantum-roadmap): a long-horizon (5-10+ year) frontier bet.
@@ -80,12 +80,12 @@ These are principles, not tactics: they should hold regardless of which scenario
 
 ## 3. STEM Learning Roadmap
 
-Section 3 of the original brief (the concrete, sequenced study plan across mathematics, statistics, AI/ML engineering, security, robotics/control, and systems) is published on this site as eight career paths, each with an interactive curriculum graph and, for seven of them, a long-form reference:
+Section 3 of the original brief (the concrete, sequenced study plan across mathematics, statistics, AI/ML engineering, security, robotics/control, and systems) is published on this site as eight career paths, each with an interactive curriculum graph and a long-form reference:
 
 - [**Edge AI / Physical AI**](#/roadmap) covers the ML-engineering, MLOps, deep-learning, and physical-deployment stack (inference optimization, Jetson-class hardware, robotics), plus its math and systems foundations.
 - [**Applied AI / LLM engineering**](#/applied-roadmap) covers building products on foundation models: retrieval, agents, fine-tuning, evaluation, serving, and the backend engineering underneath them.
 - [**Data Engineering & Platforms**](#/data-roadmap) covers data modeling, pipelines, lakehouse and streaming, data quality and observability, governance and privacy, and the data and ML platforms other teams build on. It was the data track of the Edge AI path until October 2026.
-- [**FPGA & Digital Hardware**](#/fpga-malla) covers digital logic, HDL, timing closure, verification, board bring-up, and firmware: the hardware the other physical paths run on. It ships as a graph only for now.
+- [**FPGA & Digital Hardware**](#/fpga-roadmap) covers digital logic, HDL, timing closure, verification, board bring-up, and firmware: the hardware the other physical paths run on.
 - [**Control Systems & Robotics**](#/control-roadmap) covers control theory, estimation/Kalman, MPC, embedded/real-time, and industrial automation: the physical-world, model-based, safety-critical track.
 - [**AI Security & Trustworthy Systems**](#/security-roadmap) covers DevSecOps, AppSec, cloud security, AI/LLM security and AI-generated-code auditing, cryptography, and governance.
 - [**Quantum AI**](#/quantum-roadmap) covers the long-horizon quantum-ML and quantum-hardware/control path.
@@ -112,6 +112,15 @@ Honest caveat: this is a close call with **AI Security** (see below), and the ri
 Security is the best hedge because it *pays in every scenario* (more AI → more attack surface and more machine-written code to audit → more security demand) and it *pairs with everything*, securing the very AI systems your primary specialization builds. It's also the strongest fit for your fintech and DACH access (the [FinTech Engineering](#/fintech-roadmap) roadmap shares its cryptography and key-management courses with Security). Layered onto an Edge AI primary, it makes you the rare engineer who can both build production AI systems *and* secure them: a combination almost nobody offers.
 
 *Alternative hedge for a different temperament:* **Control Systems & Robotics**, if you want to go deeper into the physical/mathematical, safety-critical direction (strong Chile-industrial and DACH-automation fit, and the most AI-resistant of all the paths). Choose Control over Security as the hedge if deep model-based engineering excites you more than adversarial/trust work.
+
+**A second, cheap hedge: [Applied AI / LLM engineering](#/applied-roadmap).** It is the largest job pool on the map and the fastest to monetise, and it costs little to keep open because it shares its LLM, evaluation and serving courses with the Edge AI primary. It is a fallback kept warm by the primary's own coursework, not a second spine to study.
+
+**The four paths not chosen, and why.** Each is a real option; they are set aside here for this profile, not in general.
+
+- **[FinTech Engineering](#/fintech-roadmap)** has the strongest local employer base of the four, and the WEF report cited above ranks fintech engineers among its fastest-growing jobs. It is not the primary because its spine (ledgers, payment rails, financial regulation) is a second spine that never touches the physical-world anchor the primary is chosen for. The sector stays reachable through the security hedge, which shares its cryptography and key-management courses. If the local-moat signal in (d) weakens, this is the first alternative primary to reconsider.
+- **[Data Engineering & Platforms](#/data-roadmap)** has steady demand (big data specialists lead the same WEF list) and touches mining from the data side. It is set aside for the same reason: modeling, orchestration, lakehouse and data quality are a full spine of their own, and the primary only needs MLOps, distributed systems and the data engine from it.
+- **[FPGA & Digital Hardware](#/fpga-roadmap)** supplies the physical paths, but the local market for hardware design is thin and its iteration loop is the slowest on the map. It is used as background for the primary, not entered as a destination.
+- **[Control Systems & Robotics](#/control-roadmap)** is offered above as the alternative hedge. The personal plan on the [My path](#/my-path) page takes Security and sets Control aside on time cost: entering it properly is a multi-year mathematics investment.
 
 **Quantum AI** is explicitly *not* the primary or the hedge: it is a long-horizon lottery ticket. Keep it as background reading and small experiments (the roadmap says as much itself); do not let it displace a paying, compounding specialization.
 

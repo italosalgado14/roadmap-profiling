@@ -124,9 +124,9 @@ export default function MyPathPage() {
         </div>
       </div>
 
-      <h2 className="section-title">Sequence, 12 to 18 months</h2>
+      <h2 className="section-title">Sequence</h2>
       <p className="section-note">
-        Each phase in a graph is a quarter of a full, two-year specialization. This is a shorter personal calendar that picks across tracks.
+        Each phase in a graph is a quarter of a full, two-year specialization. This is a personal calendar that picks fewer courses across tracks. Anything a course needs is either already done or scheduled before it.
       </p>
       <ol className="sequence">
         {(overlay.sequence ?? []).map(step => (

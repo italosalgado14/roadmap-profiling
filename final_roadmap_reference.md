@@ -269,7 +269,7 @@ The LLM-application courses (RAG and vector databases, multi-agent systems, gene
 
 ### LLM fundamentals `critical`
 **Prerequisites:** Deep learning & PyTorch
-**Unlocks:** LLM serving & inference, Domain-specific models, AI safety research
+**Unlocks:** LLM serving & inference, Vision-language models, Domain-specific models, AI safety research
 **Resources:**
 - **Best match:** Coursera: **Generative AI with Large Language Models**, DeepLearning.AI + AWS (Coursera Plus)
 - Andrej Karpathy: *Let's build GPT from scratch*, YouTube (free). Must-watch.
@@ -278,6 +278,18 @@ The LLM-application courses (RAG and vector databases, multi-agent systems, gene
 **Study approach:** A language model predicts the next token, and almost everything surprising about these systems follows from that one objective. Understand tokenization first, because it explains the practical oddities: why a model counts letters badly, why rare words and other languages cost more tokens, and why a context limit is measured in tokens rather than words. Understand self-attention as learned retrieval, each position forming a query and comparing it against every other position's key to decide what to pull in, and understand why that is quadratic in sequence length, which is the cost that governs every serving decision later. Understand positional encoding as the patch for attention having no inherent sense of order, and the causal mask as the thing that keeps training honest by hiding the future. Understand the training stages and what each one buys: pretraining gives a model that continues text, instruction tuning gives one that follows requests, preference tuning gives one that answers the way people prefer. Understand sampling, temperature and top-p as the controls over output randomness, and understand that the model has no mechanism for knowing when it is wrong, which is why hallucination is a property of the objective rather than a bug to be patched.
 
 **Project:** Implement a small GPT (10-50M params) from scratch in PyTorch (no `transformers` library). Train on TinyShakespeare. Document the math line-by-line in a notebook. Compare your loss curve to nanoGPT.
+
+### Security fundamentals & threat modeling `critical`
+**Prerequisites:** None, this is a starting node
+**Unlocks:** OT & industrial security
+**Resources:**
+- **Best match:** Book: *Threat Modeling: Designing for Security*, Adam Shostack (paid)
+- OWASP Threat Modeling Cheat Sheet (free)
+- MITRE ATT&CK for ICS matrix (free), why: the tactics and techniques seen against industrial control systems, as a vocabulary for what an attacker does after getting in; the per-technique detail is reference, not reading
+
+**Study approach:** This course belongs to the safety specialization only, and it is there because safety and security answer different questions about the same system. Safety asks what happens when a component fails at random; security asks what happens when someone makes it fail on purpose, and a hazard analysis that assumes random faults says nothing about an adversary who picks the worst input at the worst moment. The course is built on three ideas. A trust boundary is any place where data or control crosses between parties that should not fully trust each other, and drawing the data-flow diagram of a system with its boundaries marked is the skill everything else hangs on. A structured method, STRIDE or attack trees, turns "what could go wrong" from brainstorming into enumeration, so the result can be reviewed and repeated. And risk ranking decides which of the enumerated threats earn a mitigation, because a list nobody prioritised is not a threat model. For an ML system the diagram gains elements a classic one lacks: the training data, the model file, the camera feed and the update channel are all things an attacker can touch. Cryptographic detail, penetration testing and compliance frameworks are safe to leave alone here; the OT security course two phases later supplies the industrial specifics.
+
+**Project:** A STRIDE threat model of a perception model deployed at the edge: a data-flow diagram from sensor to actuator with trust boundaries, the threats per element (include a poisoned training set, a swapped model file and a spoofed camera), and the five mitigations you would fund first, ranked by risk. Keep it; the OT security course turns it into a zone-and-conduit design.
 
 ---
 
@@ -353,7 +365,7 @@ The LLM-application courses (RAG and vector databases, multi-agent systems, gene
 
 ### RL & imitation learning `critical`
 **Prerequisites:** Deep learning & PyTorch
-**Unlocks:** none in this graph; beyond it, modern policy-learning robotics and VLA models
+**Unlocks:** NVIDIA Isaac Sim; beyond this graph, modern policy-learning robotics and VLA models
 **Resources:**
 - **Best match:** Berkeley CS285: Sergey Levine (free, YT). Theory depth.
 - OpenAI Spinning Up (free). Hands-on RL.
@@ -472,7 +484,7 @@ The LLM-application courses (RAG and vector databases, multi-agent systems, gene
 **Project:** A verification report for your CV model: accuracy under a corruption suite matched to the site (dust, glare, low light), an OOD detector with its false-alarm rate, conformal prediction sets at a stated coverage, and one formally verified local robustness property on a small classifier head. Write it as evidence a safety case could cite.
 
 ### OT & industrial security `critical`
-**Prerequisites:** Domain vertical
+**Prerequisites:** Domain vertical, Security fundamentals & threat modeling
 **Unlocks:** Capstone: Safety case
 **Resources:**
 - **Best match:** ISA/IEC 62443 overview material (free), why: zones, conduits and security levels, and the division of responsibility between asset owner, integrator and product supplier
@@ -513,7 +525,7 @@ The LLM-application courses (RAG and vector databases, multi-agent systems, gene
 **Project:** Design (in writing) a distributed inference system for 1000 concurrent users with sub-100ms latency. Cover replication, partitioning, drift detection, OTA model updates. Submit for peer review on a forum (e.g., HackerNews's "Show HN", or a serious engineering blog).
 
 ### Vision-language models `critical`
-**Prerequisites:** Vision Transformers, Jetson & edge deploy
+**Prerequisites:** Vision Transformers, Jetson & edge deploy, LLM fundamentals
 **Unlocks:** none in this graph
 **Resources:**
 - **Best match:** Jetson AI Lab: TensorRT Edge-LLM tutorial (free), why: the fastest route to a vision-language model on real hardware, with the memory and quantization settings that make it fit
@@ -538,7 +550,7 @@ The LLM-application courses (RAG and vector databases, multi-agent systems, gene
 **Project:** Fine-tune a small open LLM or VLM (1-4B parameters) with LoRA on a curated domain dataset, build a custom domain eval, and compare against the base model. Then quantize the adapted model, deploy it on Jetson, and report the accuracy retained and the latency. Open everything (dataset, training code, eval results, model card) on HuggingFace Hub.
 
 ### NVIDIA Isaac Sim `desirable`
-**Prerequisites:** ROS2, Jetson & edge deploy
+**Prerequisites:** ROS2, Jetson & edge deploy, RL & imitation learning
 **Unlocks:** none in this graph
 **Resources:**
 - **Best match:** NVIDIA DLI: Introduction to Robotic Simulations in Isaac Sim (paid)

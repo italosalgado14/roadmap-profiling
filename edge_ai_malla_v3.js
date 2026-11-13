@@ -136,6 +136,11 @@ export const COURSES = [
     prereqs: ["DL"],
     desc: "Transformer architecture, attention mechanism, tokenization, prompting, context windows.",
     res:  "Coursera: GenAI with LLMs, DeepLearning.AI + AWS | Karpathy: Let's build GPT (free YT)" },
+  { id: "THREAT", phase: "P3", row: 4, label: "Security fundamentals & threat modeling",
+    priority: "critical", kind: "branch", tracks: ["safety"],
+    prereqs: [],
+    desc: "Trust boundaries, data-flow diagrams, attacker goals and a structured method (STRIDE, attack trees) for enumerating what can go wrong. The safety specialization needs it because a safety case that ignores a deliberate adversary is incomplete, and OT security builds directly on it.",
+    res:  "Book: Threat Modeling: Designing for Security, Adam Shostack (paid) | OWASP Threat Modeling Cheat Sheet (free) | MITRE ATT&CK for ICS matrix (free), why: the tactics and techniques seen against industrial control systems, as a vocabulary for what an attacker does after getting in; the per-technique detail is reference, not reading" },
 
   // ─── P4 ─ Optimization & Specialization ──────────────────────────────
   { id: "TRT", phase: "P4", row: 0, label: "TensorRT",
@@ -212,7 +217,7 @@ export const COURSES = [
     res:  "Book: Introduction to Neural Network Verification, Albarghouthi (free), why: the clearest entry to formal methods for networks | Angelopoulos & Bates: A Gentle Introduction to Conformal Prediction, arXiv (free) | Hendrycks & Dietterich: Benchmarking Neural Network Robustness to Common Corruptions and Perturbations (free)" },
   { id: "OTSEC", phase: "P5", row: 6, label: "OT & industrial security",
     priority: "critical", kind: "branch", tracks: ["safety"],
-    prereqs: ["DOMAIN"],
+    prereqs: ["DOMAIN","THREAT"],
     desc: "IEC 62443, the Purdue model, industrial protocols and segmentation, and securing a model that runs next to a PLC. Split out of functional safety because a safe system and a secure one are different arguments.",
     res:  "ISA/IEC 62443 overview material (free) | CISA ICS advisories (free), why: real incidents beat abstract threat models | Book: Industrial Network Security, Knapp & Langill" },
 
@@ -230,7 +235,7 @@ export const COURSES = [
     res:  "Book: Designing Data-Intensive Applications, Kleppmann (MUST READ)" },
   { id: "VLM", phase: "P6", row: 1, label: "Vision-language models",
     priority: "critical", kind: "branch", tracks: ["edge","robotics"],
-    prereqs: ["VIT","JET"],
+    prereqs: ["VIT","JET","LLM"],
     desc: "Multimodal AI on edge. Deploy VLMs on Jetson using TensorRT Edge-LLM SDK (C++ runtime).",
     res:  "Jetson AI Lab: TensorRT Edge-LLM tutorial (free), why: the fastest path to a VLM on real hardware | TensorRT Edge-LLM docs, nvidia.github.io/TensorRT-Edge-LLM (free), why: the C++ runtime, KV-cache configuration and the supported model list; sparse, so expect to read source | NVIDIA blog: Edge AI on Jetson, LLMs, VLMs and foundation models (free), why: how a vision encoder and a language model are joined into one pipeline" },
   { id: "DSLM", phase: "P6", row: 2, label: "Domain-specific models",
@@ -240,7 +245,7 @@ export const COURSES = [
     res:  "Hugging Face PEFT docs (free), why: LoRA and QLoRA are what you will actually run | DeepLearning.AI short courses on fine-tuning (free) | Hugging Face fine-tuning guides (free)" },
   { id: "ISAAC", phase: "P6", row: 3, label: "NVIDIA Isaac Sim",
     priority: "desirable", kind: "branch", tracks: ["robotics"],
-    prereqs: ["ROS2","JET"],
+    prereqs: ["ROS2","JET","RL"],
     desc: "Sim-to-real transfer. Train robot policies in simulation, deploy on Jetson with TensorRT.",
     res:  "NVIDIA DLI: Introduction to Robotic Simulations in Isaac Sim (paid) | Isaac Lab on GitHub (free) | Isaac GR00T deployment guide, GitHub (free)" },
   { id: "MLASSURE", phase: "P6", row: 4, label: "ML safety assurance",

@@ -19,10 +19,13 @@
 //   hiring    { cl, de, ca } who employs this, by sector, per market
 //   entry     what a realistic entry point looks like
 //   fit       one line: "good fit if ..."
+//   covers    optional. Says what the site actually holds for this option when
+//             that is less than a path of its own, so a link to a roadmap is
+//             never read as "this option has a whole roadmap"
 //   depth     "roadmap" (curriculum graph plus a long-form document),
 //             "graph" (curriculum graph only), or "card" (this overview only)
 //   route     hash route to the roadmap or graph, unless depth is "card"
-//   track     track id inside that path's graph, when the option maps to one
+//   track     track id inside the routed path's graph, when the option maps to one
 
 export const OPTIONS = [
   {
@@ -94,8 +97,8 @@ export const OPTIONS = [
     },
     entry: "The most portable option on this map and the easiest to enter remotely. Cloud certifications carry more weight here than in most other tracks.",
     fit: "Good fit if you like systems under load and being the person who is called when they break.",
+    covers: "No path of its own here. The closest courses sit in the platform specialization of Data Engineering & Platforms: infrastructure as code, Kubernetes, cloud data infrastructure and self-serve platform engineering.",
     depth: "card",
-    track: "platform",
   },
   {
     id: "security",
@@ -122,6 +125,7 @@ export const OPTIONS = [
     },
     entry: "Rarely a first job. It works as a second specialisation layered on security or ML engineering, and rewards people who can write clearly.",
     fit: "Good fit if you can hold a technical argument and a legal one in the same conversation.",
+    covers: "Not a path of its own: three courses inside the AI Security roadmap (security governance & risk, compliance & audit, AI governance & assurance), plus AI governance engineering in the safety specialization of Edge AI.",
     depth: "roadmap",
     route: "#/security-roadmap",
   },
@@ -191,6 +195,7 @@ export const OPTIONS = [
     },
     entry: "Reachable from a security or backend background. Narrow, unglamorous and genuinely in demand.",
     fit: "Good fit if you want quantum-adjacent work that has a real budget attached today.",
+    covers: "Not a path of its own: one course, Post-quantum cryptography, which appears in the AI Security, FinTech and Quantum roadmaps. The link opens AI Security, where it sits on top of applied cryptography and PKI.",
     depth: "roadmap",
     route: "#/security-roadmap",
   },

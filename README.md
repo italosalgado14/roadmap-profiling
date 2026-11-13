@@ -5,7 +5,7 @@ GitHub Pages.
 
 It is built in two layers. The **catalog** is neutral and meant to be useful to
 anyone: a wide map of career options, eight curricula, and the long-form
-roadmap behind seven of them. The **personal layer** is one overlay file on top of it,
+roadmap behind each of them. The **personal layer** is one overlay file on top of it,
 holding one person's verdicts, priority overrides and calendar. Keeping them
 apart is what lets the same curriculum carry a different opinion for every
 reader, and it is why a node is rated by the discipline rather than by whoever
@@ -89,7 +89,7 @@ overlay on top of the catalog:
 | `priorityOverrides` | Course id to priority, for the places one reader's priorities differ from the discipline's |
 | `tracks` | Track ids to preselect in the graph filter |
 | `done` | Completed course ids |
-| `sequence` | One reader's own calendar. A phase is a quarter of a full specialization; the sequence is a shorter personal plan that cherry-picks and reorders courses across phases |
+| `sequence` | One reader's own calendar. A phase is a quarter of a full specialization; the sequence is a personal plan that cherry-picks fewer courses across tracks. Each course's prerequisites must be in `done` or scheduled no later than the course |
 
 The wide map and the My path page both read the same overlay, so the verdict
 column and the personal plan can never disagree. Progress is stored per graph in
@@ -134,8 +134,9 @@ python3 tools/check_curriculum.py
 It fails on unknown or duplicate ids, prerequisites that do not exist or sit in
 a later phase, prerequisite cycles, row collisions and gaps, unknown phases,
 tracks, priorities or kinds, spine/branch inconsistency, missing `desc`/`res`, a
-course id that means different things in two graphs, and an overlay pointing at
-an option or course the catalog does not have. It warns on tracks that no course uses. No dependencies beyond the standard library.
+course id that means different things in two graphs, an overlay pointing at
+an option or course the catalog does not have, an option with no verdict, and
+a personal sequence that schedules a course before its prerequisites. It warns on tracks that no course uses. No dependencies beyond the standard library.
 
 It also enforces the roadmap shape set in `.claude/skills/career-roadmaps/SKILL.md`,
 reading each specialization the way a learner walks it (every spine course plus
@@ -189,7 +190,9 @@ collapsed the degree-level math in each Foundations column into one refresher
 course (the audience already holds a STEM degree), merged the two thinnest late
 phases, and folded each graph's fifth track into its closest neighbour: Edge
 compiler into edge, Applied retrieval into product, FPGA instrumentation into
-real-time, Control aerospace and automotive into one vehicles track, Security
+real-time, Control aerospace and automotive into one vehicles track (which in
+November 2026 also absorbed estimation and navigation, a track whose every
+course it already took), Security
 GRC into AI security, Quantum software into hardware. Every specialization now
 reads as eight full quarters, and `tools/check_curriculum.py` holds the line.
 
@@ -228,8 +231,8 @@ and Edge AI now has three specializations.
 software foundation is deliberately the same as Applied AI's (Python, SQL,
 backend services, testing and distributed systems carry the same ids), and its
 cryptography and key management are the AI Security courses. That is 12 of its
-61 ids shared with Applied AI (0.20 of the FinTech graph, 0.30 of Applied AI's)
-and 7 with AI Security, well under the half that would make it a specialization
+66 ids shared with Applied AI (0.18 of the FinTech graph, 0.30 of Applied AI's)
+and 8 with AI Security, well under the half that would make it a specialization
 of either. From Phase 2 on the spine is ledgers, payment systems, transactions,
 regulation and operational resilience, which no other graph teaches.
 
@@ -373,6 +376,7 @@ occurs here, which is bad data rather than bad types.
             ├── DataMallaPage.jsx
             ├── DataRoadmapPage.jsx
             ├── FpgaMallaPage.jsx
+            ├── FpgaRoadmapPage.jsx
             ├── RoadmapPage.jsx
             ├── ControlMallaPage.jsx
             ├── ControlRoadmapPage.jsx

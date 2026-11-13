@@ -69,6 +69,8 @@ export default function OptionsPage() {
               <dt>Who hires, Germany</dt><dd>{o.hiring.de}</dd>
               <dt>Who hires, Canada</dt><dd>{o.hiring.ca}</dd>
               <dt>Getting in</dt><dd>{o.entry}</dd>
+              {o.covers && <dt>On this site</dt>}
+              {o.covers && <dd>{o.covers}</dd>}
             </dl>
 
             <p className="option-fit">{o.fit}</p>

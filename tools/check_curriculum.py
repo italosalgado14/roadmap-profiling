@@ -349,7 +349,9 @@ def check_overlay(root: pathlib.Path) -> list[str]:
         src = (root / name).read_text(encoding="utf-8")
         if re.search(r'id:\s*"%s"' % re.escape(graph_id or ""), src.split("export default")[-1]):
             graph_file = name
-            course_ids = {c["id"] for c in parse_courses(src)}
+            courses = parse_courses(src)
+            course_ids = {c["id"] for c in courses}
+            prereqs_of = {c["id"]: c["prereqs"] or [] for c in courses}
             break
     if graph_file is None:
         return [f"my_path.js targets graph {graph_id!r}, which no data module declares"]
@@ -358,6 +360,11 @@ def check_overlay(root: pathlib.Path) -> list[str]:
     for oid in re.findall(r'"([^"]+)":\s*\{\s*verdict:', verdict_block):
         if oid not in option_ids:
             errors.append(f"my_path.js: verdict for unknown option {oid!r}")
+    # Every option gets a verdict: an option with none simply vanishes from
+    # the My path page, which hides exactly the "considered and set aside" part.
+    judged = set(re.findall(r'"?([\w-]+)"?:\s*\{\s*verdict:', verdict_block))
+    for oid in sorted(option_ids - judged):
+        errors.append(f"my_path.js: option {oid!r} has no verdict")
     for verdict in re.findall(r'verdict:\s*"([^"]+)"', verdict_block):
         if verdict not in {"primary", "hedge", "ignore"}:
             errors.append(f"my_path.js: unknown verdict {verdict!r}")
@@ -369,10 +376,28 @@ def check_overlay(root: pathlib.Path) -> list[str]:
         if priority not in VALID_PRIORITIES:
             errors.append(f"my_path.js: override {cid} has unknown priority {priority!r}")
 
-    for cid in re.findall(r'items:\s*\[([^\]]*)\]', overlay):
-        for item in re.findall(r'"([^"]+)"', cid):
+    done_match = re.search(r'^\s*done:\s*\[([^\]]*)\]', overlay, re.M)
+    done = set(re.findall(r'"([^"]+)"', done_match.group(1))) if done_match else set()
+    for item in sorted(done - course_ids):
+        errors.append(f"my_path.js: done lists unknown course {item!r}")
+
+    # The sequence is a calendar, so it has to be walkable: a course's
+    # prerequisites must be done already or scheduled in the same window or an
+    # earlier one. Without this the plan can promise ONNX export before any
+    # deep learning.
+    windows = [re.findall(r'"([^"]+)"', w) for w in re.findall(r'items:\s*\[([^\]]*)\]', overlay)]
+    reached = set(done)
+    for items in windows:
+        reached |= set(items)
+        for item in items:
             if item not in course_ids:
                 errors.append(f"my_path.js: sequence references unknown course {item!r}")
+                continue
+            missing = [p for p in prereqs_of[item] if p not in reached]
+            if missing:
+                errors.append(
+                    f"my_path.js: sequence schedules {item} before its prerequisites ({', '.join(missing)})"
+                )
 
     return errors
 

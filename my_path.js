@@ -17,7 +17,7 @@
 //   verdicts           option id -> { verdict: primary|hedge|ignore, why }
 //   priorityOverrides  course id -> critical|desirable|frontier
 //   done               course ids already completed
-//   sequence           this reader's own calendar, shorter than a full specialization
+//   sequence           this reader's own calendar, fewer courses than a full specialization
 
 export const OVERLAY = {
   version: 1,
@@ -36,6 +36,7 @@ export const OVERLAY = {
     "security":       { verdict: "hedge",   why: "Pays in every AI scenario, since more machine-written code means more to audit. Pairs with whatever the primary builds." },
     "domain-vertical":{ verdict: "hedge",   why: "Pursued as a multiplier on the primary rather than as a separate career. It is the hardest thing here for a remote generalist to replicate." },
     "architect":      { verdict: "hedge",   why: "Where the primary is expected to lead in five to eight years. Not something to enter directly now." },
+    "fintech":        { verdict: "ignore",  why: "A large local employer base and a regulated anchor of its own. Set aside because its spine (ledgers, payment rails, financial regulation) is a second spine that never touches the physical moat. The sector stays reachable through the security hedge, which shares its cryptography and key-management courses." },
     "data-platform":  { verdict: "ignore",  why: "A strong option, and since October 2026 its own path rather than a track of the primary: only MLOps, distributed systems and the data engine are still shared. Set aside because entering it properly means a second spine (modeling, orchestration, lakehouse, data quality) that would compete with the primary. Its industrial data courses touch the mining moat, but from the data side rather than the physical deployment side." },
     "control":        { verdict: "ignore",  why: "Genuinely the most AI-resistant path on this map. Set aside on time cost: entering it properly is a multi-year mathematics investment that would compete with the primary." },
     "cloud-sre":      { verdict: "ignore",  why: "Always hiring and highly portable, but the most commoditised option here and the least differentiated." },
@@ -58,25 +59,34 @@ export const OVERLAY = {
     AICODE: "critical",
   },
 
-  done: [],
+  // Already in hand for a working software engineer, so the sequence below does
+  // not schedule them. Empty this list if that is not your starting point: the
+  // validator then fails until the sequence covers them, which is the point.
+  done: ["LINUX", "PY", "GIT", "DOC"],
 
   // Each phase in the graph is a quarter of a full, two-year specialization.
   // This is one reader's shorter calendar, cherry-picked across two tracks.
+  // Every item's prerequisites are either in `done` or scheduled no later than
+  // the item itself; tools/check_curriculum.py enforces that. Courses from
+  // other graphs cannot be items, so the security hedge is carried in the notes.
   sequence: [
     { window: "Months 0-3",   focus: "Foundations that gate everything else",
-      items: ["ENGLISH", "CPP", "ONNX"],
-      note: "English runs continuously from here on, not as a phase. C++ is the gate for TensorRT, ROS 2 and kernels alike." },
-    { window: "Months 3-6",   focus: "The robotics and inference spine",
-      items: ["ROS2", "TRT"],
-      note: "ROS 2 and TensorRT are the two skills that make a Physical AI profile legible to an employer." },
-    { window: "Months 6-9",   focus: "Perception depth and the evaluation habit",
-      items: ["GEO3D", "EVAL"],
-      note: "3D geometry and SLAM is the hardest thing on this list and the most defensible. Evaluation is added early so every later claim has evidence." },
-    { window: "Months 9-12",  focus: "Multimodal on real hardware",
-      items: ["VLM", "JET"],
+      items: ["ENGLISH", "CPP", "MATHML", "ML", "AICODE"],
+      note: "English runs continuously from here on, not as a phase. C++ is the gate for TensorRT, ROS 2 and kernels alike; the math refresher and machine learning gate every model course after them. In parallel, the security hedge starts with the strategy's 90-day action: PortSwigger's Web Security Academy and one written threat model (OWASP Top 10 and threat modeling in the AI Security graph)." },
+    { window: "Months 3-6",   focus: "Deep learning, operations and the robotics spine",
+      items: ["DL", "MLOPS", "ROS2", "CUDA"],
+      note: "Deep learning and MLOps are what everything from export to evaluation stands on. ROS 2 starts here because it only needs C++, Python and Linux." },
+    { window: "Months 6-9",   focus: "Vision and the inference path",
+      items: ["CV", "ONNX", "TRT"],
+      note: "ROS 2 and TensorRT are the two skills that make a Physical AI profile legible to an employer. Export comes before optimization, and vision before both perception courses below." },
+    { window: "Months 9-12",  focus: "Perception depth and the evaluation habit",
+      items: ["VIT", "LLM", "GEO3D", "EVAL"],
+      note: "3D geometry and SLAM is the hardest thing on this list and the most defensible. Evaluation is added before the hardware work so every later claim has evidence. LLM fundamentals sits here because the vision-language work in the next window needs both halves. Security hedge, second step: the OWASP LLM Top 10 course, applied to whatever is being built here." },
+    { window: "Months 12-15", focus: "Multimodal on real hardware",
+      items: ["JET", "VLM"],
       note: "Vision-language models on Jetson, measured rather than demoed." },
-    { window: "Months 12-18", focus: "Capstone and domain",
-      items: ["CAPPHYS", "DOMAIN"],
+    { window: "Months 15-21", focus: "Capstone and domain",
+      items: ["DOMAIN", "CAPPHYS"],
       note: "One deployed perception-to-action system with published numbers, anchored in a specific industry." },
   ],
 };

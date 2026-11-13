@@ -600,7 +600,7 @@
 
 **Project:** Pick a concrete observable (the H2 ground-state energy from a 2-qubit VQE ansatz) and use Mitiq to apply measurement-error mitigation and zero-noise extrapolation on a realistic Aer noise model (mixing amplitude damping, dephasing and readout error), and ideally one real-hardware run. For probabilistic error cancellation, scope it to a local-depolarizing noise model so a ready-made representation exists (Mitiq's represent_operation_with_local_depolarizing_noise), because a realistic mixed-noise model has no out-of-the-box PEC representation; treat full-noise PEC as a stretch goal. Produce a benchmark plot of mitigated versus raw versus ideal expectation values and tabulate the shot-cost overhead of each method, with a write-up on when each is worth it.
 
-### Quantum error correction `desirable`
+### Quantum error correction `critical`
 **Prerequisites:** Quantum information theory, Stabilizer formalism & classical simulation
 **Tracks:** Quantum error correction
 **Resources:**
@@ -614,7 +614,7 @@
 
 **Project:** Implement the 3-qubit bit-flip code in Qiskit or Stim as the mandatory, hand-traced milestone: encode a logical qubit, inject Pauli errors, perform syndrome extraction with ancillas, decode, and confirm the logical state survives. The 7-qubit Steane code's full encode-and-decode-with-ancillas is a noticeably heavier lift, so treat it as an optional stretch goal. Then use Stim with a matching decoder (PyMatching, driven through Stim's Sinter for the sampling sweep) to simulate surface-code memories at distances d=3, 5 and 7 under a depolarizing noise model (note that Stim only samples syndromes and does not decode, so the decoder is the key dependency) and plot logical error rate versus physical error rate across distances so the threshold crossing is actually visible. Stim's *Getting Started* / Sinter surface-code example does exactly this. Include a short write-up of code distance and overhead.
 
-### Implementing QEC codes & decoders `desirable`
+### Implementing QEC codes & decoders `critical`
 **Prerequisites:** Quantum error correction
 **Tracks:** Quantum error correction
 **Resources:**
@@ -830,7 +830,7 @@
 **Project:** Build a surface-code decoding benchmark: use Stim to generate circuit-level (depolarizing + measurement) noise detector data, decode it with PyMatching (MWPM) and a union-find decoder you implement, sweep physical error rate against code distances d=3,5,7, and plot logical error rate to locate the threshold. Stretch goals: a small neural-network decoder, or a latency budget arguing FPGA real-time feasibility. Ship a reproducible repo with one-command figure generation.
 
 ### Real-time control & FPGA feedback `critical`
-**Prerequisites:** Control electronics & cryo/RF, Noise, decoherence & NISQ
+**Prerequisites:** Control electronics & cryo/RF, Noise, decoherence & NISQ. Outside this graph: digital design, an HDL and the FPGA toolchain, taken from the [FPGA & Digital Hardware](#/fpga-roadmap) path (digital logic through timing closure)
 **Tracks:** Quantum hardware & control stack
 **Resources:**
 - **Best match:** Fermilab, *QICK*, open-source FPGA/RFSoC qubit-control framework (free)
@@ -857,6 +857,7 @@ In priority order, the nodes and skills that matter most:
 6. `critical` **Density matrices, open systems & noise/NISQ** (P4): mixed states, decoherence and the realities of near-term hardware. The bridge from idealized circuits to what real devices actually do.
 7. `critical` **Variational & parameterized circuits (VQC), then VQE/QAOA** (P3→P5): data encoding, trainable ansätze and hybrid optimization loops. Every specialization takes VQC; the variational algorithms built on it follow in P5. The keystone node: the dominant paradigm for useful work on today's noisy machines.
 8. `critical` **Cloud QPUs / real hardware → hybrid quantum-classical architecture** (P2→P6): running circuits on a real QPU and wiring it into a classical pipeline. The step that separates a simulator exercise from a shippable quantum-AI system.
+9. `critical` **Quantum error correction → implementing codes & decoders** (P5): stabilizer codes, the surface code, syndrome extraction and decoding. Critical for the field even though only the error-correction specialization takes it as coursework: hardware roadmaps are now written in logical qubits, so every specialization should at least be able to read a code distance and a logical error rate.
 
 Everything else is supporting material.
 

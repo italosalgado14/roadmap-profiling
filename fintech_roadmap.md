@@ -11,7 +11,7 @@
 
 **The ledger is the discipline; everything else is a rail into it or a report out of it.** That claim shapes this entire roadmap. Payments, trading, lending and custody all end in the same question: does the money add up, and can you prove it? So the ledger, transactions and payment systems sit in the spine at Phase 2, before any specialization starts; reconciliation and operational resilience arrive before the domain depth; and the capstone is not finished until it produces a reconciliation report. An engineer who can show that a system's books balance under retries, timeouts and partner errors is worth several who can ship a slick payment screen.
 
-**Its own path, not a track of another.** The software foundation is genuinely shared: Python, SQL, backend services, testing and distributed systems carry the same ids as in the Applied AI graph, and cryptography and key management are the same courses as in AI Security. Measured by course ids, this graph shares 12 of its 61 courses with Applied AI (0.20 of this graph, 0.30 of that one) and 7 with AI Security. Everything from the ledger onwards (payment rails, settlement, reconciliation, financial regulation, market structure, credit and fraud models, custody) appears in no other roadmap on this site.
+**Its own path, not a track of another.** The software foundation is genuinely shared: Python, SQL, backend services, testing and distributed systems carry the same ids as in the Applied AI graph, and cryptography and key management are the same courses as in AI Security. Measured by course ids, this graph shares 12 of its 66 courses with Applied AI (0.18 of this graph, 0.30 of that one) and 8 with AI Security. Everything from the ledger onwards (payment rails, settlement, reconciliation, financial regulation, market structure, credit and fraud models, custody) appears in no other roadmap on this site.
 
 **Honest counterpoint, read this before committing.** "FinTech engineer" is a broad label, and the strongest demand signal for it is an employer survey rather than observed hiring (see below). Financial technology is also cyclical: startup funding and hiring rise and fall with interest rates and with whatever the last failure was, and the digital-assets specialization in particular has swung harder than anything else here. Regulation differs by country, so this roadmap teaches the patterns that travel (BIS and FATF standards, ISO 20022, card scheme mechanics, double entry) with examples from the EU, the US, Brazil and Chile, and expects you to learn your own market's rulebook on the job. Finally, part of what fintech engineers build is the automation of finance's own clerical work, which is exactly the work the same surveys expect to shrink.
 
@@ -111,7 +111,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 
 ### Probability & statistics `critical`
 **Prerequisites:** None, this is a starting node
-**Unlocks:** Financial markets & instruments, Machine learning, Financial time series, Derivatives pricing & numerical methods
+**Unlocks:** Financial markets & instruments, Machine learning, Financial time series, Stochastic calculus for finance, Derivatives pricing & numerical methods
 **Tracks:** All specializations
 **Resources:**
 - **Best match:** Book: Think Stats (free)
@@ -178,7 +178,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 
 ### Docker & CI/CD `critical`
 **Prerequisites:** Linux & CLI, Git & version control
-**Unlocks:** Distributed systems
+**Unlocks:** Distributed systems, MLOps fundamentals
 **Tracks:** All specializations
 **Resources:**
 - **Best match:** Docker getting started (free), why: layers and caching, Compose, volumes and networking; ignore Swarm
@@ -232,7 +232,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 
 ### Ledgers & double-entry design `critical`
 **Prerequisites:** Finance & accounting fundamentals, SQL & data access
-**Unlocks:** Event-driven systems & event sourcing, Reconciliation & settlement, Core banking & product engines, Capstone: FinTech system
+**Unlocks:** Event-driven systems & event sourcing, Reconciliation & settlement, Core banking & product engines, Clearing, settlement & post-trade, Capstone: FinTech system
 **Tracks:** All specializations
 **Resources:**
 - **Best match:** Modern Treasury, Accounting for Developers series (free), why: written for engineers building exactly this
@@ -271,7 +271,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 
 ### Financial markets & instruments `critical`
 **Prerequisites:** Finance & accounting fundamentals, Probability & statistics
-**Unlocks:** Market microstructure & trading, Derivatives pricing & numerical methods
+**Unlocks:** Market microstructure & trading, Derivatives pricing & numerical methods, Clearing, settlement & post-trade
 **Tracks:** Trading & market systems
 **Resources:**
 - **Best match:** Coursera: Financial Markets, Yale, Robert Shiller
@@ -284,7 +284,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 
 ### Machine learning `critical`
 **Prerequisites:** Python, Probability & statistics
-**Unlocks:** Credit risk & scoring models, Fraud detection systems
+**Unlocks:** MLOps fundamentals, Credit risk & scoring models, Fraud detection systems
 **Tracks:** Risk, fraud & compliance
 **Resources:**
 - **Best match:** Coursera: Machine Learning Specialization, Andrew Ng
@@ -314,7 +314,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 
 ### Applied cryptography `critical`
 **Prerequisites:** Security fundamentals & threat modeling
-**Unlocks:** Open banking & open finance APIs, Key management & HSM/KMS, Blockchain & distributed ledgers, Post-quantum cryptography
+**Unlocks:** Open banking & open finance APIs, Key management & HSM/KMS, Data privacy & PETs, Blockchain & distributed ledgers, Post-quantum cryptography
 **Tracks:** All specializations
 **Resources:**
 - **Best match:** Book: Serious Cryptography, Aumasson, 2nd ed. (paid), why: practical and current
@@ -327,7 +327,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 
 ### Financial regulation & compliance `critical`
 **Prerequisites:** Payment systems & money movement
-**Unlocks:** Open banking & open finance APIs, KYC, AML & transaction monitoring, Operational resilience & SRE, Regulatory reporting & data lineage, Stablecoins & tokenized assets, On-chain compliance & analytics
+**Unlocks:** Open banking & open finance APIs, KYC, AML & transaction monitoring, Data privacy & PETs, Operational resilience & SRE, Market regulation & trade surveillance, Regulatory reporting & data lineage, Stablecoins & tokenized assets, On-chain compliance & analytics
 **Tracks:** All specializations
 **Resources:**
 - **Best match:** FATF Recommendations (free), why: the global AML standard national rulebooks descend from
@@ -366,7 +366,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 
 ### Market microstructure & trading `critical`
 **Prerequisites:** Financial markets & instruments
-**Unlocks:** Market data & FIX protocol, Matching engines & exchange design, Execution algorithms & TCA
+**Unlocks:** Market data & FIX protocol, Matching engines & exchange design, Execution algorithms & TCA, Market regulation & trade surveillance
 **Tracks:** Trading & market systems
 **Resources:**
 - **Best match:** Book: Trading and Exchanges, Larry Harris (paid), why: the standard practitioner text on how markets actually work
@@ -402,6 +402,19 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Study approach:** Risk, compliance and reporting all stand on financial data, and regulators ask where each number came from. Learn to model transactions, positions and reference data, run tested transformations in a warehouse, write data quality checks, and handle bitemporal data: what was true on a date, and what we knew about it on another date, which is how restatements and late-arriving corrections are kept honest. Khraisha's book is the one written for this intersection; dbt is the common tool for the transformation layer.
 
 **Project:** Build a small warehouse from your ledger: a dbt project with sources, tests and documented models for balances, daily movements and customer risk attributes. Add a bitemporal table and show a report as it was originally published and as corrected after a late transaction arrived.
+
+### MLOps fundamentals `critical`
+**Prerequisites:** Machine learning, Docker & CI/CD
+**Unlocks:** Fraud detection systems
+**Tracks:** Risk, fraud & compliance
+**Resources:**
+- **Best match:** Coursera: Machine Learning in Production, DeepLearning.AI
+- MLflow docs (free), why: experiment tracking, the model registry and its stage transitions, which is how a model version becomes something you can audit and roll back
+- MLOps Zoomcamp, DataTalksClub (free)
+
+**Study approach:** A model in finance is a system that keeps deciding after you stop watching it, and each decision is one somebody may later ask you to explain. MLOps is the discipline that makes that possible, and here it is evidence as much as engineering. Three things version independently, the code, the data and the trained model, and reproducing a score from eight months ago means pinning all three; a credit decision that cannot be reproduced cannot be defended to a customer, a validator or a supervisor. Training and serving skew, the same feature computed two ways in two places, is the classic silent failure, and in the authorization path it shows up as declined good customers before anyone sees a metric move. Drift needs its distinction to be actionable: data drift means the inputs moved, concept drift means the relationship moved, and fraud adds a third case where an adversary moved it on purpose. Deployment is risk management, which is what shadow scoring, champion and challenger runs, canaries and rollback are for, and they map directly onto what model risk management later asks for in writing. Labels arrive late in this domain (a chargeback weeks after the purchase, a default months after the loan), so monitoring has to work on inputs and score distributions long before outcomes exist. Heavy platform tooling, feature stores and Kubernetes operators are safe to leave alone at this stage; the registry, the reproducible run and the monitored deployment are the point.
+
+**Project:** Train a simple default or fraud classifier on a public dataset with every run logged to MLflow, register a version, and serve it behind an API with the model version recorded on every score. Reproduce an earlier run exactly from its recorded inputs, run a challenger in shadow against the champion, and build a daily drift report on input and score distributions that fires on a shift you inject.
 
 ---
 
@@ -459,8 +472,21 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 
 **Project:** Design and implement envelope encryption for sensitive fields in your ledger using a cloud KMS, with key rotation that re-wraps data keys without downtime. Write a key ceremony procedure for the master key that a second person could follow.
 
+### Stochastic calculus for finance `critical`
+**Prerequisites:** Probability & statistics
+**Unlocks:** Derivatives pricing & numerical methods
+**Tracks:** Trading & market systems
+**Resources:**
+- **Best match:** Book: Stochastic Calculus for Finance II, Continuous-Time Models, Shreve (paid), why: chapters 3 to 6, Brownian motion, Ito calculus, risk-neutral pricing and the PDE connection; the exotic-option and term-structure chapters can wait
+- MIT OCW 18.S096 Topics in Mathematics with Applications in Finance (free), why: the lectures on stochastic processes, Ito calculus, Black-Scholes and stochastic differential equations; the rest of the course belongs to other nodes
+- Book: Financial Calculus, Baxter & Rennie (paid)
+
+**Study approach:** Ordinary calculus assumes a path is smooth enough to have a slope, and a price path is not: Brownian motion is continuous everywhere and differentiable nowhere, and its squared increments add up to elapsed time instead of vanishing. That one fact, quadratic variation, is why the chain rule gains a second-order term (Ito's lemma) and why the volatility, not the expected return, ends up in an option price. The course is built on four ideas. A martingale is a fair game, and pricing is the search for a measure under which discounted prices are one. The Ito integral is the profit of a trading strategy that cannot see the future, which is why the integrand is evaluated at the left end of each interval. A stochastic differential equation, geometric Brownian motion first, is the model whose solution Ito's lemma gives in closed form. Change of measure (Girsanov) removes the drift, and Feynman-Kac turns the resulting expectation into the Black-Scholes PDE, which is why Monte Carlo and finite differences in the next course are two computations of the same number. Without this, pricing formulas can be coded but not extended, and a model that is slightly different from the textbook one becomes unreachable. It assumes degree-level calculus and linear algebra on top of the probability course. Measure-theoretic proofs, general semimartingales and jump processes are safe to leave for later; the working rules and the reason each holds are the point.
+
+**Project:** Simulate geometric Brownian motion with the Euler-Maruyama scheme and with its exact solution, and measure strong and weak convergence as the step shrinks. Show numerically that the quadratic variation of a path converges to elapsed time, and that the log price drifts at the rate Ito's lemma predicts, not at the naive one. Then price a European call by Monte Carlo under the risk-neutral measure, check it against the Black-Scholes closed form, and simulate a discretely rebalanced delta hedge to show the hedging error shrinking with rebalancing frequency whatever real-world drift you choose.
+
 ### Derivatives pricing & numerical methods `critical`
-**Prerequisites:** Financial markets & instruments, Probability & statistics
+**Prerequisites:** Financial markets & instruments, Probability & statistics, Stochastic calculus for finance
 **Unlocks:** Market risk & portfolio analytics
 **Tracks:** Trading & market systems
 **Resources:**
@@ -523,6 +549,19 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Study approach:** Know-your-customer and anti-money-laundering systems are where engineering meets the regulator most directly. Learn customer onboarding and identity verification, sanctions and politically-exposed-person screening with fuzzy name matching, customer risk scoring, transaction monitoring with rules and models, alert triage, case management and the filing of suspicious activity reports. The FATF Recommendations define the duties; the Wolfsberg papers show how banks implement them. Supervisors judge these systems by their audit trail as much as by what they catch. In the EU a single AML rulebook, Regulation (EU) 2024/1624, applies from 10 July 2027.
 
 **Project:** Build a transaction monitoring pipeline over your ledger's events: three typologies as rules (structuring, rapid movement through an account, unusual geography), an alert queue, a case view with the evidence that triggered it, and a full audit trail of who did what. Measure the alert volume and tune one rule with stated reasoning.
+
+### Data privacy & PETs `critical`
+**Prerequisites:** Applied cryptography, Financial regulation & compliance
+**Unlocks:** LLMs & agents in regulated finance
+**Tracks:** Risk, fraud & compliance
+**Resources:**
+- **Best match:** Book: Practical Data Privacy, Katharine Jarmul (paid), why: written for data engineers and scientists rather than lawyers
+- OpenDP docs (free), why: the privacy budget as the central idea, that each query spends from a finite allowance, and how noise is calibrated to a sensitivity
+- EDPB guidelines on pseudonymisation (free)
+
+**Study approach:** A transaction history says where a person was, what they earn, what they are ill with and who they support, so financial data is personal data of the most sensitive ordinary kind, and this specialization is the one that handles it in bulk. The course is built on a few tensions rather than a list of techniques. Purpose limitation runs against the instinct to reuse every transaction for every model: data collected to execute a payment is not automatically available to train a marketing score, and a risk engineer has to know which purposes the law or the customer actually granted. Retention runs in both directions at once, because anti-money-laundering and accounting rules require records to be kept for years while data protection law requires that they not be kept longer or used wider than needed; the design answer is segregated, access-controlled archives with a clock on them, not deletion on request and not keeping everything forever. Pseudonymization and tokenization reduce exposure but do not make data anonymous, and sparse transaction data is easy to re-identify from a handful of points, which is why "anonymized" datasets handed to analysts are a recurring incident. Privacy-enhancing technologies earn their place where institutions need to cooperate without pooling raw data: differential privacy for aggregate releases, and private set intersection, federated learning or secure computation for sharing fraud and mule-account signals between banks. Open finance adds consent as a live object that must be recorded, scoped and revocable. The mathematics of differential privacy proofs and the internals of homomorphic encryption are safe to leave alone; knowing what each technique does and does not protect is the point.
+
+**Project:** Add a privacy layer to your risk data: pseudonymize customer identifiers at ingestion with keys held in a KMS, tag every dataset with its permitted purposes and block a training job that uses one outside them, implement retention so that an account closed today is restricted now and erased when the legal retention period ends, and release one aggregate table with differential privacy. Then try to re-identify customers in your own pseudonymized transaction table from three known purchases, and report how many you find.
 
 ### Blockchain & distributed ledgers `critical`
 **Prerequisites:** Applied cryptography, Distributed systems
@@ -617,8 +656,20 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 
 **Project:** Build a single-instrument matching engine with limit and market orders, cancels and replaces, an input journal and deterministic replay. Prove with a replay test that the same input always produces the same trades, and measure throughput and latency.
 
+### Clearing, settlement & post-trade `critical`
+**Prerequisites:** Financial markets & instruments, Ledgers & double-entry design
+**Tracks:** Trading & market systems
+**Resources:**
+- **Best match:** Book: The Trade Lifecycle, Behind the Scenes of the Trading Process, 2nd ed., Robert Baker (paid)
+- CPMI-IOSCO Principles for Financial Market Infrastructures (free), why: settlement finality, delivery versus payment, and the margin and default-management principles for central counterparties; the governance and disclosure principles are not the point
+- Book: Central Counterparties, Jon Gregory (paid), why: initial and variation margin, the default waterfall, and why clearing moves risk without removing it
+
+**Study approach:** A trade is a promise, and everything in this course is about the interval between making the promise and keeping it. During that interval each side is exposed to the other failing, and the whole post-trade industry exists to shrink or insure that exposure. Understand the chain first: execution, capture and enrichment, confirmation or affirmation, clearing, settlement, and then custody and asset servicing for as long as the position is held. Understand novation, where a central counterparty steps between buyer and seller and becomes the counterparty to both, because it explains margin: variation margin settles today's losses today, initial margin covers the loss expected while a defaulter's positions are closed out, and the default waterfall says whose money is used in what order when that is not enough. Understand netting, which is why a market can turn over enormous gross volume on a small amount of cash and securities, and delivery versus payment, which is the guarantee that neither leg moves unless both do. Understand what a securities depository is and that "owning" a share usually means a ledger entry several intermediaries deep. Then understand failure, because that is where the engineering is: settlement fails and their penalties, breaks between your books and the custodian's, corporate actions that change a position overnight, and the compression of the settlement cycle toward one day, which removes the time operations teams used to repair mistakes by hand. This course reuses the ledger course directly: a position is a balance, a settlement is a posting with two legs, and reconciliation against the depository is the same discipline as reconciliation against a bank. Jurisdiction-specific rulebooks and the legal theory of collateral are safe to leave for the job.
+
+**Project:** Extend your ledger into a small post-trade system: capture trades from your matching engine or a file of executions, net them per counterparty and instrument, compute variation margin from a price file and a simple initial margin, and settle delivery versus payment so that securities and cash legs post atomically or not at all. Inject a settlement fail and a stock split, reconcile your positions against a simulated depository statement, and report every break with its cause.
+
 ### Fraud detection systems `critical`
-**Prerequisites:** Machine learning, Event-driven systems & event sourcing
+**Prerequisites:** Machine learning, MLOps fundamentals, Event-driven systems & event sourcing
 **Unlocks:** Graph analytics for financial crime
 **Tracks:** Risk, fraud & compliance
 **Resources:**
@@ -732,6 +783,18 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 
 **Project:** Build a risk engine for a small multi-asset portfolio: full-revaluation historical VaR and expected shortfall, a Monte Carlo VaR, three stress scenarios and a daily P&L explain. Backtest the VaR over two years and report the exceptions.
 
+### Market regulation & trade surveillance `desirable`
+**Prerequisites:** Financial regulation & compliance, Market microstructure & trading
+**Tracks:** Trading & market systems
+**Resources:**
+- **Best match:** ESMA material on MiFID II / MiFIR and the Market Abuse Regulation (free), why: best execution, the order record keeping and transaction reporting fields, the organisational requirements for algorithmic trading, and the indicators of manipulative behaviour; the investor-protection and product-governance parts are not the point
+- SEC Rule 15c3-5, the Market Access Rule (free), why: the pre-trade credit, capital and erroneous-order checks a broker must run before an order reaches a venue
+- FCA Market Watch newsletters (free), why: real cases of spoofing, layering and wash trading, which is what a surveillance alert has to catch
+
+**Study approach:** The spine's regulation course is about money moving between accounts; this one is about the rules of the market itself, and they shape a trading system as much as latency does. Three obligations carry most of the engineering. The first is control before the order leaves: price collars, size and notional limits, credit checks and a kill switch, because a firm is responsible for every order its algorithms send, including the ones sent by a bug. The second is proof afterwards: synchronized clocks, a complete and immutable record of every order event, transaction reports to the regulator, and the evidence that a client order was executed on the best terms reasonably available, which is the regulatory use of the transaction cost analysis from the execution course. The third is surveillance: detecting behaviour that is illegal because of its intent, such as spoofing and layering (orders placed to be cancelled), wash trades (trading with yourself), marking the close and trading ahead of client orders or on inside information. Intent cannot be observed, so surveillance works on patterns in order and trade data, produces alerts that are mostly false, and stands or falls on how well it can reconstruct the order book around the moment in question. The European and United States rulebooks are the reference points other markets borrow from, so learn the concepts through them and look up the local securities law when a job requires it. Memorising article numbers is safe to skip; knowing what a system must record and what it must prevent is the point.
+
+**Project:** Add the controls to your trading stack: pre-trade checks with a kill switch in front of the matching engine, and an append-only order event log with clock timestamps. Then build two surveillance detectors over that log, one for spoofing or layering and one for wash trades, seed the data with planted examples among normal activity, and report precision and recall. Finish with a one-page best-execution report for a parent order using your TCA numbers.
+
 ### Graph analytics for financial crime `desirable`
 **Prerequisites:** Fraud detection systems, KYC, AML & transaction monitoring
 **Tracks:** Risk, fraud & compliance
@@ -757,7 +820,7 @@ For a backend engineer moving laterally, **Payments & banking platforms** is the
 **Project:** Produce a simplified regulatory return (for example a liquidity or large-exposures report) from your warehouse with automated lineage, a reconciliation to the ledger, and controls that block publication when a check fails. Show the lineage for one reported figure back to its source transactions.
 
 ### LLMs & agents in regulated finance `frontier`
-**Prerequisites:** Model risk management & explainability
+**Prerequisites:** Data privacy & PETs, Model risk management & explainability
 **Tracks:** Risk, fraud & compliance
 **Resources:**
 - **Best match:** Book: AI Engineering, Chip Huyen (paid), why: its evaluation chapters are what regulated deployment needs
@@ -887,10 +950,10 @@ Each specialization is the spine plus the branch courses below. Phases 0 and 7 a
 | P0 | Python, SQL & data access, Git & version control, Linux & CLI, Probability & statistics |  |  |  |  |
 | P1 | Finance & accounting fundamentals, APIs & backend services, Testing & code quality, Docker & CI/CD | Java & the JVM | C++ |  |  |
 | P2 | Payment systems & money movement, Ledgers & double-entry design, Transactions & data consistency, Security fundamentals & threat modeling |  | Financial markets & instruments | Machine learning |  |
-| P3 | Distributed systems, Applied cryptography, Financial regulation & compliance | Card payments & processing, ISO 20022 & bank messaging | Market microstructure & trading, Financial time series | Financial data engineering |  |
-| P4 | Event-driven systems & event sourcing | Instant payments & real-time rails, Open banking & open finance APIs, Key management & HSM/KMS | Derivatives pricing & numerical methods, Market data & FIX protocol, Low-latency systems | Credit risk & scoring models, KYC, AML & transaction monitoring | Key management & HSM/KMS, Blockchain & distributed ledgers |
-| P5 | Operational resilience & SRE | Reconciliation & settlement, Core banking & product engines, PCI DSS & payment data security | Backtesting & research infrastructure, Matching engines & exchange design | Fraud detection systems, Model risk management & explainability | Smart contracts & on-chain security, Wallets, custody & key ceremonies |
-| P6 | None | Cross-border payments & FX, Embedded finance & BaaS, Agentic commerce & AI payments | Execution algorithms & TCA, Market risk & portfolio analytics | Graph analytics for financial crime, Regulatory reporting & data lineage, LLMs & agents in regulated finance | Stablecoins & tokenized assets, DeFi protocols & on-chain markets, On-chain compliance & analytics |
+| P3 | Distributed systems, Applied cryptography, Financial regulation & compliance | Card payments & processing, ISO 20022 & bank messaging | Market microstructure & trading, Financial time series | Financial data engineering, MLOps fundamentals |  |
+| P4 | Event-driven systems & event sourcing | Instant payments & real-time rails, Open banking & open finance APIs, Key management & HSM/KMS | Stochastic calculus for finance, Derivatives pricing & numerical methods, Market data & FIX protocol, Low-latency systems | Credit risk & scoring models, KYC, AML & transaction monitoring, Data privacy & PETs | Key management & HSM/KMS, Blockchain & distributed ledgers |
+| P5 | Operational resilience & SRE | Reconciliation & settlement, Core banking & product engines, PCI DSS & payment data security | Backtesting & research infrastructure, Matching engines & exchange design, Clearing, settlement & post-trade | Fraud detection systems, Model risk management & explainability | Smart contracts & on-chain security, Wallets, custody & key ceremonies |
+| P6 | None | Cross-border payments & FX, Embedded finance & BaaS, Agentic commerce & AI payments | Execution algorithms & TCA, Market risk & portfolio analytics, Market regulation & trade surveillance | Graph analytics for financial crime, Regulatory reporting & data lineage, LLMs & agents in regulated finance | Stablecoins & tokenized assets, DeFi protocols & on-chain markets, On-chain compliance & analytics |
 | P7 | Financial systems architecture, Capstone: FinTech system, Technical leadership |  |  |  |  |
 
 English working fluency and Post-quantum cryptography are electives (the second open to Payments and Digital assets) and sit outside this count.
